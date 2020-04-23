@@ -18,7 +18,7 @@ namespace SRS
     internal static class Program
     { 
    //Reference to logger
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+    private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     //File paths from config file
     private static string MonsterFilePath = ConfigurationManager.AppSettings["MonsterFILE"].ToString();
