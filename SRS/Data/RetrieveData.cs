@@ -82,11 +82,29 @@ namespace SRS.Data
                                 //useSeconds = false;
 
                             }
+                            else if (remainingDays < 45)
+                            {
+                                string lableCaption = remainingDays + "days more to contract expired.";
+                                DateTime time = DateTime.Today.AddDays(45);
+                                //useSeconds = false;
+                            }
                             //else if (DateTime.Today < expiryDate)
                             else if (remainingDays < 30)
                             {
                                 string lableCaption = remainingDays + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(30);
+                                //useSeconds = false;
+                            }
+                            else if (remainingDays < 15)
+                            {
+                                string lableCaption = remainingDays + "days more to contract expired.";
+                                DateTime time = DateTime.Today.AddDays(15);
+                                //useSeconds = false;
+                            }
+                            else if (remainingDays < 7)
+                            {
+                                string lableCaption = remainingDays + "days more to contract expired.";
+                                DateTime time = DateTime.Today.AddDays(7);
                                 //useSeconds = false;
                             }
                             //else if (DateTime.Today <= expiryDate)
