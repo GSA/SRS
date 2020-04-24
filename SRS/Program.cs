@@ -105,7 +105,7 @@ namespace SRS
 
             LoadLookupData loadLookupData = new LoadLookupData(lookupMapper);
 
-            lookups = loadLookupData.GetEmployeeLookupData();
+            lookups = loadLookupData.GetContractorLookupData();
 
             return lookups;
         }

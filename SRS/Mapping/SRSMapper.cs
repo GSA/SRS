@@ -34,12 +34,12 @@ namespace SRS.Mapping
                 // cfg.AddDataReaderMapping();
                 cfg.AllowNullCollections = true;
 
-                cfg.CreateMap<Employee, Person>().ReverseMap();
-                cfg.CreateMap<Employee, Address>().ReverseMap();
-                cfg.CreateMap<Employee, Birth>().ReverseMap();
-                cfg.CreateMap<Employee, Position>().ReverseMap();
-                cfg.CreateMap<Employee, Phone>().ReverseMap();
-                cfg.CreateMap<Employee, Building>().ReverseMap();
+                cfg.CreateMap<Contractor, Person>().ReverseMap();
+                cfg.CreateMap<Contractor, Address>().ReverseMap();
+                cfg.CreateMap<Contractor, Birth>().ReverseMap();
+                cfg.CreateMap<Contractor, Position>().ReverseMap();
+                cfg.CreateMap<Contractor, Phone>().ReverseMap();
+                cfg.CreateMap<Contractor, Building>().ReverseMap();
             });
         }
 

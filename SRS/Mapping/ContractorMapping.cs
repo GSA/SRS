@@ -9,9 +9,9 @@ using SRS.Models;
 
 namespace SRS.Mapping
 {
-    public sealed class EmployeeMapping : ClassMap<Employee>
+    public sealed class ContractorMapping : ClassMap<Contractor>
     {
-        public EmployeeMapping(Lookup lookups)
+        public ContractorMapping(Lookup lookups)
         {
             References<PersonMap>(r => r.Person);
             References<AddressMap>(r => r.Address);

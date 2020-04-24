@@ -16,7 +16,7 @@ namespace SRS.Utilities
     {
 
         //TODO: Uncomment out and get working
-        public List<TClass> GetFileData<TClass, TMap>(string filePath, out List<string> badRecords, ClassMap<Employee> employeeMap = null)
+        public List<TClass> GetFileData<TClass, TMap>(string filePath, out List<string> badRecords, ClassMap<Contractor> contractorMap = null)
             where TClass : class
             where TMap : ClassMap<TClass>
         {
@@ -39,9 +39,9 @@ namespace SRS.Utilities
                     csvReader.Configuration.Delimiter = ",";
                     csvReader.Configuration.HasHeaderRecord = false;
                     csvReader.Configuration.MissingFieldFound = null;
-                    if (employeeMap != null)
+                    if (contractorMap != null)
                     {
-                        csvReader.Configuration.RegisterClassMap(employeeMap);
+                        csvReader.Configuration.RegisterClassMap(contractorMap);
                     }
                     else
                     {

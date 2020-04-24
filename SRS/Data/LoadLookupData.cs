@@ -33,7 +33,7 @@ namespace SRS.Data
         }
 
 
-        public Lookup GetEmployeeLookupData()
+        public Lookup GetContractorLookupData()
         {
             Lookup lookups = new Lookup();
 
@@ -55,7 +55,7 @@ namespace SRS.Data
                         using (lookupData)
                         {
                             if (lookupData.HasRows)
-                                lookups = MapEmployeeLookupData(lookupData);
+                                lookups = MapContractorLookupData(lookupData);
                         }
                     }
                 }
@@ -70,7 +70,7 @@ namespace SRS.Data
             }
         }
 
-        private Lookup MapEmployeeLookupData(MySqlDataReader lookupData)
+        private Lookup MapContractorLookupData(MySqlDataReader lookupData)
         {
             Lookup lookup = new Lookup();
 

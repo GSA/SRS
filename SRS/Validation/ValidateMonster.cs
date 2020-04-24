@@ -28,17 +28,17 @@ namespace SRS.Validation
             lookups.Add("BuildingCodes", lookup.BuildingLookup.Select(c => c.BuildingId).ToArray());
         }
 
-        public ValidationResult ValidateEmployeeCriticalInfo(Employee employeeInformation)
+        public ValidationResult ValidateEmployeeCriticalInfo(Contractor contractorInformation)
         {
-            EmployeeCriticalErrorValidator validator = new EmployeeCriticalErrorValidator(lookups);
+            ContractorCriticalErrorValidator validator = new ContractorCriticalErrorValidator(lookups);
 
-            return validator.Validate(employeeInformation);
+            return validator.Validate(contractorInformation);
         }
 
 
-        internal class EmployeeCriticalErrorValidator : AbstractValidator<Employee>
+        internal class ContractorCriticalErrorValidator : AbstractValidator<Contractor>
         {
-            public EmployeeCriticalErrorValidator(Dictionary<string, string[]> lookups)
+            public ContractorCriticalErrorValidator(Dictionary<string, string[]> lookups)
             {
                 CascadeMode = CascadeMode.StopOnFirstFailure;
 
@@ -46,31 +46,31 @@ namespace SRS.Validation
                 #region Person
 
                 //**********PERSON***********************************************************************************************
-                RuleFor(Employee => Employee.Person.GCIMSID)
+                RuleFor(Contractor => Contractor.Person.GCIMSID)
                     .NotEmpty()
                     .WithMessage($"{{PropertyName}} is required");
 
-                RuleFor(Employee => Employee.Person.FirstName)
+                RuleFor(Contractor => Contractor.Person.FirstName)
                     .NotEmpty()
                     .WithMessage($"{{PropertyName}} is required")
                     .MaximumLength(60)
                     .WithMessage($"{{PropertyName}} length must be 0-60");
 
-                RuleFor(Employee => Employee.Person.LastName)
+                RuleFor(Contractor => Contractor.Person.LastName)
                     .NotEmpty()
                     .WithMessage($"{{PropertyName}} is required")
                     .MaximumLength(60)
                     .WithMessage($"{{PropertyName}} length must be 0-60");
 
-                RuleFor(Employee => Employee.Person.MiddleName)
+                RuleFor(Contractor => Contractor.Person.MiddleName)
                     .MaximumLength(60)
                     .WithMessage($"{{PropertyName}} length must be 0-60");
 
-                RuleFor(Employee => Employee.Person.Suffix)
+                RuleFor(Contractor => Contractor.Person.Suffix)
                     .MaximumLength(15)
                     .WithMessage($"{{PropertyName}} length must be 0-15");
 
-                RuleFor(Employee => Employee.Person.SocialSecurityNumber)
+                RuleFor(Contractor => Contractor.Person.SocialSecurityNumber)
                     .NotEmpty()
                     .WithMessage($"{{PropertyName}} is required")
                     .Length(9)
@@ -78,32 +78,33 @@ namespace SRS.Validation
 
                 Unless(e => string.IsNullOrEmpty(e.Person.Gender), () =>
                 {
-                    RuleFor(Employee => Employee.Person.Gender)
+                    RuleFor(Contractor => Contractor.Person.Gender)
                         .Matches(@"^[mfMF]{1}$")
                         .WithMessage($"{{PropertyName}} must be one of these values: 'M', 'm', 'F', 'f'");
                 });
 
                 Unless(e => e.Person.ServiceComputationDateLeave.Equals(null), () =>
                 {
-                    RuleFor(Employee => Employee.Person.ServiceComputationDateLeave)
+                    RuleFor(Contractor => Contractor.Person.ServiceComputationDateLeave)
                         .ValidDate();
                 });
 
-                //RuleFor(Employee => Employee.Person.Region).In(lookups["RegionCodes"])
+                //RuleFor(Contractor => Contractor.Person.Region)
+                //    .In(lookups["RegionCodes"]) 
                 //    .MaximumLength(3)
                 //    .WithMessage($"{{PropertyName}} length must be 0-3");
 
-                //RuleFor(Employee => Employee.Person.JobTitle)
+                //RuleFor(Contractor => Contractor.Person.JobTitle)
                 //    .MaximumLength(70)
                 //    .WithMessage($"{{PropertyName}} length must be 0-70");
 
-                RuleFor(Employee => Employee.Person.HomeEmail)
+                RuleFor(Contractor => Contractor.Person.HomeEmail)
                     .MaximumLength(64)
                     .WithMessage($"{{PropertyName}} length must be between 0-64");
 
                 Unless(e => string.IsNullOrEmpty(e.Person.HomeEmail), () =>
                 {
-                    RuleFor(Employee => Employee.Person.HomeEmail)
+                    RuleFor(Contractor => Contractor.Person.HomeEmail)
                         .EmailAddress()
                         .WithMessage($"{{PropertyName}} must be a valid email address")
                         .Matches(@"(?i)^((?!gsa(ig)?.gov).)*$")
@@ -114,21 +115,21 @@ namespace SRS.Validation
                 #region Address
 
                 //***************************Address*******************************************************************
-                RuleFor(Employee => Employee.Address.HomeAddress1)
+                RuleFor(Contractor => Contractor.Address.HomeAddress1)
                     //.NotEmpty()
                     //.WithMessage($"{{PropertyName}} is required")
                     .MaximumLength(60)
                     .WithMessage($"{{PropertyName}} length must be 0-60");
 
-                RuleFor(Employee => Employee.Address.HomeAddress2)
+                RuleFor(Contractor => Contractor.Address.HomeAddress2)
                     .MaximumLength(60)
                     .WithMessage($"{{PropertyName}} length must be 0-60");
 
-                RuleFor(Employee => Employee.Address.HomeAddress3)
+                RuleFor(Contractor => Contractor.Address.HomeAddress3)
                     .MaximumLength(60)
                     .WithMessage($"{{PropertyName}} length must be 0-60");
 
-                RuleFor(Employee => Employee.Address.HomeCity)
+                RuleFor(Contractor => Contractor.Address.HomeCity)
                     //.NotEmpty()
                     //.WithMessage($"{{PropertyName}} is required")
                     .MaximumLength(50)
@@ -142,7 +143,7 @@ namespace SRS.Validation
                         {
                             Unless(e => string.IsNullOrEmpty(e.Address.HomeState), () =>
                             {
-                                RuleFor(Employee => Employee.Address.HomeState)
+                                RuleFor(Contractor => Contractor.Address.HomeState)
                                     //.NotEmpty()
                                     //.WithMessage($"{{PropertyName}} is required")
                                     .In(lookups["StateCodes"]);
@@ -150,13 +151,13 @@ namespace SRS.Validation
                         });
                 });
 
-                RuleFor(Employee => Employee.Address.HomeZipCode)
+                RuleFor(Contractor => Contractor.Address.HomeZipCode)
                     .MaximumLength(10)
                     .WithMessage($"{{PropertyName}} length must be 0-10");
 
                 Unless(e => string.IsNullOrEmpty(e.Address.HomeCountry), () =>
                 {
-                    RuleFor(Employee => Employee.Address.HomeCountry)
+                    RuleFor(Contractor => Contractor.Address.HomeCountry)
                     //.NotEmpty()
                     //.WithMessage($"{{PropertyName}} is required")
                     .In(lookups["CountryCodes"]);
@@ -169,7 +170,7 @@ namespace SRS.Validation
                 //******************************Birth***********************************************************************
                 Unless(e => string.IsNullOrEmpty(e.Birth.CityOfBirth), () =>
                 {
-                    RuleFor(Employee => Employee.Birth.CityOfBirth)
+                    RuleFor(Contractor => Contractor.Birth.CityOfBirth)
                     .MaximumLength(24)
                     .WithMessage($"{{PropertyName}} length must be 0-24");
                 });
@@ -182,7 +183,7 @@ namespace SRS.Validation
                         {
                             Unless(e => string.IsNullOrEmpty(e.Birth.StateOfBirth), () =>
                             {
-                                RuleFor(Employee => Employee.Birth.StateOfBirth)
+                                RuleFor(Contractor => Contractor.Birth.StateOfBirth)
                                     .In(lookups["StateCodes"]);
                             });
                         });
@@ -190,19 +191,19 @@ namespace SRS.Validation
 
                 Unless(e => string.IsNullOrEmpty(e.Birth.CountryOfBirth), () =>
                 {
-                    RuleFor(Employee => Employee.Birth.CountryOfBirth)
+                    RuleFor(Contractor => Contractor.Birth.CountryOfBirth)
                     .In(lookups["CountryCodes"]);
                 });
 
                 Unless(e => string.IsNullOrEmpty(e.Birth.CountryOfCitizenship), () =>
                 {
-                    RuleFor(Employee => Employee.Birth.CountryOfCitizenship)
+                    RuleFor(Contractor => Contractor.Birth.CountryOfCitizenship)
                     .In(lookups["CountryCodes"]);
                 });
 
                 Unless(e => e.Birth.DateOfBirth.Equals(null), () =>
                 {
-                    RuleFor(Employee => Employee.Birth.DateOfBirth)
+                    RuleFor(Contractor => Contractor.Birth.DateOfBirth)
                     .ValidDate()
                     .WithMessage($"{{PropertyName}} must be valid date");
                 });
@@ -210,54 +211,54 @@ namespace SRS.Validation
                 #endregion Birth
                 #region Position
 
-                //**********POSITION******************************************************************************************
-                //RuleFor(Employee => Employee.Position.PositionControlNumber)
+               // **********POSITION * *****************************************************************************************
+                //RuleFor(Contractor => Contractor.Position.PositionControlNumber)
                 //    .MaximumLength(15)
                 //    .WithMessage($"{{PropertyName}} length must be 0-15");
 
-                //RuleFor(Employee => Employee.Position.PositionOrganization)
+                //RuleFor(Contractor => Contractor.Position.PositionOrganization)
                 //    .MaximumLength(18)
                 //    .WithMessage($"{{PropertyName}} length must be between 0-18");
 
-                //RuleFor(Employee => Employee.Position.SupervisoryStatus)
+                //RuleFor(Contractor => Contractor.Position.SupervisoryStatus)
                 //    .MaximumLength(2)
                 //    .WithMessage($"{{PropertyName}} length must be 0-2");
 
-                //RuleFor(Employee => Employee.Position.PayPlan)
+                //RuleFor(Contractor => Contractor.Position.PayPlan)
                 //    .MaximumLength(3)
                 //    .WithMessage($"{{PropertyName}} length must be 0-3");
 
-                //RuleFor(Employee => Employee.Position.JobSeries)
+                //RuleFor(Contractor => Contractor.Position.JobSeries)
                 //    .MaximumLength(8)
                 //    .WithMessage($"{{PropertyName}} length must be 0-8");
 
-                //RuleFor(Employee => Employee.Position.PayGrade)
+                //RuleFor(Contractor => Contractor.Position.PayGrade)
                 //    .MaximumLength(3)
                 //    .WithMessage($"{{PropertyName}} length must be between 0-3");
 
-                //RuleFor(Employee => Employee.Position.WorkSchedule)
+                //RuleFor(Contractor => Contractor.Position.WorkSchedule)
                 //    .MaximumLength(1)
                 //    .WithMessage($"{{PropertyName}} must be 0-1");
 
-                //RuleFor(Employee => Employee.Position.PositionSensitivity)
+                //RuleFor(Contractor => Contractor.Position.PositionSensitivity)
                 //    .MaximumLength(4)
                 //    .WithMessage($"{{PropertyName}} length must be 0-4");
 
-                //RuleFor(Employee => Employee.Position.DutyLocationCode)
+                //RuleFor(Contractor => Contractor.Position.DutyLocationCode)
                 //    .MaximumLength(9)
                 //    .WithMessage($"{{PropertyName}} length must be 0-9");
 
-                //RuleFor(Employee => Employee.Position.DutyLocationCity)
+                //RuleFor(Contractor => Contractor.Position.DutyLocationCity)
                 //    .MaximumLength(40)
                 //    .WithMessage($"{{PropertyName}} length must be 0-40");
 
-                //Unless(Employee => string.IsNullOrEmpty(Employee.Position.DutyLocationState), () =>
+                //Unless(Contractor => string.IsNullOrEmpty(Contractor.Position.DutyLocationState), () =>
                 //{
-                //    RuleFor(Employee => Employee.Position.DutyLocationState)
+                //    RuleFor(Contractor => Contractor.Position.DutyLocationState)
                 //        .In(lookups["StateCodes"]);
                 //});
 
-                //RuleFor(Employee => Employee.Position.DutyLocationCounty)
+                //RuleFor(Contractor => Contractor.Position.DutyLocationCounty)
                 //    .MaximumLength(40)
                 //    .WithMessage($"{{PropertyName}} must be 0-40");
 
@@ -271,13 +272,13 @@ namespace SRS.Validation
                 //    .MaximumLength(4)
                 //    .WithMessage($"{{PropertyName}} length must be 0-4");
 
-                #endregion Position
-                #region Phone
+                //#endregion Position
+                //#region Phone
 
                 //**********PHONE*****************************************************************************************
                 Unless(e => string.IsNullOrEmpty(e.Phone.HomePhone), () =>
                 {
-                    RuleFor(Employee => Employee.Phone.HomePhone)
+                    RuleFor(Contractor => Contractor.Phone.HomePhone)
                     .MaximumLength(24)
                     .WithMessage($"{{PropertyName}} length must be 0-24")
                     .ValidPhone()
@@ -286,7 +287,7 @@ namespace SRS.Validation
 
                 Unless(e => string.IsNullOrEmpty(e.Phone.HomeCell), () =>
                 {
-                    RuleFor(Employee => Employee.Phone.HomeCell)
+                    RuleFor(Contractor => Contractor.Phone.HomeCell)
                     .MaximumLength(24)
                     .WithMessage($"{{PropertyName}} length must be 0-24")
                     .ValidPhone()
@@ -295,7 +296,7 @@ namespace SRS.Validation
 
                 Unless(e => string.IsNullOrEmpty(e.Phone.WorkPhone), () =>
                 {
-                    RuleFor(Employee => Employee.Phone.WorkPhone)
+                    RuleFor(Contractor => Contractor.Phone.WorkPhone)
                     .MaximumLength(24)
                     .WithMessage($"{{PropertyName}} length must be 0-24")
                     .ValidPhone()
@@ -303,17 +304,17 @@ namespace SRS.Validation
                 });
 
                 //Unless(e => string.IsNullOrEmpty(e.Phone.WorkFax), () =>
-                //{ 
-                //    RuleFor(Employee => Employee.Phone.WorkFax)
-                //    .MaximumLength(24)
-                //    .WithMessage($"{{PropertyName}} length must be 0-24")
-                //    .ValidPhone()
-                //    .WithMessage($"{{PropertyName}} must be a valid phone number");
+                //{
+                    //RuleFor(Contractor => Contractor.Phone.WorkFax)
+                    //.MaximumLength(24)
+                    //.WithMessage($"{{PropertyName}} length must be 0-24")
+                    //.ValidPhone()
+                    //.WithMessage($"{{PropertyName}} must be a valid fax number");
                 //});
 
                 Unless(e => string.IsNullOrEmpty(e.Phone.WorkCell), () =>
                 {
-                    RuleFor(Employee => Employee.Phone.WorkCell)
+                    RuleFor(Contractor => Contractor.Phone.WorkCell)
                     .MaximumLength(24)
                     .WithMessage($"{{PropertyName}} length must be 0-24")
                     .ValidPhone()
@@ -322,7 +323,7 @@ namespace SRS.Validation
 
                 Unless(e => string.IsNullOrEmpty(e.Phone.WorkTextTelephone), () =>
                 {
-                    RuleFor(Employee => Employee.Phone.WorkTextTelephone)
+                    RuleFor(Contractor => Contractor.Phone.WorkTextTelephone)
                     .MaximumLength(24)
                     .WithMessage($"{{PropertyName}} length must be 0-24")
                     .ValidPhone()

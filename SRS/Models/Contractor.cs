@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SRS.Models
 {
-    public class Employee
+    public class Contractor
     {
         public Person Person { get; set; }
         public Address Address { get; set; }

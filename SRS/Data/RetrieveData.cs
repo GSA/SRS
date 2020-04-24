@@ -26,7 +26,7 @@ namespace SRS.Data
             retrieveMapper.ConfigurationProvider.CompileMappings();
         }
 
-        public List<Employee> AllGCIMSData()
+        public List<Contractor> AllGCIMSData()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace SRS.Data
                 ////Using Parameters
                 //MySqlCommand cmd = new MySqlCommand("CORS_Expiring_Contracts", conn);
 
-                List<Employee> allGCIMSData = new List<Employee>();
+                List<Contractor> allGCIMSData = new List<Contractor>();
 
                 using (conn)
                 {
@@ -130,27 +130,27 @@ namespace SRS.Data
             catch (Exception ex)
             {
                 log.Error("GetGCIMSRecord: " + " - " + ex.Message + " - " + ex.InnerException);
-                return new List<Employee>();
+                return new List<Contractor>();
             }
 
         }
 
-        private List<Employee> MapAllGCIMSData(MySqlDataReader gcmisData)
+        private List<Contractor> MapAllGCIMSData(MySqlDataReader gcmisData)
         {
-            List<Employee> allRecords = new List<Employee>();
+            List<Contractor> allRecords = new List<Contractor>();
 
             while (gcmisData.Read())
             {
-                Employee employee = new Employee();
+                Contractor contractor = new Contractor();
 
-                employee.Address = retrieveMapper.Map<IDataReader, Address>(gcmisData);
-                employee.Building = retrieveMapper.Map<IDataReader, Building>(gcmisData);
-                employee.Birth = retrieveMapper.Map<IDataReader, Birth>(gcmisData);
-                employee.Person = retrieveMapper.Map<IDataReader, Person>(gcmisData);
-                employee.Phone = retrieveMapper.Map<IDataReader, Phone>(gcmisData);
-                employee.Position = retrieveMapper.Map<IDataReader, Position>(gcmisData); //Need to fix SupervisorID
+                contractor.Address = retrieveMapper.Map<IDataReader, Address>(gcmisData);
+                contractor.Building = retrieveMapper.Map<IDataReader, Building>(gcmisData);
+                contractor.Birth = retrieveMapper.Map<IDataReader, Birth>(gcmisData);
+                contractor.Person = retrieveMapper.Map<IDataReader, Person>(gcmisData);
+                contractor.Phone = retrieveMapper.Map<IDataReader, Phone>(gcmisData);
+                contractor.Position = retrieveMapper.Map<IDataReader, Position>(gcmisData); //Need to fix SupervisorID
 
-                allRecords.Add(employee);
+                allRecords.Add(contractor);
             }
 
             return allRecords;

@@ -43,18 +43,18 @@ namespace SRS.Process
 
             try
             {
-                Employee gcimsRecord;
+                Contractor gcimsRecord;
                 var columnList = string.Empty;
                 var summary = new MonsterSummary();
                 var fileReader = new FileReader();
                 var validate = new ValidateMonster(lookups);
                 var save = new SaveData();
-                var em = new EmployeeMapping(lookups);
+                var em = new ContractorMapping(lookups);
                 List<string> badRecords;
 
                 _log.Info("Loading Monster Links File");
 
-                var usersToProcess = fileReader.GetFileData<Employee, EmployeeMapping>(MonsterFile, out badRecords, em);
+                var usersToProcess = fileReader.GetFileData<Contractor, ContractorMapping>(MonsterFile, out badRecords, em);
                 Helpers.AddBadRecordsToSummary(badRecords, ref summary);
 
                 _log.Info("Loading GCIMS Data");
@@ -63,17 +63,17 @@ namespace SRS.Process
                 ProcessResult updatedResults;
 
                 //start processing the Monster data
-                foreach (var employeeData in usersToProcess)
+                foreach (var contractorData in usersToProcess)
                 {
-                    _log.Info("Processing Monster user: " + employeeData.Person.GCIMSID);
+                    _log.Info("Processing Monster user: " + contractorData.Person.GCIMSID);
                     //looking for matching record.
-                    _log.Info("Looking for matching record: " + employeeData.Person.GCIMSID);
-                    gcimsRecord = Helpers.RecordFound(employeeData, hspd, ref _log);
+                    _log.Info("Looking for matching record: " + contractorData.Person.GCIMSID);
+                    gcimsRecord = Helpers.RecordFound(contractorData, hspd, ref _log);
 
-                    if ((gcimsRecord != null && (gcimsRecord.Person.GCIMSID != employeeData.Person.GCIMSID) && (!Convert.ToBoolean(ConfigurationManager.AppSettings["DEBUG"].ToString()))))
+                    if ((gcimsRecord != null && (gcimsRecord.Person.GCIMSID != contractorData.Person.GCIMSID) && (!Convert.ToBoolean(ConfigurationManager.AppSettings["DEBUG"].ToString()))))
                     {
                         _log.Info("Adding GCIMSID to record: " + gcimsRecord.Person.GCIMSID);
-                        save.InsertGCIMSID(gcimsRecord.Person.GCIMSID, employeeData.Person.GCIMSID);
+                        save.InsertGCIMSID(gcimsRecord.Person.GCIMSID, contractorData.Person.GCIMSID);
                     }
                     //If no record found write to the record not found summary file
                     if (gcimsRecord == null)
@@ -81,15 +81,15 @@ namespace SRS.Process
                         summary.RecordsNotFound.Add(new RecordNotFoundSummary
                         {
                             GCIMSID = -1,
-                            //FirstName = employeeData.Person.FirstName,
-                            //MiddleName = employeeData.Person.MiddleName,
-                            //LastName = employeeData.Person.LastName,
-                            //Suffix = employeeData.Person.Suffix
+                            //FirstName = contractorData.Person.FirstName,
+                            //MiddleName = contractorData.Person.MiddleName,
+                            //LastName = contractorData.Person.LastName,
+                            //Suffix = contractorData.Person.Suffix
                         });
                     }
                     //if there are critical errors write to the error summary and move to the next record
-                    _log.Info("checking critical errors for users: " + employeeData.Person.GCIMSID);
-                    if (Helpers.CheckErrors(validate, employeeData, summary.UnsuccessfulUsersProcessed, ref _log))
+                    _log.Info("checking critical errors for users: " + contractorData.Person.GCIMSID);
+                    if (Helpers.CheckErrors(validate, contractorData, summary.UnsuccessfulUsersProcessed, ref _log))
                         continue;
                 }
 

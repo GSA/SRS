@@ -32,21 +32,21 @@ namespace SRS.Utilities
 
             return hashedFullSsn;
         }
-        public static bool CheckErrors(ValidateMonster validate, Employee employeeData, List<ProcessedSummary> unsuccessfullMonesterUsersProcessed, ref ILog log)
+        public static bool CheckErrors(ValidateMonster validate, Contractor contractorData, List<ProcessedSummary> unsuccessfullMonesterUsersProcessed, ref ILog log)
         {
             var validationHelper = new ValidationHelper();
-            var criticalErrors = validate.ValidateEmployeeCriticalInfo(employeeData);
+            var criticalErrors = validate.ValidateEmployeeCriticalInfo(contractorData);
 
             if (criticalErrors.IsValid) return false;
-            log.Warn("Errors found for user: " + employeeData.Person.GCIMSID + "(" + criticalErrors.Errors + ")");
+            log.Warn("Errors found for user: " + contractorData.Person.GCIMSID + "(" + criticalErrors.Errors + ")");
 
             unsuccessfullMonesterUsersProcessed.Add(new ProcessedSummary
             {
                 GCIMSID = -1,
-                FirstName = employeeData.Person.FirstName,
-                MiddleName = employeeData.Person.MiddleName,
-                LastName = employeeData.Person.LastName,
-                Suffix = employeeData.Person.Suffix,
+                FirstName = contractorData.Person.FirstName,
+                MiddleName = contractorData.Person.MiddleName,
+                LastName = contractorData.Person.LastName,
+                Suffix = contractorData.Person.Suffix,
                 Action = validationHelper.GetErrors(criticalErrors.Errors, ValidationHelper.Monster.MonsterFile).TrimEnd(',')
             });
             return true;
@@ -79,43 +79,43 @@ namespace SRS.Utilities
         /// <summary>
         /// Returns an Employee object if match found in db
         /// </summary>
-        /// <param name="employeeData"></param>
+        /// <param name="contractorData"></param>
         /// <param name="allGcimsData"></param>
         /// <param name="log"></param>
         /// <returns></returns>
-        public static Employee RecordFound(Employee employeeData, List<Employee> allGcimsData, ref ILog log)
+        public static Contractor RecordFound(Contractor contractorData, List<Contractor> allGcimsData, ref ILog log)
         {
-            var monsterMatch = allGcimsData.Where(w => employeeData.Person.GCIMSID == w.Person.GCIMSID).ToList();
+            var monsterMatch = allGcimsData.Where(w => contractorData.Person.GCIMSID == w.Person.GCIMSID).ToList();
 
             if (monsterMatch.Count > 1)
             {
-                log.Info("Multiple HR Links IDs Found: " + employeeData.Person.GCIMSID);
+                log.Info("Multiple contractors IDs Found: " + contractorData.Person.GCIMSID);
 
                 return null;
             }
             else if (monsterMatch.Count == 1)
             {
-                log.Info("Matching record found by GCIMSID: " + employeeData.Person.GCIMSID);
+                log.Info("Matching record found by GCIMSID: " + contractorData.Person.GCIMSID);
 
                 return monsterMatch.Single();
             }
             else if (monsterMatch.Count == 0)
             {
-                log.Info("Trying to match record by Lastname, Birth Date and SSN: " + employeeData.Person.GCIMSID);
+                log.Info("Trying to match record by Lastname, Birth Date and SSN: " + contractorData.Person.GCIMSID);
 
                 var nameMatch = allGcimsData.Where(w =>
-                    employeeData.Person.LastName.ToLower().Trim().Equals(w.Person.LastName.ToLower().Trim()) &&
-                    employeeData.Person.SocialSecurityNumber.Equals(w.Person.SocialSecurityNumber) &&
-                    employeeData.Birth.DateOfBirth.Equals(w.Birth.DateOfBirth)).ToList();
+                    contractorData.Person.LastName.ToLower().Trim().Equals(w.Person.LastName.ToLower().Trim()) &&
+                    contractorData.Person.SocialSecurityNumber.Equals(w.Person.SocialSecurityNumber) &&
+                    contractorData.Birth.DateOfBirth.Equals(w.Birth.DateOfBirth)).ToList();
 
                 if (nameMatch.Count == 0 || nameMatch.Count > 1)
                 {
-                    log.Info("Match not found by name for user: " + employeeData.Person.GCIMSID);
+                    log.Info("Match not found by name for user: " + contractorData.Person.GCIMSID);
                     return null;
                 }
                 else if (nameMatch.Count == 1)
                 {
-                    log.Info("Match found by name for user: " + employeeData.Person.GCIMSID);
+                    log.Info("Match found by name for user: " + contractorData.Person.GCIMSID);
                     return nameMatch.Single();
                 }
             }

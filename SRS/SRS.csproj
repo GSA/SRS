@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Vender.cs" />
     <Compile Include="Utilities\CsvFixer.cs" />
     <Compile Include="Utilities\CsvHelper.cs" />
     <Compile Include="Utilities\Email.cs" />
@@ -121,9 +122,9 @@
     <Compile Include="Models\Birth.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\EmailData.cs" />
-    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Contractor.cs" />
     <Compile Include="Mapping\Constants.cs" />
-    <Compile Include="Mapping\EmployeeMapping.cs" />
+    <Compile Include="Mapping\ContractorMapping.cs" />
     <Compile Include="Lookups\BuildingLookup.cs" />
     <Compile Include="Lookups\CountryLookup.cs" />
     <Compile Include="Data\LoadLookupData.cs" />
