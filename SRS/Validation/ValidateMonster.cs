@@ -46,7 +46,7 @@ namespace SRS.Validation
                 #region Person
 
                 //**********PERSON***********************************************************************************************
-                RuleFor(Contractor => Contractor.Person.GCIMSID)
+                RuleFor(Contractor => Contractor.Person.PersID)
                     .NotEmpty()
                     .WithMessage($"{{PropertyName}} is required");
 

@@ -48,7 +48,7 @@ namespace SRS.Data
                     {
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "CORS_Expiring_Contracts";
+                        cmd.CommandText = "CORS_GET_Contractor_Lookups";
 
                         MySqlDataReader lookupData = cmd.ExecuteReader();
 

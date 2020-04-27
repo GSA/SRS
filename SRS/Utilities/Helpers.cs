@@ -38,7 +38,7 @@ namespace SRS.Utilities
             var criticalErrors = validate.ValidateEmployeeCriticalInfo(contractorData);
 
             if (criticalErrors.IsValid) return false;
-            log.Warn("Errors found for user: " + contractorData.Person.GCIMSID + "(" + criticalErrors.Errors + ")");
+            log.Warn("Errors found for user: " + contractorData.Person.PersID + "(" + criticalErrors.Errors + ")");
 
             unsuccessfullMonesterUsersProcessed.Add(new ProcessedSummary
             {
@@ -85,23 +85,23 @@ namespace SRS.Utilities
         /// <returns></returns>
         public static Contractor RecordFound(Contractor contractorData, List<Contractor> allGcimsData, ref ILog log)
         {
-            var monsterMatch = allGcimsData.Where(w => contractorData.Person.GCIMSID == w.Person.GCIMSID).ToList();
+            var monsterMatch = allGcimsData.Where(w => contractorData.Person.PersID == w.Person.PersID).ToList();
 
             if (monsterMatch.Count > 1)
             {
-                log.Info("Multiple contractors IDs Found: " + contractorData.Person.GCIMSID);
+                log.Info("Multiple contractors IDs Found: " + contractorData.Person.PersID);
 
                 return null;
             }
             else if (monsterMatch.Count == 1)
             {
-                log.Info("Matching record found by GCIMSID: " + contractorData.Person.GCIMSID);
+                log.Info("Matching record found by GCIMSID: " + contractorData.Person.PersID);
 
                 return monsterMatch.Single();
             }
             else if (monsterMatch.Count == 0)
             {
-                log.Info("Trying to match record by Lastname, Birth Date and SSN: " + contractorData.Person.GCIMSID);
+                log.Info("Trying to match record by Lastname, Birth Date and SSN: " + contractorData.Person.PersID);
 
                 var nameMatch = allGcimsData.Where(w =>
                     contractorData.Person.LastName.ToLower().Trim().Equals(w.Person.LastName.ToLower().Trim()) &&
@@ -110,12 +110,12 @@ namespace SRS.Utilities
 
                 if (nameMatch.Count == 0 || nameMatch.Count > 1)
                 {
-                    log.Info("Match not found by name for user: " + contractorData.Person.GCIMSID);
+                    log.Info("Match not found by name for user: " + contractorData.Person.PersID);
                     return null;
                 }
                 else if (nameMatch.Count == 1)
                 {
-                    log.Info("Match found by name for user: " + contractorData.Person.GCIMSID);
+                    log.Info("Match found by name for user: " + contractorData.Person.PersID);
                     return nameMatch.Single();
                 }
             }

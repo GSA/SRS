@@ -82,12 +82,12 @@ namespace SRS.Data
                                 //useSeconds = false;
 
                             }
-                            else if (daysUntilExpired < 45)
-                            {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(45);
-                                //useSeconds = false;
-                            }
+                            //else if (daysUntilExpired < 45)
+                            //{
+                            //    string lableCaption = daysUntilExpired + "days more to contract expired.";
+                            //    DateTime time = DateTime.Today.AddDays(45);
+                            //   // useSeconds = false;
+                            //}
                             //else if (DateTime.Today < expiryDate)
                             else if (daysUntilExpired < 30)
                             {
@@ -95,18 +95,18 @@ namespace SRS.Data
                                 DateTime time = DateTime.Today.AddDays(30);
                                 //useSeconds = false;
                             }
-                            else if (daysUntilExpired < 15)
-                            {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(15);
-                                //useSeconds = false;
-                            }
-                            else if (daysUntilExpired < 7)
-                            {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(7);
-                                //useSeconds = false;
-                            }
+                            //else if (daysUntilExpired < 15)
+                            //{
+                            //    string lableCaption = daysUntilExpired + "days more to contract expired.";
+                            //    DateTime time = DateTime.Today.AddDays(15);
+                            //    //useSeconds = false;
+                            //}
+                            //else if (daysUntilExpired < 7)
+                            //{
+                            //    string lableCaption = daysUntilExpired + "days more to contract expired.";
+                            //    DateTime time = DateTime.Today.AddDays(7);
+                            //    //useSeconds = false;
+                            //}
                             //else if (DateTime.Today <= expiryDate)
                             else if (daysUntilExpired <= 0)
                             {
@@ -135,20 +135,20 @@ namespace SRS.Data
 
         }
 
-        private List<Contractor> MapAllGCIMSData(MySqlDataReader gcmisData)
+        private List<Contractor> MapAllGCIMSData(MySqlDataReader gcimsData)
         {
             List<Contractor> allRecords = new List<Contractor>();
 
-            while (gcmisData.Read())
+            while (gcimsData.Read())
             {
                 Contractor contractor = new Contractor();
 
-                contractor.Address = retrieveMapper.Map<IDataReader, Address>(gcmisData);
-                contractor.Building = retrieveMapper.Map<IDataReader, Building>(gcmisData);
-                contractor.Birth = retrieveMapper.Map<IDataReader, Birth>(gcmisData);
-                contractor.Person = retrieveMapper.Map<IDataReader, Person>(gcmisData);
-                contractor.Phone = retrieveMapper.Map<IDataReader, Phone>(gcmisData);
-                contractor.Position = retrieveMapper.Map<IDataReader, Position>(gcmisData); //Need to fix SupervisorID
+                contractor.Address = retrieveMapper.Map<IDataReader, Address>(gcimsData);
+                contractor.Building = retrieveMapper.Map<IDataReader, Building>(gcimsData);
+                contractor.Birth = retrieveMapper.Map<IDataReader, Birth>(gcimsData);
+                contractor.Person = retrieveMapper.Map<IDataReader, Person>(gcimsData);
+                contractor.Phone = retrieveMapper.Map<IDataReader, Phone>(gcimsData);
+                contractor.Position = retrieveMapper.Map<IDataReader, Position>(gcimsData); //Need to fix SupervisorID
 
                 allRecords.Add(contractor);
             }

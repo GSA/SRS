@@ -7,6 +7,7 @@ using System.Linq;
 using SRS.Models;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace SRS.Data
 {
@@ -24,7 +25,7 @@ namespace SRS.Data
         {
 
         }
-        public string InsertGCIMSID(Int64 persID, string GCIMSID)
+        public string InsertGSAPOC(Int64 PersID, string @Sponsor, Int16 RoleTypeId, string ContractID)
         {
             try
             {
@@ -37,15 +38,18 @@ namespace SRS.Data
                     {
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "CORS_Expiring_Contracts";
+                        cmd.CommandText = "CIW_InsertGSAPOC";
 
                         cmd.Parameters.Clear();
 
                         MySqlParameter[] personParameters = new MySqlParameter[]
                         {
-                            new MySqlParameter { ParameterName = "persID", Value = persID, MySqlDbType = MySqlDbType.Int64},
-                            new MySqlParameter { ParameterName = "GCIMSID", Value = GCIMSID, MySqlDbType = MySqlDbType.VarChar, Size = 11},
-                            new MySqlParameter { ParameterName = "SQLExceptionWarning", MySqlDbType=MySqlDbType.VarChar, Size=4000, Direction = ParameterDirection.Output },
+                            new MySqlParameter { ParameterName = "PersID", Value = PersID, MySqlDbType = MySqlDbType.Int64},
+                            new MySqlParameter { ParameterName = "SponsorEmail", Value = @Sponsor, MySqlDbType = MySqlDbType.VarChar, Size = 64},
+                            new MySqlParameter { ParameterName = "RoleTypeID", Value = RoleTypeId, MySqlDbType = MySqlDbType.Int16, Size = 3},
+                            new MySqlParameter { ParameterName = "ContractID", Value = ContractID, MySqlDbType = MySqlDbType.Int16, Size = 10},
+                            new MySqlParameter { ParameterName = "Result", MySqlDbType = MySqlDbType.Int16, Direction = ParameterDirection.Output},
+                            new MySqlParameter { ParameterName = "SQLExceptionWarning", MySqlDbType = MySqlDbType.VarChar, Size=4000, Direction = ParameterDirection.Output },
                         };
 
                         cmd.Parameters.AddRange(personParameters);
@@ -58,17 +62,12 @@ namespace SRS.Data
             }
             catch (Exception ex)
             {
-                log.Error("Updating GCIMSID: " + ex.Message + " - " + ex.InnerException);
+                log.Error("Updating contractID: " + ex.Message + " - " + ex.InnerException);
                 return ex.Message.ToString();
             }
         }
 
-        internal void InsertGCIMSID(long gCIMSID, Person person)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void InsertGCIMSID(long gCIMSID1, long gCIMSID2)
+        internal void InsertGSAPOC(long persID1, long persID2)
         {
             throw new NotImplementedException();
         }
