@@ -25,10 +25,7 @@ namespace SRS.Process
         private readonly EmailData emailData;
         private readonly RetrieveData retrieve;
         readonly Lookup lookups;
-
-        //private bool useSeconds = false;
-
-
+ 
         public ProcessMonster(IMapper dataMapper, ref EmailData emailData, Lookup lookups)
         {
             //InitializeComponent();

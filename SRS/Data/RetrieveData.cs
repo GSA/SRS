@@ -66,15 +66,15 @@ namespace SRS.Data
                             myReader.Read();
                             var expiryDate = myReader.GetDateTime("expirationdate");
 
-                            int remainingDays = (int)(DateTime.Today - expiryDate).TotalDays;
-                            string labelCaption = String.Format("{0} day(s) left.", remainingDays);
+                            int daysUntilExpired = (int)(DateTime.Today - expiryDate).TotalDays;
+                            string labelCaption = String.Format("{0} day(s) left.", daysUntilExpired);
                             //expiryDate = time.ToFileTimeUtc();
 
                             //storeExpiry(expiryDate.ToString());
                             //if (DateTime.Today > expiryDate)
-                            if (remainingDays < 60)
+                            if (daysUntilExpired < 60)
                             {
-                                string lableCaption = remainingDays + "days more to contract expired.";
+                                string lableCaption = daysUntilExpired + "days more to contract expired.";
                                 //Contract Expired    
                                 DateTime time = DateTime.Today.AddDays(60);
                                 // expiryDate = time.ToFileTimeUtc();
@@ -82,35 +82,35 @@ namespace SRS.Data
                                 //useSeconds = false;
 
                             }
-                            else if (remainingDays < 45)
+                            else if (daysUntilExpired < 45)
                             {
-                                string lableCaption = remainingDays + "days more to contract expired.";
+                                string lableCaption = daysUntilExpired + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(45);
                                 //useSeconds = false;
                             }
                             //else if (DateTime.Today < expiryDate)
-                            else if (remainingDays < 30)
+                            else if (daysUntilExpired < 30)
                             {
-                                string lableCaption = remainingDays + "days more to contract expired.";
+                                string lableCaption = daysUntilExpired + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(30);
                                 //useSeconds = false;
                             }
-                            else if (remainingDays < 15)
+                            else if (daysUntilExpired < 15)
                             {
-                                string lableCaption = remainingDays + "days more to contract expired.";
+                                string lableCaption = daysUntilExpired + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(15);
                                 //useSeconds = false;
                             }
-                            else if (remainingDays < 7)
+                            else if (daysUntilExpired < 7)
                             {
-                                string lableCaption = remainingDays + "days more to contract expired.";
+                                string lableCaption = daysUntilExpired + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(7);
                                 //useSeconds = false;
                             }
                             //else if (DateTime.Today <= expiryDate)
-                            else if (remainingDays <= 0)
+                            else if (daysUntilExpired <= 0)
                             {
-                                string lableCaption = remainingDays + " Contract expired.";
+                                string lableCaption = daysUntilExpired + " Contract expired.";
                                 DateTime time = DateTime.Today.AddDays(0);
                             }
                         }
