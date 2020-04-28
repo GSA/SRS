@@ -8,7 +8,8 @@ namespace SRS.Models
 {
     public class Person
     {
-        public Int64 PersID { get; set; } //If Matched we set this        
+        public Int64 PersID { get; set; } //If Matched we set this       
+        //public Int64 contract_unid { get; set; } 
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -20,5 +21,8 @@ namespace SRS.Models
         public object ServiceComputationDateLeave { get; internal set; }
         public object Region { get; internal set; }
         public object JobTitle { get; internal set; }
+        public Int64 contract_number { get; set; }
+        public DateTime contract_date_end { get; set; }
+        public string contract_name { get; set; }
     }
 }

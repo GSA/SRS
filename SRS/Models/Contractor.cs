@@ -14,5 +14,6 @@ namespace SRS.Models
         public Birth Birth { get; set; }
         public Position Position { get; set; }
         public Phone Phone { get; set; }
+        
     }
 }

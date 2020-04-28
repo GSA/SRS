@@ -54,6 +54,7 @@ namespace SRS.Data
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "CORS_Expiring_Contracts";
                         cmd.Parameters.Clear();
+
                         MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
                         DataSet ds = new DataSet();
                         sda.Fill(ds);
