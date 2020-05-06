@@ -25,72 +25,72 @@ namespace SRS.Data
         private readonly IMapper lookupMapper;
 
 
-        public LoadLookupData(IMapper mapper)
-        {
-            lookupMapper = mapper;
+        //public LoadLookupData(IMapper mapper)
+        //{
+        //    lookupMapper = mapper;
 
-            lookupMapper.ConfigurationProvider.CompileMappings();
-        }
+        //    lookupMapper.ConfigurationProvider.CompileMappings();
+        //}
 
 
-        public Lookup GetContractorLookupData()
-        {
-            Lookup lookups = new Lookup();
+        //public Lookup GetContractorLookupData()
+        //{
+        //    Lookup lookups = new Lookup();
 
-            try
-            {
-                using (conn)
-                {
-                    if (conn.State == ConnectionState.Closed)
-                        conn.Open();
+        //    try
+        //    {
+        //        using (conn)
+        //        {
+        //            if (conn.State == ConnectionState.Closed)
+        //                conn.Open();
 
-                    using (cmd)
-                    {
-                        cmd.Connection = conn;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "CORS_GET_Contractor_Lookups";//sample sp
+        //            using (cmd)
+        //            {
+        //                cmd.Connection = conn;
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.CommandText = "CORS_GET_Contractor_Lookups";//sample sp
 
-                        MySqlDataReader lookupData = cmd.ExecuteReader();
+        //                MySqlDataReader lookupData = cmd.ExecuteReader();
 
-                        using (lookupData)
-                        {
-                            if (lookupData.HasRows)
-                                lookups = MapContractorLookupData(lookupData);
-                        }
-                    }
-                }
+        //                using (lookupData)
+        //                {
+        //                    if (lookupData.HasRows)
+        //                        lookups = MapContractorLookupData(lookupData);
+        //                }
+        //            }
+        //        }
 
-                return lookups;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Something went wrong" + " - " + ex.Message + " - " + ex.InnerException);
+        //        return lookups;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        log.Error("Something went wrong" + " - " + ex.Message + " - " + ex.InnerException);
 
-                return lookups;
-            }
-        }
+        //        return lookups;
+        //    }
+        //}
 
-        private Lookup MapContractorLookupData(MySqlDataReader lookupData)
-        {
-            Lookup lookup = new Lookup();
+        //private Lookup MapContractorLookupData(MySqlDataReader lookupData)
+        //{
+        //    Lookup lookup = new Lookup();
 
-            //lookup_country
-            lookupData.NextResult();
-            lookup.countryLookup = lookupMapper.Map<IDataReader, List<CountryLookup>>(lookupData);
+            ////lookup_country
+            //lookupData.NextResult();
+            //lookup.countryLookup = lookupMapper.Map<IDataReader, List<CountryLookup>>(lookupData);
 
-            //lookup_state
-            lookupData.NextResult();
-            lookup.stateLookup = lookupMapper.Map<IDataReader, List<StateLookup>>(lookupData);
+            ////lookup_state
+            //lookupData.NextResult();
+            //lookup.stateLookup = lookupMapper.Map<IDataReader, List<StateLookup>>(lookupData);
 
-            //lookup_region
-            lookupData.NextResult();
-            lookup.regionLookup = lookupMapper.Map<IDataReader, List<RegionLookup>>(lookupData);
+            ////lookup_region
+            //lookupData.NextResult();
+            //lookup.regionLookup = lookupMapper.Map<IDataReader, List<RegionLookup>>(lookupData);
 
-            //lookup_building
-            lookupData.NextResult();
-            lookup.BuildingLookup = lookupMapper.Map<IDataReader, List<BuildingLookup>>(lookupData);
+            ////lookup_building
+            //lookupData.NextResult();
+            //lookup.BuildingLookup = lookupMapper.Map<IDataReader, List<BuildingLookup>>(lookupData);
 
-            return lookup;
-        }
+            //return lookup;
+        //}
     }
 }

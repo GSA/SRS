@@ -21,7 +21,7 @@ namespace SRS
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     //File paths from config file
-    private static string MonsterFilePath = ConfigurationManager.AppSettings["MonsterFILE"].ToString();
+    private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFILE"].ToString();
 
     //Stopwatch objects
     private static Stopwatch timeForApp = new Stopwatch();
@@ -43,33 +43,33 @@ namespace SRS
 
         CreateMaps();
 
-        Lookup lookups = createLookups();
+            //Lookup lookups = createLookups();
 
-        ProcessMonster processMonster = new ProcessMonster(dataMapper, ref emailData, lookups);
+            ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData);//lookups);
         SendSummary sendSummary = new SendSummary(ref emailData);
 
             //Log action
-            log.Info("Processing Monster File:" + DateTime.Now);
+            log.Info("Processing Contractor File:" + DateTime.Now);
 
-            //Monster file
-            if (File.Exists(MonsterFilePath))
+            //Contractor file
+            if (File.Exists(ContractorFilePath))
             {
-                log.Info("Start Monster file Processing: " + DateTime.Now);
+                log.Info("Start Contractor file Processing: " + DateTime.Now);
 
                 timeForProcess.Start();
-                processMonster.ProcessMonsterFile(MonsterFilePath);
+                //processContractor.ProcessContractorFile(ContractorFilePath);
                 timeForProcess.Stop();
 
-                log.Info("Done Monster File processing: " + DateTime.Now);
-                log.Info("Monster File Processing Time: " + timeForProcess.ElapsedMilliseconds);
+                log.Info("Done Contractor File processing: " + DateTime.Now);
+                log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
                  
             }
         else
             {
-                log.Error("Monster File not found");
+                log.Error("Contractor File not found");
             }
          
-        log.Info("Done Monster File(s) Processing :" + DateTime.Now);
+        log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
         log.Info("Sending Summary File");
 
@@ -81,10 +81,10 @@ namespace SRS
         timeForApp.Stop();
 
         //Log total time
-        log.Info(string.Format("Application Completed in {0} milliseconds", timeForApp.ElapsedMilliseconds));
+        log.Info(string.Format("Contractor processing Completed in {0} milliseconds", timeForApp.ElapsedMilliseconds));
 
-        //Log application end
-        log.Info("Application Done: " + DateTime.Now);
+        //Log processing end
+        log.Info("The final of processing Contractor: " + DateTime.Now);
     }
 
     private static void CreateMaps()
@@ -93,22 +93,22 @@ namespace SRS
             dataMapper = map.CreateDataMapping();
         }
 
-        private static Lookup createLookups()
-        {
-            Lookup lookups;
-            SRSMapper monstermap = new SRSMapper();
-            IMapper lookupMapper;
+        //private static Lookup createLookups()
+        //{
+            //Lookup lookups;
+            //SRSMapper contractormap = new SRSMapper();
+            //IMapper lookupMapper;
 
-            monstermap.CreateLookupConfig();
+            //contractormap.CreateLookupConfig();
 
-            lookupMapper = monstermap.CreateLookupMapping();
+            //lookupMapper = contractormap.CreateLookupMapping();
 
-            LoadLookupData loadLookupData = new LoadLookupData(lookupMapper);
+            //LoadLookupData loadLookupData = new LoadLookupData(lookupMapper);
 
-            lookups = loadLookupData.GetContractorLookupData();
+            //lookups = loadLookupData.GetContractorLookupData();
 
-            return lookups;
-        }
+            //return lookups;
+        //}
    }
 
 }

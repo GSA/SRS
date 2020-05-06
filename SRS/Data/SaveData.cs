@@ -25,7 +25,7 @@ namespace SRS.Data
         {
 
         }
-        public string InsertGSAPOC(Int64 PersID, string @Sponsor, Int16 RoleTypeId, string ContractID)
+        public string InsertGSAPOC(Int64 PersID, string contract_POC_Email, string RegionalEmail, Int16 RoleTypeId, string LastName, string FirstName)
         {
             try
             {
@@ -38,17 +38,24 @@ namespace SRS.Data
                     {
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "CIW_InsertGSAPOC";
+                        cmd.CommandText = "SRS_InsertGSAPOC"; //this sp may be changed to a new one
 
                         cmd.Parameters.Clear();
 
                         MySqlParameter[] personParameters = new MySqlParameter[]
                         {
                             new MySqlParameter { ParameterName = "PersID", Value = PersID, MySqlDbType = MySqlDbType.Int64},
-                            new MySqlParameter { ParameterName = "SponsorEmail", Value = @Sponsor, MySqlDbType = MySqlDbType.VarChar, Size = 64},
-                            new MySqlParameter { ParameterName = "RoleTypeID", Value = RoleTypeId, MySqlDbType = MySqlDbType.Int16, Size = 3},
-                            new MySqlParameter { ParameterName = "ContractID", Value = ContractID, MySqlDbType = MySqlDbType.Int16, Size = 10},
-                            new MySqlParameter { ParameterName = "Result", MySqlDbType = MySqlDbType.Int16, Direction = ParameterDirection.Output},
+                            new MySqlParameter { ParameterName = "FirstName", Value = FirstName, MySqlDbType = MySqlDbType.String , Size = 20},
+                            new MySqlParameter { ParameterName = "LastName", Value = LastName, MySqlDbType = MySqlDbType.String , Size = 20},
+                       
+                            new MySqlParameter { ParameterName = "contract_POC_Email", Value = contract_POC_Email, MySqlDbType = MySqlDbType.VarChar, Size = 64},
+                            new MySqlParameter { ParameterName = "RegionalEmail", Value = RegionalEmail, MySqlDbType = MySqlDbType.VarChar, Size = 64},
+                            //new MySqlParameter { ParameterName = "contract_vender_ID", Value = ContractVenderID, MySqlDbType = MySqlDbType.Int32, Size = 10},
+                            //new MySqlParameter { ParameterName = "Contract_number", Value = ContractNumber, MySqlDbType = MySqlDbType.Int32, Size = 10},
+                            //new MySqlParameter { ParameterName = "Contract_name", Value = ContractName, MySqlDbType = MySqlDbType.Int32, Size = 10},
+                            //new MySqlParameter { ParameterName = "DaysUntilExpired", Value = DaysUntilExpired, MySqlDbType = MySqlDbType.Int32, Size = 10},
+                            //new MySqlParameter { ParameterName = "Contract_date_end", Value = Contract_date_end, MySqlDbType = MySqlDbType.DateTime, Size = 10},
+                            new MySqlParameter { ParameterName = "Result", MySqlDbType = MySqlDbType.Int32, Direction = ParameterDirection.Output},
                             new MySqlParameter { ParameterName = "SQLExceptionWarning", MySqlDbType = MySqlDbType.VarChar, Size=4000, Direction = ParameterDirection.Output },
                         };
 

@@ -18,10 +18,7 @@ namespace SRS.Mapping
         {
             lookupConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Lookup, CountryLookup>().ReverseMap();
-                cfg.CreateMap<Lookup, StateLookup>().ReverseMap();
-                cfg.CreateMap<Lookup, RegionLookup>().ReverseMap();
-
+                 
                 // cfg.AddDataReaderMapping();
                 cfg.AllowNullCollections = true;
             });
@@ -34,13 +31,9 @@ namespace SRS.Mapping
                 // cfg.AddDataReaderMapping();
                 cfg.AllowNullCollections = true;
 
-                cfg.CreateMap<Contractor, Person>().ReverseMap();
-                cfg.CreateMap<Contractor, Address>().ReverseMap();
-                cfg.CreateMap<Contractor, Birth>().ReverseMap();
-                cfg.CreateMap<Contractor, Position>().ReverseMap();
-                cfg.CreateMap<Contractor, Phone>().ReverseMap();
-                cfg.CreateMap<Contractor, Building>().ReverseMap();
-            });
+                cfg.CreateMap<ContractorData, ContractorData>().ReverseMap();
+              
+    });
         }
 
         public IMapper CreateLookupMapping()

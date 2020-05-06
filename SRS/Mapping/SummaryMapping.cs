@@ -4,73 +4,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CsvHelper.Configuration;
+using SRS.Lookups;
 using SRS.Models;
 
 namespace SRS.Mapping
 {
-    internal sealed class ProcessedSummaryMapping : ClassMap<ProcessedSummary>
+    internal sealed class ContractExpiringSummaryMapping : ClassMap<ExpiringContractorSummary>
     {
-        public ProcessedSummaryMapping()
+        private Lookup lookups;
+
+        public ContractExpiringSummaryMapping()
         {
-            Map(m => m.GCIMSID).Name("GCIMS ID");
+           // Map(m => m.contract_unid).Name("Contract unid");
+            Map(m => m.PersID).Name("Person ID");
             Map(m => m.FirstName).Name("First Name");
             Map(m => m.MiddleName).Name("Middle Name");
             Map(m => m.LastName).Name("Last Name");
-            Map(m => m.Suffix).Name("Suffix");
-            Map(m => m.Status).Name("Status");
-            Map(m => m.Action).Name("Action");
+            Map(m => m.Suffix).Name("Suffix"); 
+            Map(m => m.contract_POC_Email).Name("contract POC Email");
+            Map(m => m.RegionalEmail).Name("Reginal email");
+           // Map(m => m.contract_number).Name("Contract number");
+            Map(m => m.contract_date_end).Name("Contract date end");
+           // Map(m => m.contract_name).Name("Contract name");
+            Map(m => m.DaysUntilExpired).Name("DaysUntilExpired");
+            Map(m => m.contract_vender_ID).Name("contract_vender_ID");
 
+
+        }
+
+        public ContractExpiringSummaryMapping(Lookup lookups)
+        {
+            this.lookups = lookups;
         }
     }
 
-    internal sealed class RecordNotFoundSummaryMapping : ClassMap<RecordNotFoundSummary>
+    internal sealed class ContractExpiredSummaryMapping : ClassMap<ExpiredContractorSummary>
     {
-        public RecordNotFoundSummaryMapping()
+        public ContractExpiredSummaryMapping()
         {
-            Map(m => m.GCIMSID).Name("GCIMS ID");
+            Map(m => m.PersID).Name("Person ID");
+           // Map(m => m.Contract_id).Name("contract ID");
             Map(m => m.FirstName).Name("First Name");
             Map(m => m.MiddleName).Name("Middle Name");
             Map(m => m.LastName).Name("Last Name");
             Map(m => m.Suffix).Name("Suffix");
-        }
-    }
+            Map(m => m.contract_POC_Email).Name("contract POC Email");
+            Map(m => m.RegionalEmail).Name("Reginal email");
+           // Map(m => m.contract_number).Name("Contract number");
+            Map(m => m.contract_date_end).Name("Contract date end");
+           // Map(m => m.contract_name).Name("Contract name");
+            Map(m => m.DaysUntilExpired).Name("DaysUntilExpired");
+            Map(m => m.contract_vender_ID).Name("contract_vender_ID");
 
-    internal sealed class IdenticalRecordSummaryMapping : ClassMap<IdenticalRecordSummary>
-    {
-        public IdenticalRecordSummaryMapping()
-        {
-            Map(m => m.GCIMSID).Name("GCIMS ID");
-            Map(m => m.FirstName).Name("First Name");
-            Map(m => m.MiddleName).Name("Middle Name");
-            Map(m => m.LastName).Name("Last Name");
-            Map(m => m.Suffix).Name("Suffix");
-            Map(m => m.Status).Name("Status");
-        }
-    }
 
-    internal sealed class SocialSecurityNumberChangeSummaryMapping : ClassMap<SocialSecurityNumberChangeSummary>
-    {
-        public SocialSecurityNumberChangeSummaryMapping()
-        {
-            Map(m => m.GCIMSID).Name("GCIMS ID");
-            Map(m => m.FirstName).Name("First Name");
-            Map(m => m.MiddleName).Name("Middle Name");
-            Map(m => m.LastName).Name("Last Name");
-            Map(m => m.Suffix).Name("Suffix");
-            Map(m => m.Status).Name("Status");
-        }
-    }
-
-    internal sealed class InactiveSummaryMapping : ClassMap<InactiveSummary>
-    {
-        public InactiveSummaryMapping()
-        {
-            Map(m => m.GCIMSID).Name("GCIMS ID");
-            Map(m => m.FirstName).Name("First Name");
-            Map(m => m.MiddleName).Name("Middle Name");
-            Map(m => m.LastName).Name("Last Name");
-            Map(m => m.Suffix).Name("Suffix");
-            Map(m => m.Status).Name("Status");
         }
     }
 }
+    

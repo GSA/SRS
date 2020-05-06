@@ -79,6 +79,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -113,34 +117,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Vender.cs" />
+    <Compile Include="Utilities\EmailTemplate.cs" />
+    <Compile Include="Utilities\AccessEmail.cs" />
     <Compile Include="Utilities\CsvFixer.cs" />
     <Compile Include="Utilities\CsvHelper.cs" />
     <Compile Include="Utilities\Email.cs" />
     <Compile Include="Utilities\Helpers.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\Birth.cs" />
-    <Compile Include="Models\Building.cs" />
     <Compile Include="Models\EmailData.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Mapping\Constants.cs" />
-    <Compile Include="Mapping\ContractorMapping.cs" />
-    <Compile Include="Lookups\BuildingLookup.cs" />
-    <Compile Include="Lookups\CountryLookup.cs" />
     <Compile Include="Data\LoadLookupData.cs" />
     <Compile Include="Lookups\Lookup.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Phone.cs" />
-    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\ProcessResult.cs" />
-    <Compile Include="Process\ProcessMonster.cs" />
+    <Compile Include="Process\ProcessContractor.cs" />
     <Compile Include="Process\ProcessSummary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\RetrieveData.cs" />
     <Compile Include="Data\SaveData.cs" />
-    <Compile Include="Lookups\RegionLookup.cs" />
-    <Compile Include="Lookups\StateLookup.cs" />
     <Compile Include="Mapping\SRSMapper.cs" />
     <Compile Include="Mapping\SummaryMapping.cs" />
     <Compile Include="Mapping\TypeConversion.cs" />
@@ -156,6 +150,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Templates\ContractorExpiring.html" />
     <Content Include="Templates\MonsterSummary.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

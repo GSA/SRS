@@ -10,28 +10,28 @@ namespace SRS.Utilities
     internal class Email : IDisposable
     {
         protected string _strSmtpServer = string.Empty;
-        protected string _strEmailFrom = string.Empty;
-        protected string _strEmailTo = string.Empty;
-        protected string _strEmailCc = string.Empty;
-        protected string _strEmailBcc = string.Empty;
-        protected string _strEmailSubject = string.Empty;
-        protected string _strEmailMessageBody = string.Empty;
-        protected string _strEmailAttachments = string.Empty;
+        protected string _strFrom = string.Empty;
+        protected string _strTo = string.Empty;
+        protected string _strCc = string.Empty;
+        protected string _strBcc = string.Empty;
+        protected string _strSubject = string.Empty;
+        protected string _strMessageBody = string.Empty;
+        protected string _strAttachments = string.Empty;
         protected bool _IsBodyHtml = false;
 
         private MailMessage message = new MailMessage();
         private SmtpClient SmtpMail = new SmtpClient();
 
-        public void Send(string strEmailFrom, string strEmailTo, string strEmailCc, string strEmailBcc, string strEmailSubject,
-                         string strEmailMessageBody, string strEmailAttachments, string strSmtpServer, bool IsBodyHtml = false)
+        public void Send(string strFrom, string strTo, string strCc, string strBcc, string strSubject,
+                         string strMessageBody, string strAttachments, string strSmtpServer, bool IsBodyHtml = false)
         {
-            _strEmailFrom = strEmailFrom;
-            _strEmailTo = strEmailTo;
-            _strEmailCc = strEmailCc;
-            _strEmailBcc = strEmailBcc;
-            _strEmailSubject = strEmailSubject;
-            _strEmailMessageBody = strEmailMessageBody;
-            _strEmailAttachments = strEmailAttachments;
+            _strFrom = strFrom;
+            _strTo = strTo;
+            _strCc = strCc;
+            _strBcc = strBcc;
+            _strSubject = strSubject;
+            _strMessageBody = strMessageBody;
+            _strAttachments = strAttachments;
             _strSmtpServer = strSmtpServer;
             _IsBodyHtml = IsBodyHtml;
 
@@ -49,30 +49,30 @@ namespace SRS.Utilities
                     message = new MailMessage();
 
                     // Set properties needed for the email
-                    MailAddress mail_from = new MailAddress(_strEmailFrom);
+                    MailAddress mail_from = new MailAddress(_strFrom);
 
                     message.From = mail_from;
 
-                    if (_strEmailTo.Trim().Length > 0)
+                    if (_strTo.Trim().Length > 0)
 
-                        message.To.Add(_strEmailTo);
+                        message.To.Add(_strTo);
 
-                    if (_strEmailCc.Trim().Length > 0)
+                    if (_strCc.Trim().Length > 0)
 
-                        message.CC.Add(_strEmailCc);
+                        message.CC.Add(_strCc);
 
-                    if (_strEmailBcc.Trim().Length > 0)
+                    if (_strBcc.Trim().Length > 0)
 
-                        message.Bcc.Add(_strEmailBcc);
+                        message.Bcc.Add(_strBcc);
 
-                    message.Subject = _strEmailSubject;
-                    message.Body = _strEmailMessageBody;
+                    message.Subject = _strSubject;
+                    message.Body = _strMessageBody;
                     message.IsBodyHtml = _IsBodyHtml;
 
-                    if (_strEmailAttachments.Contains(";"))
+                    if (_strAttachments.Contains(";"))
                     {
                         // Split multiple attachments into a string array
-                        Array a = _strEmailAttachments.Split(';');
+                        Array a = _strAttachments.Split(';');
 
                         // Loop through attachments list and add to objMail.Attachments one at a time
                         for (int i = 0; i < a.Length; i++)
@@ -80,9 +80,9 @@ namespace SRS.Utilities
                             message.Attachments.Add(new Attachment(a.GetValue(i).ToString().Trim()));
                         }
                     }
-                    else if (_strEmailAttachments.Length > 0) // Single attachment without trailing separator
+                    else if (_strAttachments.Length > 0)  
                     {
-                        message.Attachments.Add(new Attachment(_strEmailAttachments.ToString().Trim()));
+                        message.Attachments.Add(new Attachment(_strAttachments.ToString().Trim()));
                     }
 
                     SmtpMail = new SmtpClient(_strSmtpServer);
@@ -139,6 +139,7 @@ namespace SRS.Utilities
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+         
     }
 }
 

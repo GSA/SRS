@@ -16,7 +16,7 @@ namespace SRS.Utilities
     {
 
         //TODO: Uncomment out and get working
-        public List<TClass> GetFileData<TClass, TMap>(string filePath, out List<string> badRecords, ClassMap<Contractor> contractorMap = null)
+        public List<TClass> GetFileData<TClass, TMap>(string filePath, out List<string> badRecords, ClassMap<ContractorData> contractorMap = null)
             where TClass : class
             where TMap : ClassMap<TClass>
         {

@@ -55,11 +55,11 @@ namespace SRS.Process
             }
             catch (Exception ex)
             {
-                _log.Error("Error Sending Monster Summary E-Mail: " + ex.Message + " - " + ex.InnerException);
+                _log.Error("Error Sending Contractor Summary E-Mail: " + ex.Message + " - " + ex.InnerException);
             }
             finally
             {
-                _log.Info("Monster Summary E-Mail Sent");
+                _log.Info("Contractor Summary E-Mail Sent");
             }
         }
         public string GenerateEmailBody()
@@ -69,33 +69,48 @@ namespace SRS.Process
 
             string template = File.ReadAllText(ConfigurationManager.AppSettings["SUMMARYTEMPLATE"]);
 
-            fileNames.Append(emailData.MonsterFilename == null ? "No HR Links File Found" : emailData.MonsterFilename.ToString());
+            //fileNames.Append(emailData.ContractorFilename == null ? "No Contractor File Found" : emailData.ContractorFilename.ToString());
             fileNames.Append(", ");
 
 
             template = template.Replace("[FILENAMES]", fileNames.ToString());
+            template = template.Replace("[ACCESSINGDATE]", emailData.AccessingDate.ToString());
+            template = template.Replace("[NUMBEROFRECORDS]", emailData.ContractExpiringRecords.ToString());
+            template = template.Replace("[TIMEBEGIN]", emailData.TimeBegin.ToString());
+            template = template.Replace("[ENDTIME]", emailData.EndTime.ToString());
+            template = template.Replace("[ACCESSINGTIME]", emailData.AccessingTime.ToString());
 
-            template = template.Replace("[MonsterATTEMPTED]", emailData.MonsterAttempted.ToString());
-            template = template.Replace("[MonsterSUCCEEDED]", emailData.MonsterSucceeded.ToString());
-            template = template.Replace("[MonsterIDENTICAL]", emailData.MonsterIdentical.ToString());
-            template = template.Replace("[MonsterINACTIVE]", emailData.MonsterInactive.ToString());
-            template = template.Replace("[MonsterRECORDSNOTFOUND]", emailData.MonsterRecordsNotFound.ToString());
-            template = template.Replace("[MonsterFAILED]", emailData.MonsterFailed.ToString());
 
-            if (emailData.MonsterHasErrors)
+            if (emailData.ContractExpiringHasErrors)
             {
                 errors.Clear();
 
-                errors.Append("<b><font color='red'>Errors were found while processing the Monster file</font></b><br />");
+                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
                 errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.MonsterUnsuccessfulFilename);
+                errors.Append(emailData.ContractExpiringUnsuccessfulFilename);
                 errors.Append("</font></b>");
 
-                template = template.Replace("[IFMonsterERRORS]", errors.ToString());
+                template = template.Replace("[IFContractExpiringHasERRORS]", errors.ToString());
             }
             else
             {
-                template = template.Replace("[IFMonsterERRORS]", null);
+                template = template.Replace("[IFContractExpiringHasERRORS]", null);
+            }
+           
+            if (emailData.ContractExpiredHasErrors)
+            {
+                errors.Clear();
+
+                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
+                errors.Append("<br />Please see the attached file: <b><font color='red'>");
+                errors.Append(emailData.ContractExpiredUnsuccessfulFilename);
+                errors.Append("</font></b>");
+
+                template = template.Replace("[IFContractExpiredHasERRORS]", errors.ToString());
+            }
+            else
+            {
+                template = template.Replace("[IFContractExpiredHasERRORS]", null);
             }
             return template;
         }
@@ -104,21 +119,18 @@ namespace SRS.Process
         {
             StringBuilder attachments = new StringBuilder();
 
-            //Monster Summary Files
-            if (emailData.MonsterSuccessfulFilename != null)
-                attachments.Append(AddAttachment(emailData.MonsterSuccessfulFilename));
+            //Contractor Summary Files
+            if (emailData.ContractExpiringSuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ContractExpiringSuccessfulFilename));
 
-            if (emailData.MonsterUnsuccessfulFilename != null)
-                attachments.Append(AddAttachment(emailData.MonsterUnsuccessfulFilename));
+            if (emailData.ContractExpiringUnsuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ContractExpiringUnsuccessfulFilename));
 
-            if (emailData.MonsterIdenticalFilename != null)
-                attachments.Append(AddAttachment(emailData.MonsterIdenticalFilename));
+            if (emailData.ContractExpiredSuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ContractExpiredSuccessfulFilename));
 
-            if (emailData.MonsterInactiveFilename != null)
-                attachments.Append(AddAttachment(emailData.MonsterInactiveFilename));
-
-            if (emailData.MonsterRecordsNotFoundFileName != null)
-                attachments.Append(AddAttachment(emailData.MonsterRecordsNotFoundFileName));
+            if (emailData.ContractExpiredUnsuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ContractExpiredUnsuccessfulFilename));
 
             return attachments.ToString();
         }
