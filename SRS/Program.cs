@@ -15,7 +15,7 @@ using System.Configuration;
 
 namespace SRS
 {
-    internal static class Program
+    public class Program
     { 
    //Reference to logger
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

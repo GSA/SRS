@@ -36,7 +36,7 @@ namespace SRS.Data
 
                 //conn.Open();
                 ////Using Parameters
-                //MySqlCommand cmd = new MySqlCommand("CORS_Expiring_Contracts", conn);
+                //MySqlCommand cmd = new MySqlCommand("SRS_GetContractors", conn);
 
                 List<ContractorData> allExpiringContractorData = new List<ContractorData>();
 

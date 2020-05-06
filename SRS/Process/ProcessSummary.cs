@@ -35,7 +35,7 @@ namespace SRS.Process
             {
                 SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ContractExpiringSuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ContractExpiringSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
+                emailData.ContractExpiringSuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ContractExpiringSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
                 _log.Info("Contract Expiring Successfull File: " + emailData.ContractExpiringSuccessfulFilename);
             }
 

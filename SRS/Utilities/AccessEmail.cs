@@ -19,7 +19,7 @@ namespace SRS.Utilities
         Email email = new Email();
        
         string from, to, cc, bcc, subject, body, server;
-        private RetrieveData retrieve;
+        private RetrieveData rd;
         private bool Debug;
 
  

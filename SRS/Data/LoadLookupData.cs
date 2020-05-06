@@ -22,7 +22,7 @@ namespace SRS.Data
 
         private readonly MySqlCommand cmd = new MySqlCommand();
 
-        private readonly IMapper lookupMapper;
+        //private readonly IMapper lookupMapper;
 
 
         //public LoadLookupData(IMapper mapper)

@@ -90,7 +90,7 @@ namespace SRS.Process
                 //var validate = new ValidateContractor();
                 var save = new SaveData();
                 var em = new ContractExpiringSummaryMapping();
-                List<string> badRecords;
+                //List<string> badRecords;
                  
                 //var expiringProcess = fileReader.GetFileData<ContractorData, ContractExpiringSummaryMapping>(ContractorFile, out badRecords, em);
                 //Helpers.AddBadRecordsToSummary(badRecords, ref summary);

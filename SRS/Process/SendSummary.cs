@@ -37,7 +37,7 @@ namespace SRS.Process
             string subject = string.Empty;
             string body = string.Empty;
             string attachments = string.Empty;
-            subject = ConfigurationManager.AppSettings["EMAILSUBJECT"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
+            subject = ConfigurationManager.AppSettings["SUMMARYSUBJECT"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
 
             body = GenerateEmailBody();
             attachments = SummaryAttachments();
