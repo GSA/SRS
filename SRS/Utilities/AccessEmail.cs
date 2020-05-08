@@ -94,7 +94,7 @@ namespace SRS.Utilities
             string eBody = body;
 
             eBody = eBody.Replace("[PersID]", contractorData.PersID);
-            //eBody = eBody.Replace("[ContractNumber]", contractorData.contract_number);
+         
             eBody = eBody.Replace("[ContractDateEnd]", contractorData.contract_date_end.ToString("MM/DD/YYYY"));
 
             return eBody;

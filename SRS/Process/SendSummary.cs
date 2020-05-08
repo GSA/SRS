@@ -1,20 +1,9 @@
-﻿using EASendMail;
-using SRS.Data;
-using SRS.Lookups;
-using SRS.Utilities;
-using SRS.Mapping;
+﻿using SRS.Utilities;
 using SRS.Models;
-using SRS.Validation;
-using MySql.Data.MySqlClient;
 using System;
-using log4net;
 using System.Configuration;
 using System.IO;
-using System.Data;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SRS.Process
 {
@@ -64,53 +53,54 @@ namespace SRS.Process
         }
         public string GenerateEmailBody()
         {
-            StringBuilder errors = new StringBuilder();
             StringBuilder fileNames = new StringBuilder();
+            StringBuilder errors = new StringBuilder();
+             
+            string template = File.ReadAllText(ConfigurationManager.AppSettings["SUMMARYEMAILTEMPLATE"]);
+             
 
-            string template = File.ReadAllText(ConfigurationManager.AppSettings["SUMMARYTEMPLATE"]);
-
-            //fileNames.Append(emailData.ContractorFilename == null ? "No Contractor File Found" : emailData.ContractorFilename.ToString());
+            fileNames.Append(emailData.ContractorFilename == null ? "No Contractor File Found" : emailData.ContractorFilename.ToString());
             fileNames.Append(", ");
 
 
             template = template.Replace("[FILENAMES]", fileNames.ToString());
             template = template.Replace("[ACCESSINGDATE]", emailData.AccessingDate.ToString());
-            template = template.Replace("[NUMBEROFRECORDS]", emailData.ContractExpiringRecords.ToString());
+            template = template.Replace("[NUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
             template = template.Replace("[TIMEBEGIN]", emailData.TimeBegin.ToString());
             template = template.Replace("[ENDTIME]", emailData.EndTime.ToString());
             template = template.Replace("[ACCESSINGTIME]", emailData.AccessingTime.ToString());
 
 
-            if (emailData.ContractExpiringHasErrors)
+            if (emailData.ExpiringContractorHasErrors)
             {
                 errors.Clear();
 
                 errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
                 errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.ContractExpiringUnsuccessfulFilename);
+                errors.Append(emailData.ExpiringContractorUnsuccessfulFilename);
                 errors.Append("</font></b>");
 
-                template = template.Replace("[IFContractExpiringHasERRORS]", errors.ToString());
+                template = template.Replace("[IfExpiringContractorHasERRORS]", errors.ToString());
             }
             else
             {
-                template = template.Replace("[IFContractExpiringHasERRORS]", null);
+                template = template.Replace("[IfExpiringContractorHasERRORS]", null);
             }
            
-            if (emailData.ContractExpiredHasErrors)
+            if (emailData.ExpiredContractorHasErrors)
             {
                 errors.Clear();
 
                 errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
                 errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.ContractExpiredUnsuccessfulFilename);
+                errors.Append(emailData.ExpiredContractorUnsuccessfulFilename);
                 errors.Append("</font></b>");
 
-                template = template.Replace("[IFContractExpiredHasERRORS]", errors.ToString());
+                template = template.Replace("[IFExpiredContractorHasERRORS]", errors.ToString());
             }
             else
             {
-                template = template.Replace("[IFContractExpiredHasERRORS]", null);
+                template = template.Replace("[IFExpiredContractorHasERRORS]", null);
             }
             return template;
         }
@@ -120,17 +110,17 @@ namespace SRS.Process
             StringBuilder attachments = new StringBuilder();
 
             //Contractor Summary Files
-            if (emailData.ContractExpiringSuccessfulFilename != null)
-                attachments.Append(AddAttachment(emailData.ContractExpiringSuccessfulFilename));
+            if (emailData.ExpiringContractorSuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ExpiringContractorSuccessfulFilename));
 
-            if (emailData.ContractExpiringUnsuccessfulFilename != null)
-                attachments.Append(AddAttachment(emailData.ContractExpiringUnsuccessfulFilename));
+            if (emailData.ExpiringContractorUnsuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ExpiringContractorUnsuccessfulFilename));
 
-            if (emailData.ContractExpiredSuccessfulFilename != null)
-                attachments.Append(AddAttachment(emailData.ContractExpiredSuccessfulFilename));
+            if (emailData.ExpiredContractorSuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ExpiredContractorSuccessfulFilename));
 
-            if (emailData.ContractExpiredUnsuccessfulFilename != null)
-                attachments.Append(AddAttachment(emailData.ContractExpiredUnsuccessfulFilename));
+            if (emailData.ExpiredContractorUnsuccessfulFilename != null)
+                attachments.Append(AddAttachment(emailData.ExpiredContractorUnsuccessfulFilename));
 
             return attachments.ToString();
         }

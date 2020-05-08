@@ -71,8 +71,8 @@ namespace SRS.Utilities
                     return good;
                 }
             }
+          }
         }
-    }
 
     internal class SummaryFileGenerator
     {

@@ -81,7 +81,7 @@ namespace SRS.Process
 
                 }
                 summary.GenerateSummaryFiles(emailData);
-                emailData.ContractExpiringRecords = expiringContractor.Count;
+                emailData.ExpiringContractorRecords = expiringContractor.Count;
             
                 // Contractor SRSRecord;
                 var columnList = string.Empty;
@@ -89,15 +89,15 @@ namespace SRS.Process
                 var fileReader = new FileReader();
                 //var validate = new ValidateContractor();
                 var save = new SaveData();
-                var em = new ContractExpiringSummaryMapping();
+                var em = new ExpiringContractorSummaryMapping();
                 //List<string> badRecords;
-                 
-                //var expiringProcess = fileReader.GetFileData<ContractorData, ContractExpiringSummaryMapping>(ContractorFile, out badRecords, em);
+
+                //var expiringProcess = fileReader.GetFileData<ContractorData, ExpiringContractorSummaryMapping>(ContractorFile, out badRecords, em);
                 //Helpers.AddBadRecordsToSummary(badRecords, ref summary);
 
                 //_log.Info("Loading POCs Data");
                 //var allExpiringContractorData = RetrieveData.AllExpiringContractorData();
- 
+
             }
             catch (Exception ex)
             {
@@ -105,11 +105,9 @@ namespace SRS.Process
             }
         }
         
-
             public void ProcessExpiredContractor()
         {
             ExpiredContractorSummary expiredContractor = new ExpiredContractorSummary();
         }
-        }
-    
     }
+}

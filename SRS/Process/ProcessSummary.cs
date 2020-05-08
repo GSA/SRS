@@ -1,12 +1,9 @@
-﻿using System;
-using SRS.Models;
+﻿using SRS.Models;
 using SRS.Mapping;
-using SRS.Utilities; 
+using SRS.Utilities;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRS.Process
 {
@@ -35,16 +32,16 @@ namespace SRS.Process
             {
                 SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ContractExpiringSuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ContractExpiringSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
-                _log.Info("Contract Expiring Successfull File: " + emailData.ContractExpiringSuccessfulFilename);
+                emailData.ExpiringContractorSuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
+                _log.Info(" Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFilename);
             }
 
             if (UnsuccessfulProcessed.Count > 0)
             {
                 UnsuccessfulProcessed = UnsuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ContractExpiringUnsuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ContractExpiringSummaryMapping>(ConfigurationManager.AppSettings["ERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
-                _log.Info("Contractors Error File: " + emailData.ContractExpiringUnsuccessfulFilename);
+                emailData.ExpiringContractorUnsuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
+                _log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFilename);
             }
  
         }

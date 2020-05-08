@@ -34,29 +34,29 @@ namespace SRS.Utilities
         }
         //public static bool CheckErrors(ValidateContractor validate, ContractorData contractorData, List<ProcessedSummary> unsuccessfullMonesterUsersProcessed, ref ILog log)
         //{
-        //    //var validationHelper = new ValidationHelper();
-        //    //var criticalErrors = validate.ValidateContractorCriticalInfo(contractorData);
+        //    var validationHelper = new ValidationHelper();
+        //    var criticalErrors = validate.ValidateContractorCriticalInfo(contractorData);
 
-        //    //if (criticalErrors.IsValid) return false;
-        //    //log.Warn("Errors found for user: " + contractorData.PersID + "(" + criticalErrors.Errors + ")");
+        //    if (criticalErrors.IsValid) return false;
+        //    log.Warn("Errors found for user: " + contractorData.PersID + "(" + criticalErrors.Errors + ")");
 
-        //    //unsuccessfullProcessed.Add(new ProcessedSummary
+        //    unsuccessfullProcessed.Add(new ProcessedSummary
         //    {
-        //        GCIMSID = -1,
+        //        PersID = -1,
         //        FirstName = contractorData.FirstName,
         //        MiddleName = contractorData.MiddleName,
         //        LastName = contractorData.LastName,
         //        Suffix = contractorData.Suffix,
-        //        Action = validationHelper.GetErrors(criticalErrors.Errors, ValidationHelper.Monster.MonsterFile).TrimEnd(',')
+        //        Action = validationHelper.GetErrors(criticalErrors.Errors, ValidationHelper.Contractor.ContractorFile).TrimEnd(',')
         //    });
         //    return true;
 
-        }
-        /// <summary>
-        /// Adds a bad record to the summary
-        /// </summary>
-        /// <param name="badRecords"></param>
-        /// <param name="summary"></param>
+        //}
+        ///// <summary>
+        ///// Adds a bad record to the summary
+        ///// </summary>
+        ///// <param name = "badRecords" ></ param >
+        ///// < param name="summary"></param>
         //public static void AddBadRecordsToSummary(IEnumerable<string> badRecords, ref ContractorSummary summary)
         //{
         //    foreach (var item in badRecords)
@@ -66,7 +66,7 @@ namespace SRS.Utilities
         //        // parts.AddRange(s.Split('~'));
         //        var obj = new ProcessedSummary
         //        {
-        //            GCIMSID = -1,
+        //            PersID = -1,
         //            Action = "Invalid Record From CSV File",
         //            LastName = parts.Count > 1 ? parts[1] : "Unknown Last Name",
         //            Suffix = parts.Count > 2 ? parts[2] : "Unknown Suffix",
@@ -76,52 +76,52 @@ namespace SRS.Utilities
         //        summary.UnsuccessfulProcessed.Add(obj);
         //    }
         //}
-        /// <summary>
-        /// Returns an Employee object if match found in db
-        /// </summary>
-        /// <param name="contractorData"></param>
-        /// <param name="allGcimsData"></param>
-        /// <param name="log"></param>
-        /// <returns></returns>
-        //public static ContractorData RecordFound(ContractorData contractorData, List<ContractorData> allGcimsData, ref ILog log)
+        ///// <summary>
+        ///// Returns an Employee object if match found in db
+        ///// </summary>
+        ///// <param name = "contractorData" ></ param >
+        ///// < param name="allHSPDData"></param>
+        ///// <param name = "log" ></ param >
+        ///// < returns ></ returns >
+        //public static ContractorData RecordFound(ContractorData contractorData, List<ContractorData> allHSPDData, ref ILog log)
         //{
-        //    var monsterMatch = allGcimsData.Where(w => contractorData.PersID == w.PersID).ToList();
+        //    var ContractorMatch = allHSPDData.Where(w => contractorData.PersID == w.PersID).ToList();
 
-        //    if (monsterMatch.Count > 1)
+        //    if (ContractorMatch.Count > 1)
         //    {
         //        log.Info("Multiple contractors IDs Found: " + contractorData.PersID);
 
         //        return null;
         //    }
-        //    else if (monsterMatch.Count == 1)
+        //    else if (ContractorMatch.Count == 1)
         //    {
         //        log.Info("Matching record found by GCIMSID: " + contractorData.PersID);
 
-        //        return monsterMatch.Single();
+        //        return ContractorMatch.Single();
         //    }
-        //    else if (monsterMatch.Count == 0)
+        //    else if (ContractorMatch.Count == 0)
         //    {
-                //log.Info("Trying to match record by Lastname, Birth Date and SSN: " + contractorData.PersID);
+        //        log.Info("Trying to match record by Lastname, Birth Date and SSN: " + contractorData.PersID);
 
-                //var nameMatch = allGcimsData.Where(w =>
-                //    contractorData.LastName.ToLower().Trim().Equals(w.LastName.ToLower().Trim()) &&
-                //    contractorData.SocialSecurityNumber.Equals(w.SocialSecurityNumber) &&
-                //    contractorData.Birth.DateOfBirth.Equals(w.Birth.DateOfBirth)).ToList();
+        //        var nameMatch = allHSPDData.Where(w =>
+        //            contractorData.LastName.ToLower().Trim().Equals(w.LastName.ToLower().Trim()) &&
+        //            contractorData.SocialSecurityNumber.Equals(w.SocialSecurityNumber) &&
+        //            contractorData.Birth.DateOfBirth.Equals(w.Birth.DateOfBirth)).ToList();
 
-                //if (nameMatch.Count == 0 || nameMatch.Count > 1)
-                //{
-                //    log.Info("Match not found by name for user: " + contractorData.PersID);
-                //    return null;
-                //}
-                //else if (nameMatch.Count == 1)
-                //{
-                //    log.Info("Match found by name for user: " + contractorData.PersID);
-                //    return nameMatch.Single();
-    //            //}
-    //        }
+        //        if (nameMatch.Count == 0 || nameMatch.Count > 1)
+        //        {
+        //            log.Info("Match not found by name for user: " + contractorData.PersID);
+        //            return null;
+        //        }
+        //        else if (nameMatch.Count == 1)
+        //        {
+        //            log.Info("Match found by name for user: " + contractorData.PersID);
+        //            return nameMatch.Single();
+        //            }
+        //        }
 
-    //        return null;
-    //    }
+        //        return null;
+        //    }
 
-    //}
-}
+        }
+    }

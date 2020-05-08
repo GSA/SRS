@@ -15,14 +15,14 @@ using System.Configuration;
 
 namespace SRS
 {
-    public class Program
+    public static class Program
     { 
    //Reference to logger
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     //File paths from config file
-    private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFILE"].ToString();
-
+    private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFILEPATH"].ToString();
+       // private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
     //Stopwatch objects
     private static Stopwatch timeForApp = new Stopwatch();
 
@@ -32,8 +32,10 @@ namespace SRS
 
     private static IMapper dataMapper;
     private static EmailData emailData = new EmailData();
+    private static bool expiringContractor = false;
+    private static bool expiredContractor = false;
 
-        public static void Main(string[] args)
+    public static void Main(string[] args)
     {
         //Start timer
         timeForApp.Start();
@@ -41,24 +43,39 @@ namespace SRS
         //Log start of application
         log.Info("Application Started: " + DateTime.Now);
 
-        CreateMaps();
-
-            //Lookup lookups = createLookups();
-
-            ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData);//lookups);
+       // CreateMaps();
+             
+        ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData); 
         SendSummary sendSummary = new SendSummary(ref emailData);
+            emailData.TimeBegin = DateTime.Now;
+           // emailData.AccessingDate = emailData.AccessingDate.GetDateTimeFormats(args.Length < 1 ? null: args[0]);
 
             //Log action
-            log.Info("Processing Contractor File:" + DateTime.Now);
+            log.Info("First step of App Settings:" + DateTime.Now);
+            StartProcessing();
+            log.Info("Processing of App Settings:" + DateTime.Now);
+            log.Info("Contractors File Processing:" + DateTime.Now);
 
             //Contractor file
             if (File.Exists(ContractorFilePath))
             {
-                log.Info("Start Contractor file Processing: " + DateTime.Now);
+                if (expiringContractor)
+                {
+                    log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
+                    processContractor.ProcessExpiringContractor();
+                    log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
+                }
+                if(expiredContractor)
+                {
+                    log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);
+                    processContractor.ProcessExpiredContractor();
+                    log.Info("Time to Stop Expired Contractor Processing:" + DateTime.Now);
+                }
+                //log.Info("Start Contractor file Processing: " + DateTime.Now);
 
-                timeForProcess.Start();
-                //processContractor.ProcessContractorFile(ContractorFilePath);
-                timeForProcess.Stop();
+                //timeForProcess.Start();
+                ////processContractor.ProcessContractorFile(ContractorFilePath);
+                //timeForProcess.Stop();
 
                 log.Info("Done Contractor File processing: " + DateTime.Now);
                 log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
@@ -71,11 +88,11 @@ namespace SRS
          
         log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
-        log.Info("Sending Summary File");
+        log.Info("Sending Summary");
 
             sendSummary.SendSummaryEmail();
 
-        log.Info("Summary file sent");
+        log.Info("Summary sent");
 
         //Stop second timer
         timeForApp.Stop();
@@ -84,14 +101,22 @@ namespace SRS
         log.Info(string.Format("Contractor processing Completed in {0} milliseconds", timeForApp.ElapsedMilliseconds));
 
         //Log processing end
-        log.Info("The final of processing Contractor: " + DateTime.Now);
+        log.Info("The end of processing Contractor: " + DateTime.Now);
     }
 
-    private static void CreateMaps()
+        private static void StartProcessing()
         {
-            map.CreateDataConfig();
-            dataMapper = map.CreateDataMapping();
+            if (!Boolean.TryParse("EXPIRINGCONTRACTOR", out expiringContractor))
+                expiringContractor = true;
+            if (!Boolean.TryParse("EXPIREDCONTRACTOR", out expiredContractor))
+                expiredContractor = true;
         }
+
+        //private static void CreateMaps()
+        //{
+        //    map.CreateDataConfig();
+        //    dataMapper = map.CreateDataMapping();
+        //}
 
         //private static Lookup createLookups()
         //{

@@ -20,16 +20,16 @@ namespace SRS.Data
 
         public RetrieveData(IMapper mapper)
         {
-            retrieveMapper = mapper;
+            //retrieveMapper = mapper;
 
-            retrieveMapper.ConfigurationProvider.CompileMappings();
+            //retrieveMapper.ConfigurationProvider.CompileMappings();
         }
 
         public List<ContractorData> ExpiringContractor(DateTime accessingDate)
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["GCIMS"].ToString());
+                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
 
                 MySqlCommand cmd = new MySqlCommand();
                 //MySqlConnection conn = new MySqlConnection("Server=[IP Address]; database=hspd; UID=[username]; Password=[password]");
@@ -83,14 +83,15 @@ namespace SRS.Data
                             //    //useSeconds = false;
 
                             //}
-                            if (daysUntilExpired <= 45)
-                            {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(45);
-                                // useSeconds = false;
-                            }
+                            //if (daysUntilExpired <= 45)
+                            //{
+                            //    string lableCaption = daysUntilExpired + "days more to contract expired.";
+                            //    DateTime time = DateTime.Today.AddDays(45);
+                            //    // useSeconds = false;
+                            //}
                             //else if (DateTime.Today < expiryDate)
-                            else if (daysUntilExpired <= 30)
+                            // else if (daysUntilExpired <= 30)
+                            if (daysUntilExpired <= 30)
                             {
                                 string lableCaption = daysUntilExpired + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(30);
@@ -128,10 +129,8 @@ namespace SRS.Data
                 log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
                 return new List<ContractorData>();
             }
-
         }
-
-        private List<ContractorData> MapAllContractorData(MySqlDataReader contractorData)
+             private List<ContractorData> MapAllContractorData(MySqlDataReader contractorData)
         {
             List<ContractorData> allRecords = new List<ContractorData>();
 
@@ -157,38 +156,97 @@ namespace SRS.Data
 
                 allRecords.Add(allExpiringContractor);
             }
+            return allRecords;
+        }
+        public List<ContractorData> allExpiredContractorData(DateTime accessingDate)
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+
+                MySqlCommand cmd = new MySqlCommand();
+                List<ContractorData> allExpiredContractorData = new List<ContractorData>();
+
+                using (conn)
+                {
+                    if (conn.State == ConnectionState.Closed)
+                        conn.Open();
+
+                    using (cmd)
+                    {
+                        MySqlDataReader contractorData;
+
+                        cmd.Connection = conn;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "SRS_GetContractors";
+                        cmd.Parameters.Clear();
+
+                        MySqlDbType todaysDate = default(MySqlDbType);
+                        cmd.Parameters.Add("DateTime", todaysDate);
+
+                        log.Info("Contractor data of expiration: " + DateTime.Now);
+
+                        contractorData = cmd.ExecuteReader();
+                        var myReader = cmd.ExecuteReader();
+                        if (myReader.HasRows)
+                        {
+                            //record found
+                            myReader.Read();
+                            var expiryDate = myReader.GetDateTime("expirationdate");
+
+                            int daysUntilExpired = (int)(DateTime.Today - expiryDate).TotalDays;
+                            string labelCaption = String.Format("{0} day(s) left.", daysUntilExpired);
+                            // if (DateTime.Today <= expiryDate)
+                            if (daysUntilExpired <= 0)
+                            {
+
+                                string lableCaption = daysUntilExpired + " Contract expired.";
+                                DateTime time = DateTime.Today.AddDays(0);
+                            }
+                        }
+                    }
+                }
+
+                return allExpiredContractorData;
+            }
+            catch (Exception ex)
+            {
+                log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
+                return new List<ContractorData>();
+            }
+
+        }
+        private List<ContractorData> MapAllExpiredContractorData(MySqlDataReader contractorData)
+        {
+            List<ContractorData> allRecords = new List<ContractorData>();
+
+            log.Info("Contractor Retrieved Data: " + DateTime.Now);
+            log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+            while (contractorData.Read())
+            {
+                ContractorData allExpiredContractor = new ContractorData();
+                allExpiredContractor.PersID = contractorData[0].ToString();
+                allExpiredContractor.LastName = contractorData[1].ToString();
+                allExpiredContractor.FirstName = contractorData[2].ToString();
+                allExpiredContractor.MiddleName = contractorData[3].ToString();
+                allExpiredContractor.Suffix = contractorData[4].ToString();
+                
+                allExpiredContractor.contract_vender_ID = contractorData.GetInt32(9);
+                //allExpiringContractor.contract_number = contractorData.GetInt64(4);
+                //allExpiringContractor.contract_name = contractorData[1].ToString();
+                allExpiredContractor.contract_date_end = (DateTime)contractorData[5];
+                allExpiredContractor.DaysUntilExpired = contractorData.GetInt32(6);
+                allExpiredContractor.RegionalEmail = contractorData[7].ToString();
+                allExpiredContractor.contract_POC_Email = contractorData[8].ToString();
+
+                allRecords.Add(allExpiredContractor);
+            }
 
             return allRecords;
         }
-        
-        //public List<Contractor> AllExpiredContractorData(DateTime accessingDate)
-        //{
-             
-        //        cmd.CommandText = "SRS_Expired_Contracts";
-        //        log.Info("Contractor data of expiration: " + DateTime.Now);
-        //        AllExpiredContractorData = cmd.ExecuteReader();
-        //        var myReader = cmd.ExecuteReader();
-        //        if (myReader.HasRows)
-        //        {
-        //            //record found
-        //            myReader.Read();
-        //            var expiryDate = myReader.GetDateTime("expirationdate");
 
-        //            int daysUntilExpired = (int)(DateTime.Today - expiryDate).TotalDays;
-        //            string labelCaption = String.Format("{0} day(s) left.", daysUntilExpired);
-        //            // if (DateTime.Today <= expiryDate)
-        //            if (daysUntilExpired <= 0)
-        //            {
-                       
-        //                string lableCaption = daysUntilExpired + " Contract expired.";
-        //                DateTime time = DateTime.Today.AddDays(0);
-        //            }
-        //        }
-               
-        //     return AllExpiredContractorData;
-        //    }
-             
-          }
+        
+        }
     }
 
  

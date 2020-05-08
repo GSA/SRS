@@ -17,7 +17,7 @@ namespace SRS.Data
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         //Set up connection
-        private readonly MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["GCIMS"].ToString());
+        private readonly MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
 
         private readonly MySqlCommand cmd = new MySqlCommand();
 
@@ -37,8 +37,8 @@ namespace SRS.Data
                     using (cmd)
                     {
                         cmd.Connection = conn;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "SRS_InsertGSAPOC"; //this sp may be changed to a new one
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                       // cmd.CommandText = "SRS_InsertGSAPOC"; //this sp may be changed to a new one
 
                         cmd.Parameters.Clear();
 
@@ -69,7 +69,7 @@ namespace SRS.Data
             }
             catch (Exception ex)
             {
-                log.Error("Updating contractID: " + ex.Message + " - " + ex.InnerException);
+                log.Error("Updating PersID: " + ex.Message + " - " + ex.InnerException);
                 return ex.Message.ToString();
             }
         }

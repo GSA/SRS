@@ -9,11 +9,11 @@ using SRS.Models;
 
 namespace SRS.Mapping
 {
-    internal sealed class ContractExpiringSummaryMapping : ClassMap<ExpiringContractorSummary>
+    internal sealed class ExpiringContractorSummaryMapping : ClassMap<ExpiringContractorSummary>
     {
         private Lookup lookups;
 
-        public ContractExpiringSummaryMapping()
+        public ExpiringContractorSummaryMapping()
         {
            // Map(m => m.contract_unid).Name("Contract unid");
             Map(m => m.PersID).Name("Person ID");
@@ -32,15 +32,15 @@ namespace SRS.Mapping
 
         }
 
-        public ContractExpiringSummaryMapping(Lookup lookups)
+        public ExpiringContractorSummaryMapping(Lookup lookups)
         {
             this.lookups = lookups;
         }
     }
 
-    internal sealed class ContractExpiredSummaryMapping : ClassMap<ExpiredContractorSummary>
+    internal sealed class ExpiredContractorSummaryMapping : ClassMap<ExpiredContractorSummary>
     {
-        public ContractExpiredSummaryMapping()
+        public ExpiredContractorSummaryMapping()
         {
             Map(m => m.PersID).Name("Person ID");
            // Map(m => m.Contract_id).Name("contract ID");
