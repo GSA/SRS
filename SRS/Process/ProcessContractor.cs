@@ -1,20 +1,10 @@
 ﻿using AutoMapper;
 using SRS.Data;
-using SRS.Lookups;
 using SRS.Utilities;
 using SRS.Mapping;
 using SRS.Models;
-using SRS.Validation;
-using MySql.Data.MySqlClient;
 using System;
-using log4net;
-using System.Configuration;
-using System.IO;
-using System.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRS.Process
 {
@@ -59,24 +49,19 @@ namespace SRS.Process
 
                 foreach (ContractorData contractor in expiringContractor)
                 {
-                    _log.Info("The expiring Contractor email send " + contractor.PersID + "To" + contractor.contract_POC_Email + "cc" + contractor.RegionalEmail);
+                    _log.Info("The expiring Contractor email send " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
                     accessEmail.SendExpiringContractorEmailTemplate(contractor);
 
-                    _log.Info("The expiring contractor email sent successfully " + contractor.PersID + "To" + contractor.contract_POC_Email + "cc" + contractor.RegionalEmail);
+                    _log.Info("The expiring contractor email sent successfully " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
                     summary.SuccessfulProcessed.Add(new ExpiringContractorSummary
                     {
-                        PersID = contractor.PersID,
-                        //contract_id = Contractor.ContractID,
-                        //contract_unid = Contractor.ContractUnID,
+                        PersID = contractor.PersID, 
                         LastName = contractor.LastName,
                         FirstName = contractor.FirstName,
-                        contract_POC_Email = contractor.contract_POC_Email,
+                        pers_work_email = contractor.pers_work_email,
                         RegionalEmail = contractor.RegionalEmail,
-                        //contract_number = Contractor.ContractNumber,
-                        contract_date_end = contractor.contract_date_end,
-                        DaysUntilExpired = contractor.DaysUntilExpired,
-                        //contract_name = Contractor.ContractName
-
+                        pers_investigation_date = contractor.pers_investigation_date,
+                        DaysToExpiration = contractor.DaysToExpiration, 
                     });
 
                 }

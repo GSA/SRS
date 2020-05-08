@@ -21,15 +21,11 @@ namespace SRS.Mapping
             Map(m => m.MiddleName).Name("Middle Name");
             Map(m => m.LastName).Name("Last Name");
             Map(m => m.Suffix).Name("Suffix"); 
-            Map(m => m.contract_POC_Email).Name("contract POC Email");
-            Map(m => m.RegionalEmail).Name("Reginal email");
-           // Map(m => m.contract_number).Name("Contract number");
-            Map(m => m.contract_date_end).Name("Contract date end");
-           // Map(m => m.contract_name).Name("Contract name");
-            Map(m => m.DaysUntilExpired).Name("DaysUntilExpired");
-            Map(m => m.contract_vender_ID).Name("contract_vender_ID");
-
-
+            Map(m => m.pers_work_email).Name("person POC Email");
+            Map(m => m.RegionalEmail).Name("Reginal email"); 
+            Map(m => m.pers_investigation_date).Name("Contract date end"); 
+            Map(m => m.DaysToExpiration).Name("DaysToExpiration");
+            Map(m => m.conpoc_email).Name("vender email"); 
         }
 
         public ExpiringContractorSummaryMapping(Lookup lookups)
@@ -42,22 +38,19 @@ namespace SRS.Mapping
     {
         public ExpiredContractorSummaryMapping()
         {
-            Map(m => m.PersID).Name("Person ID");
-           // Map(m => m.Contract_id).Name("contract ID");
+            Map(m => m.PersID).Name("Person ID"); 
             Map(m => m.FirstName).Name("First Name");
             Map(m => m.MiddleName).Name("Middle Name");
             Map(m => m.LastName).Name("Last Name");
             Map(m => m.Suffix).Name("Suffix");
-            Map(m => m.contract_POC_Email).Name("contract POC Email");
-            Map(m => m.RegionalEmail).Name("Reginal email");
-           // Map(m => m.contract_number).Name("Contract number");
-            Map(m => m.contract_date_end).Name("Contract date end");
-           // Map(m => m.contract_name).Name("Contract name");
-            Map(m => m.DaysUntilExpired).Name("DaysUntilExpired");
-            Map(m => m.contract_vender_ID).Name("contract_vender_ID");
-
-
+            Map(m => m.pers_work_email).Name("person POC Email");
+            Map(m => m.RegionalEmail).Name("Reginal email"); 
+            Map(m => m.pers_investigation_date).Name("Contract date end"); 
+            Map(m => m.DaysToExpiration).Name("DaysToExpiration");
+            Map(m => m.conpoc_email).Name("vender email");
+             
         }
+        
     }
 }
     

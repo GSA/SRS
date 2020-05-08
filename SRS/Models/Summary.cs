@@ -8,37 +8,31 @@ namespace SRS.Models
 {
     internal class ExpiringContractorSummary
     {
-        //TODO: Add Summary items here 
-       // public Int64 Contract_id { get; set; }
+        //TODO: Add Summary items here  
         public String PersID { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Suffix { get; set; }
-        public Int64 contract_vender_ID { get; set; }
-        public object contract_POC_Email { get; set; }
-        public object RegionalEmail { get; set; }
-        //public Int64 contract_number { get; set; }
-        public DateTime contract_date_end { get; internal set; }
-        public Int64 DaysUntilExpired { get; set; }
-        //public string contract_name { get; set; }
-        
+        public String FirstName { get; set; }
+        public String MiddleName { get; set; }
+        public String LastName { get; set; }
+        public String Suffix { get; set; } 
+        public object pers_work_email { get; set; }
+        public object RegionalEmail { get; set; } 
+        public DateTime pers_investigation_date { get; internal set; }
+        public Int64 DaysToExpiration { get; set; }
+        public String conpoc_email { get; set; }
+
     }
     internal class ExpiredContractorSummary
-    {
-       // public Int64 Contract_id { get; set; }
+    { 
         public String PersID { get; set; }
-        public long FirstName { get; set; }
-        public long MiddleName { get; set; }
-        public long LastName { get; set; }
-        public string Suffix { get; set; }
-        public Int64 contract_vender_ID { get; set; }
-        public object contract_POC_Email { get; set; }
-        public object RegionalEmail { get; set; }
-       // public Int64 contract_number { get; set; }
-        public DateTime contract_date_end { get; internal set; }
-        public Int64 DaysUntilExpired { get; set; }
-      //  public string contract_name { get; set; }
+        public String  FirstName { get; set; }
+        public String MiddleName { get; set; }
+        public String LastName { get; set; }
+        public String Suffix { get; set; }
+        public String conpoc_email { get; set; }
+        public object pers_work_email { get; set; }
+        public object RegionalEmail { get; set; } 
+        public DateTime pers_investigation_date { get; internal set; }
+        public Int64 DaysToExpiration { get; set; } 
 
     }
     

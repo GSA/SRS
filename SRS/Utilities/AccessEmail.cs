@@ -61,7 +61,7 @@ namespace SRS.Utilities
         /// <returns></returns>
         private string AccessEmailTo(string to, ContractorData contractorData, bool debug)
         {
-            return contractorData.contract_POC_Email;
+            return contractorData.pers_work_email;
         }
         /// <summary>
         /// 
@@ -84,7 +84,7 @@ namespace SRS.Utilities
 
             eSubject = eSubject.Replace("[PersID]", contractorData.PersID);
             //eSubject = eSubject.Replace("[ContractNumber]", contractorData.contract_number);
-            eSubject = eSubject.Replace("[ContractDateEnd]", contractorData.contract_date_end.ToString("MM/DD/YYYY"));
+            eSubject = eSubject.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eSubject;
         }
@@ -95,7 +95,7 @@ namespace SRS.Utilities
 
             eBody = eBody.Replace("[PersID]", contractorData.PersID);
          
-            eBody = eBody.Replace("[ContractDateEnd]", contractorData.contract_date_end.ToString("MM/DD/YYYY"));
+            eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eBody;
         }

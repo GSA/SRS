@@ -67,15 +67,15 @@ namespace SRS.Data
                             myReader.Read();
                             var expiryDate = myReader.GetDateTime("expirationdate");
 
-                            int daysUntilExpired = (int)(DateTime.Today - expiryDate).TotalDays;
-                            string labelCaption = String.Format("{0} day(s) left.", daysUntilExpired);
+                            int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
+                            string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
                             //expiryDate = time.ToFileTimeUtc();
 
                             //storeExpiry(expiryDate.ToString());
                             //if (DateTime.Today > expiryDate)
-                            //if (daysUntilExpired < 60)
+                            //if (daysToExpiration < 60)
                             //{
-                            //    string lableCaption = daysUntilExpired + "days more to contract expired.";
+                            //    string lableCaption = daysToExpiration + "days more to contract expired.";
                             //    //Contract Expired    
                             //    DateTime time = DateTime.Today.AddDays(60);
                             //    // expiryDate = time.ToFileTimeUtc();
@@ -83,29 +83,29 @@ namespace SRS.Data
                             //    //useSeconds = false;
 
                             //}
-                            //if (daysUntilExpired <= 45)
+                            //if (daysToExpiration <= 45)
                             //{
-                            //    string lableCaption = daysUntilExpired + "days more to contract expired.";
+                            //    string lableCaption = daysToExpiration + "days more to contract expired.";
                             //    DateTime time = DateTime.Today.AddDays(45);
                             //    // useSeconds = false;
                             //}
                             //else if (DateTime.Today < expiryDate)
-                            // else if (daysUntilExpired <= 30)
-                            if (daysUntilExpired <= 30)
+                            // else if (daysToExpiration <= 30)
+                            if (daysToExpiration <= 30)
                             {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
+                                string lableCaption = daysToExpiration + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(30);
                                 //useSeconds = false;
                             }
-                            else if (daysUntilExpired <= 15)
+                            else if (daysToExpiration <= 15)
                             {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
+                                string lableCaption = daysToExpiration + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(15);
                                 //useSeconds = false;
                             }
-                            else if (daysUntilExpired <= 7)
+                            else if (daysToExpiration <= 7)
                             {
-                                string lableCaption = daysUntilExpired + "days more to contract expired.";
+                                string lableCaption = daysToExpiration + "days more to contract expired.";
                                 DateTime time = DateTime.Today.AddDays(7);
                                 //useSeconds = false;
                             }
@@ -143,16 +143,12 @@ namespace SRS.Data
                 allExpiringContractor.LastName = contractorData[1].ToString();
                 allExpiringContractor.FirstName = contractorData[2].ToString();
                 allExpiringContractor.MiddleName = contractorData[3].ToString();
-                allExpiringContractor.Suffix = contractorData[4].ToString();
-                //allExpiringContractor.Contract_id = retrieveMapper.Map<IDataReader, >(contractorData);
-                //allExpiringContractor.contract_unid = contractorData.GetInt64(2);
-                allExpiringContractor.contract_vender_ID = contractorData.GetInt32(9);
-                //allExpiringContractor.contract_number = contractorData.GetInt64(4);
-                //allExpiringContractor.contract_name = contractorData[1].ToString();
-                allExpiringContractor.contract_date_end = (DateTime)contractorData[5];
-                allExpiringContractor.DaysUntilExpired = contractorData.GetInt32(6);
+                allExpiringContractor.Suffix = contractorData[4].ToString(); 
+                allExpiringContractor.conpoc_email = contractorData.ToString(); 
+                allExpiringContractor.pers_investigation_date = (DateTime)contractorData[5];
+                allExpiringContractor.DaysToExpiration = contractorData.GetInt32(6);
                 allExpiringContractor.RegionalEmail = contractorData[7].ToString();
-                allExpiringContractor.contract_POC_Email = contractorData[8].ToString();
+                allExpiringContractor.pers_work_email = contractorData[8].ToString();
 
                 allRecords.Add(allExpiringContractor);
             }
@@ -194,13 +190,13 @@ namespace SRS.Data
                             myReader.Read();
                             var expiryDate = myReader.GetDateTime("expirationdate");
 
-                            int daysUntilExpired = (int)(DateTime.Today - expiryDate).TotalDays;
-                            string labelCaption = String.Format("{0} day(s) left.", daysUntilExpired);
+                            int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
+                            string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
                             // if (DateTime.Today <= expiryDate)
-                            if (daysUntilExpired <= 0)
+                            if (daysToExpiration <= 0)
                             {
 
-                                string lableCaption = daysUntilExpired + " Contract expired.";
+                                string lableCaption = daysToExpiration + " Contract expired.";
                                 DateTime time = DateTime.Today.AddDays(0);
                             }
                         }
@@ -229,15 +225,12 @@ namespace SRS.Data
                 allExpiredContractor.LastName = contractorData[1].ToString();
                 allExpiredContractor.FirstName = contractorData[2].ToString();
                 allExpiredContractor.MiddleName = contractorData[3].ToString();
-                allExpiredContractor.Suffix = contractorData[4].ToString();
-                
-                allExpiredContractor.contract_vender_ID = contractorData.GetInt32(9);
-                //allExpiringContractor.contract_number = contractorData.GetInt64(4);
-                //allExpiringContractor.contract_name = contractorData[1].ToString();
-                allExpiredContractor.contract_date_end = (DateTime)contractorData[5];
-                allExpiredContractor.DaysUntilExpired = contractorData.GetInt32(6);
+                allExpiredContractor.Suffix = contractorData[4].ToString(); 
+                allExpiredContractor.conpoc_email = contractorData.ToString(); 
+                allExpiredContractor.pers_investigation_date = (DateTime)contractorData[5];
+                allExpiredContractor.DaysToExpiration  = contractorData.GetInt32(6);
                 allExpiredContractor.RegionalEmail = contractorData[7].ToString();
-                allExpiredContractor.contract_POC_Email = contractorData[8].ToString();
+                allExpiredContractor.pers_work_email = contractorData[8].ToString();
 
                 allRecords.Add(allExpiredContractor);
             }
