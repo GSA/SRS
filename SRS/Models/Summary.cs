@@ -16,7 +16,7 @@ namespace SRS.Models
         public String Suffix { get; set; } 
         public object pers_work_email { get; set; }
         public object RegionalEmail { get; set; } 
-        public DateTime pers_investigation_date { get; internal set; }
+        public DateTime pers_investigation_date { get; set; }
         public Int64 DaysToExpiration { get; set; }
         public String conpoc_email { get; set; }
 
@@ -31,7 +31,7 @@ namespace SRS.Models
         public String conpoc_email { get; set; }
         public object pers_work_email { get; set; }
         public object RegionalEmail { get; set; } 
-        public DateTime pers_investigation_date { get; internal set; }
+        public DateTime pers_investigation_date { get; set; }
         public Int64 DaysToExpiration { get; set; } 
 
     }

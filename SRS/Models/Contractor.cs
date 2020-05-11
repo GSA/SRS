@@ -16,7 +16,7 @@ namespace SRS.Models
         public String conpoc_email { get; set; }
         public String  pers_work_email { get; set; }
         public String  RegionalEmail { get; set; } 
-        public DateTime pers_investigation_date { get; internal set; }
+        public DateTime pers_investigation_date { get; set; }
         public Int64 DaysToExpiration { get; set; }
      
     }

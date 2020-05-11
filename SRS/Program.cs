@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using SRS.Utilities;
 
 namespace SRS
 {
@@ -21,7 +22,7 @@ namespace SRS
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     //File paths from config file
-    private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFILEPATH"].ToString();
+    private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
        // private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
     //Stopwatch objects
     private static Stopwatch timeForApp = new Stopwatch();
@@ -48,7 +49,7 @@ namespace SRS
         ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData); 
         SendSummary sendSummary = new SendSummary(ref emailData);
             emailData.TimeBegin = DateTime.Now;
-           // emailData.AccessingDate = emailData.AccessingDate.GetDateTimeFormats(args.Length < 1 ? null: args[0]);
+            emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
 
             //Log action
             log.Info("First step of App Settings:" + DateTime.Now);
@@ -88,11 +89,11 @@ namespace SRS
          
         log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
-        log.Info("Sending Summary");
+        log.Info("Sending SummaryEmail");
 
-            sendSummary.SendSummaryEmail();
+        sendSummary.SendSummaryEmail();
 
-        log.Info("Summary sent");
+        log.Info("SummaryEmail sent");
 
         //Stop second timer
         timeForApp.Stop();
@@ -106,9 +107,9 @@ namespace SRS
 
         private static void StartProcessing()
         {
-            if (!Boolean.TryParse("EXPIRINGCONTRACTOR", out expiringContractor))
+            if (!Boolean.TryParse("ExpiringContractor", out expiringContractor))
                 expiringContractor = true;
-            if (!Boolean.TryParse("EXPIREDCONTRACTOR", out expiredContractor))
+            if (!Boolean.TryParse("ExpiredContractor", out expiredContractor))
                 expiredContractor = true;
         }
 

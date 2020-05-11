@@ -20,7 +20,7 @@ namespace SRS.Data
 
         public RetrieveData(IMapper mapper)
         {
-            //retrieveMapper = mapper;
+            retrieveMapper = mapper;
 
             //retrieveMapper.ConfigurationProvider.CompileMappings();
         }
@@ -70,25 +70,7 @@ namespace SRS.Data
                             int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
                             string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
                             //expiryDate = time.ToFileTimeUtc();
-
-                            //storeExpiry(expiryDate.ToString());
-                            //if (DateTime.Today > expiryDate)
-                            //if (daysToExpiration < 60)
-                            //{
-                            //    string lableCaption = daysToExpiration + "days more to contract expired.";
-                            //    //Contract Expired    
-                            //    DateTime time = DateTime.Today.AddDays(60);
-                            //    // expiryDate = time.ToFileTimeUtc();
-                            //    //storeExpiry(expiryDate.ToString());
-                            //    //useSeconds = false;
-
-                            //}
-                            //if (daysToExpiration <= 45)
-                            //{
-                            //    string lableCaption = daysToExpiration + "days more to contract expired.";
-                            //    DateTime time = DateTime.Today.AddDays(45);
-                            //    // useSeconds = false;
-                            //}
+ 
                             //else if (DateTime.Today < expiryDate)
                             // else if (daysToExpiration <= 30)
                             if (daysToExpiration <= 30)
@@ -144,7 +126,7 @@ namespace SRS.Data
                 allExpiringContractor.FirstName = contractorData[2].ToString();
                 allExpiringContractor.MiddleName = contractorData[3].ToString();
                 allExpiringContractor.Suffix = contractorData[4].ToString(); 
-                allExpiringContractor.conpoc_email = contractorData.ToString(); 
+                allExpiringContractor.conpoc_email = contractorData[9].ToString(); 
                 allExpiringContractor.pers_investigation_date = (DateTime)contractorData[5];
                 allExpiringContractor.DaysToExpiration = contractorData.GetInt32(6);
                 allExpiringContractor.RegionalEmail = contractorData[7].ToString();

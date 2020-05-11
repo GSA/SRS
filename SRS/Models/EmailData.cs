@@ -15,10 +15,10 @@ namespace SRS.Models
         public Int64 ExpiringContractorRecordsNotFound { get; set; }
         public Int64 ExpiredContractorRecordsNotFound { get; set; }
 
-        public String ExpiringContractorSuccessfulFilename { get; set; }
-        public String ExpiredContractorSuccessfulFilename { get; set; }
-        public String ExpiringContractorUnsuccessfulFilename { get; set; }
-        public String ExpiredContractorUnsuccessfulFilename { get; set; }
+        public String ExpiringContractorSuccessfulFileName { get; set; }
+        public String ExpiredContractorSuccessfulFileName { get; set; }
+        public String ExpiringContractorUnsuccessfulFileName { get; set; }
+        public String ExpiredContractorUnsuccessfulFileName { get; set; }
 
         public String ExpiringContractorSummary { get; set; }
         public String ExpiredContractorSummary { get; set; }
@@ -28,10 +28,10 @@ namespace SRS.Models
 
         public bool ExpiringContractorHasErrors { get; set; }
         public bool ExpiredContractorHasErrors { get; set; }
-        public DateTime  AccessingDate { get; internal set; }
-        public DateTime TimeBegin { get; internal set; }
-        public DateTime EndTime { get; internal set; }
-        public DateTime  AccessingTime { get; internal set; }
-        public object ContractorFilename { get; internal set; }
+        public DateTime  AccessingDate { get; set; }
+        public DateTime TimeBegin { get; set; }
+        public DateTime EndTime { get; set; }
+        public DateTime  AccessingTime { get; set; }
+        public object ContractorFileName { get; set; }
     }
 }

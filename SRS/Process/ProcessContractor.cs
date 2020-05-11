@@ -58,6 +58,7 @@ namespace SRS.Process
                         PersID = contractor.PersID, 
                         LastName = contractor.LastName,
                         FirstName = contractor.FirstName,
+                        Suffix = contractor.Suffix,
                         pers_work_email = contractor.pers_work_email,
                         RegionalEmail = contractor.RegionalEmail,
                         pers_investigation_date = contractor.pers_investigation_date,
@@ -73,15 +74,15 @@ namespace SRS.Process
                
                 var fileReader = new FileReader();
                 //var validate = new ValidateContractor();
-                var save = new SaveData();
-                var em = new ExpiringContractorSummaryMapping();
+                //var save = new SaveData();
+                //var em = new ExpiringContractorSummaryMapping();
                 //List<string> badRecords;
 
-                //var expiringProcess = fileReader.GetFileData<ContractorData, ExpiringContractorSummaryMapping>(ContractorFile, out badRecords, em);
+                //var expiringProcess = fileReader.GetFileData<ContractorData, ExpiringContractorSummaryMapping> (ContractorFile, out badRecords, em);
                 //Helpers.AddBadRecordsToSummary(badRecords, ref summary);
 
                 //_log.Info("Loading POCs Data");
-                //var allExpiringContractorData = RetrieveData.AllExpiringContractorData();
+                //var contractorData = RetrieveData.ContractorData();
 
             }
             catch (Exception ex)

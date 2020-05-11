@@ -32,16 +32,16 @@ namespace SRS.Process
             {
                 SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ExpiringContractorSuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
-                _log.Info(" Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFilename);
+                emailData.ExpiringContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
+                _log.Info(" Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFileName);
             }
 
             if (UnsuccessfulProcessed.Count > 0)
             {
                 UnsuccessfulProcessed = UnsuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ExpiringContractorUnsuccessfulFilename = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
-                _log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFilename);
+                emailData.ExpiringContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
+                _log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFileName);
             }
  
         }

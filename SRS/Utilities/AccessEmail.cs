@@ -20,7 +20,7 @@ namespace SRS.Utilities
        
         string from, to, cc, bcc, subject, body, server;
         private RetrieveData rd;
-        private bool Debug;
+        private bool debug;
 
  
         private void setEmailDefaults()
@@ -30,7 +30,7 @@ namespace SRS.Utilities
             cc = "CC".GetEmailSetting();
             bcc = "BCC".GetEmailSetting();
             subject = "EmailSubject".GetEmailSetting();
-            body = File.ReadAllText("EmailTemplate".GetEmailSetting());
+            body = File.ReadAllText("SummaryEmailTemplate".GetEmailSetting());
             server = "SMTPServer".GetEmailSetting();
         }
         private bool SendEmail(string to, string cc, string bcc, string subject, string body)
@@ -99,11 +99,11 @@ namespace SRS.Utilities
 
             return eBody;
         }
-        internal bool AccessEmailTemplate(string emailTemplateName, ref string subject, ref string body)
+        internal bool AccessEmailTemplate(string summaryEmailTemplateName, ref string subject, ref string body)
         {
             try
             {
-                switch (emailTemplateName)
+                switch (summaryEmailTemplateName)
                 {
                     case EmailTemplate.ExpiringContractorEmailTemplate:
                         subject = "".GetEmailSetting();
@@ -134,7 +134,7 @@ namespace SRS.Utilities
         {
             string Subject = "", Body = "", To = "", CC = "", BCC = "";
 
-            if (Debug)
+            if (debug)
             {
                 _log.Info("Sending debug email");
                 AccessEmailTemplate(EmailTemplate.DebugExpiringContractorEmailTemplate, ref Subject, ref Body);
@@ -146,11 +146,11 @@ namespace SRS.Utilities
                 AccessEmailTemplate(EmailTemplate.ExpiringContractorEmailTemplate, ref Subject, ref Body);
             }
 
-            To = AccessEmailTo(To, row, Debug);
-            CC = AccessEmailCC(CC, row, Debug);
-            BCC = AccessEmailBCC(BCC, row, Debug);
-            Subject = AccessEmailSubject(Subject, row, Debug);
-            Body = AccessEmailBody(Body, row, Debug);
+            To = AccessEmailTo(To, row, debug);
+            CC = AccessEmailCC(CC, row, debug);
+            BCC = AccessEmailBCC(BCC, row, debug);
+            Subject = AccessEmailSubject(Subject, row, debug);
+            Body = AccessEmailBody(Body, row, debug);
 
             _log.Info("The function of email sending call");
 
@@ -159,12 +159,12 @@ namespace SRS.Utilities
             if (Result)
             {
                 _log.Info("Sent email Successfully.");
-                return prependStatusMessage(Debug, "The email sent successfully.");
+                return prependStatusMessage(debug, "The email sent successfully.");
             }
             else
             {
                 _log.Info("Faild to send email.");
-                return prependStatusMessage(Debug, "Failed to send email.");
+                return prependStatusMessage(debug, "Failed to send email.");
             }
         }
     }
