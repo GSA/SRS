@@ -10,16 +10,16 @@ using SRS.Utilities;
 
 namespace SRS
 {
-    public static class Program
+   public class Program
     { 
-   //Reference to logger
+    //Reference to logger
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     //File paths from config file
     private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
-       // private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
+    // private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
     //Stopwatch objects
-    private static Stopwatch timeForApp = new Stopwatch();
+    private  static Stopwatch timeForApp = new Stopwatch();
 
     private static Stopwatch timeForProcess = new Stopwatch();
 
