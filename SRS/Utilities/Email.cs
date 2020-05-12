@@ -15,7 +15,7 @@ namespace SRS.Utilities
         protected string _strCc = string.Empty;
         protected string _strBcc = string.Empty;
         protected string _strSubject = string.Empty;
-        protected string _strMessageBody = string.Empty;
+        protected string _strBody = string.Empty;
         protected string _strAttachments = string.Empty;
         protected bool _IsBodyHtml = false;
 
@@ -23,14 +23,14 @@ namespace SRS.Utilities
         private SmtpClient SmtpMail = new SmtpClient();
 
         public void Send(string strFrom, string strTo, string strCc, string strBcc, string strSubject,
-                         string strMessageBody, string strAttachments, string strSmtpServer, bool IsBodyHtml = false)
+                         string strBody, string strAttachments, string strSmtpServer, bool IsBodyHtml = false)
         {
             _strFrom = strFrom;
             _strTo = strTo;
             _strCc = strCc;
             _strBcc = strBcc;
             _strSubject = strSubject;
-            _strMessageBody = strMessageBody;
+            _strBody = strBody;
             _strAttachments = strAttachments;
             _strSmtpServer = strSmtpServer;
             _IsBodyHtml = IsBodyHtml;
@@ -66,7 +66,7 @@ namespace SRS.Utilities
                         message.Bcc.Add(_strBcc);
 
                     message.Subject = _strSubject;
-                    message.Body = _strMessageBody;
+                    message.Body = _strBody;
                     message.IsBodyHtml = _IsBodyHtml;
 
                     if (_strAttachments.Contains(";"))

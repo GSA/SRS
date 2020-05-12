@@ -33,5 +33,6 @@ namespace SRS.Models
         public DateTime EndTime { get; set; }
         public DateTime  AccessingTime { get; set; }
         public object ContractorFileName { get; set; }
+        public string FileName { get; }
     }
 }

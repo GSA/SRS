@@ -54,10 +54,11 @@ namespace SRS.Process
         }
         public string GenerateEmailBody()
         {
+           
             StringBuilder fileNames = new StringBuilder();
             StringBuilder errors = new StringBuilder();
             
-            string emailTemplate = File.ReadAllText(ConfigurationManager.AppSettings["EmailTemplate"]);
+            string emailTemplate = File.ReadAllText(ConfigurationManager.AppSettings["SummaryTemplate"]);
 
             fileNames.Append(emailData.ContractorFileName == null ? "No Contractor File Found" : emailData.ContractorFileName.ToString());
             fileNames.Append(", ");
@@ -68,7 +69,6 @@ namespace SRS.Process
             emailTemplate = emailTemplate.Replace("[TimeBegin]", emailData.TimeBegin.ToString());
             emailTemplate = emailTemplate.Replace("[EndTime]", emailData.EndTime.ToString());
             emailTemplate = emailTemplate.Replace("[AccessingTime]", emailData.AccessingTime.ToString());
-
 
             if (emailData.ExpiringContractorHasErrors)
             {
@@ -99,7 +99,7 @@ namespace SRS.Process
             }
             else
             {
-                emailTemplate = emailTemplate.Replace("[IFExpiredContractorHasERRORS]", null);
+                emailTemplate = emailTemplate.Replace("[IfExpiredContractorHasERRORS]", null);
             }
             return emailTemplate;
         }
