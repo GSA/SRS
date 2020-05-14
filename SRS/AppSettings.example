@@ -1,4 +1,4 @@
-﻿  <appSettings>
+﻿ <appSettings>
     <add key="DEBUG" value="[TRUE/FALSE]" />
     <add key="ExpiringContractorProcessing" value="[TRUE/FALSE]" />
     <add key="ExpiredContractorProcessing" value="[TRUE/FALSE]" />

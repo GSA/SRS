@@ -52,6 +52,7 @@ namespace SRS.Process
                 _log.Info("Contractor Summary Email Sent");
             }
         }
+
         public string GenerateEmailBody()
         {
            
