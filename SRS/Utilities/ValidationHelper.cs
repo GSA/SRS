@@ -10,7 +10,7 @@ namespace SRS.Utilities
 {
     internal class ValidationHelper
     {
-        public enum Contractor { ContractorFile = 2 };
+        public enum Contractor { ContractorFile = 1 };
 
         public ValidationHelper()
         {

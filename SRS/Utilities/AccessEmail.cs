@@ -20,7 +20,7 @@ namespace SRS.Utilities
        
         string from, to, cc, bcc, subject, body, server;
         private RetrieveData rd;
-        private bool debug;
+        private bool Debug;
 
  
         private void setEmailDefaults()
@@ -59,7 +59,7 @@ namespace SRS.Utilities
         /// <param name="contractorData"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private string AccessEmailTo(string to, ContractorData contractorData, bool debug)
+        private string AccessEmailTo(string to, Contractor contractorData, bool debug)
         {
             return contractorData.pers_work_email;
         }
@@ -70,26 +70,26 @@ namespace SRS.Utilities
         /// <param name="contractorData"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private string AccessEmailCC(string cc, ContractorData contractorData, bool debug)
+        private string AccessEmailCC(string cc, Contractor contractorData, bool debug)
         {
             return contractorData.RegionalEmail;
         }
-        private string AccessEmailBCC(string bcc, ContractorData contractorData, bool debug)
+        private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
         {
             return contractorData.RegionalEmail;
         }
-        private string AccessEmailSubject(String subject, ContractorData contractorData, bool debug)
+        private string AccessEmailSubject(String subject, Contractor contractorData, bool debug)
         {
             string eSubject = subject;
 
             eSubject = eSubject.Replace("[PersID]", contractorData.PersID);
-            //eSubject = eSubject.Replace("[ContractNumber]", contractorData.contract_number);
+            //eSubject = eSubject.Replace("[ContractNumber]", contractor.contract_number);
             eSubject = eSubject.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eSubject;
         }
 
-        private string AccessEmailBody(string body, ContractorData contractorData, bool debug)
+        private string AccessEmailBody(string body, Contractor contractorData, bool debug)
         {
             string eBody = body;
 
@@ -130,11 +130,11 @@ namespace SRS.Utilities
             return message.Prepend(debug ? "**DEBUG** " : "");
         }
 
-        internal string SendExpiringContractorEmailTemplate(ContractorData row)
+        internal string SendExpiringContractorEmailTemplate(Contractor row)
         {
             string Subject = "", Body = "", To = "", CC = "", BCC = "";
 
-            if (debug)
+            if (Debug)
             {
                 _log.Info("Sending debug email");
                 AccessEmailTemplate(EmailTemplate.DebugExpiringContractorEmailTemplate, ref Subject, ref Body);
@@ -146,11 +146,11 @@ namespace SRS.Utilities
                 AccessEmailTemplate(EmailTemplate.ExpiringContractorEmailTemplate, ref Subject, ref Body);
             }
 
-            To = AccessEmailTo(To, row, debug);
-            CC = AccessEmailCC(CC, row, debug);
-            BCC = AccessEmailBCC(BCC, row, debug);
-            Subject = AccessEmailSubject(Subject, row, debug);
-            Body = AccessEmailBody(Body, row, debug);
+            To = AccessEmailTo(To, row, Debug);
+            CC = AccessEmailCC(CC, row, Debug);
+            BCC = AccessEmailBCC(BCC, row, Debug);
+            Subject = AccessEmailSubject(Subject, row, Debug);
+            Body = AccessEmailBody(Body, row, Debug);
 
             _log.Info("The function of email sending call");
 
@@ -159,35 +159,13 @@ namespace SRS.Utilities
             if (Result)
             {
                 _log.Info("Sent email Successfully.");
-                return prependStatusMessage(debug, "The email sent successfully.");
+                return prependStatusMessage(Debug, "The email sent successfully.");
             }
             else
             {
                 _log.Info("Faild to send email.");
-                return prependStatusMessage(debug, "Failed to send email.");
+                return prependStatusMessage(Debug, "Failed to send email.");
             }
-        }
-    }
-    public static class SettingMethods
-    {
-        public static string GetEmailSetting(this string setting)
-        {
-            return ConfigurationManager.AppSettings[setting];
-        }
-        public static string Prepend(this string x, string pre)
-        {
-            return pre + x;
-
-        }
-        public static DateTime GetDateTime(this DateTime date, string arg)
-        {
-            if (string.IsNullOrWhiteSpace(arg)) return DateTime.Now;
-            DateTime dt;
-            var isValidDate = DateTime.TryParse(arg, out dt);
-            if (isValidDate)
-                return dt;
-            Console.WriteLine("Invalid DATE");
-            throw new ArgumentException("Invalid date argument exception");
         }
     }
 }

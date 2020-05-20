@@ -9,7 +9,6 @@ namespace SRS.Lookups
     public class Lookup
     {
         //public List<RegionLookup> regionLookup { get; set; }
-
-       
+         
     }
 }

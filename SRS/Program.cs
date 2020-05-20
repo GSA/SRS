@@ -10,38 +10,38 @@ using SRS.Utilities;
 
 namespace SRS
 {
-   public static class Program
-    { 
-    //Reference to logger
-    private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-    //File paths from config file
-    private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
-    // private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
-    //Stopwatch objects
-    private  static Stopwatch timeForApp = new Stopwatch();
-
-    private static Stopwatch timeForProcess = new Stopwatch();
-
-    private static SRSMapper map = new SRSMapper();
-
-    private static IMapper dataMapper;
-    private static EmailData emailData = new EmailData();
-    private static bool expiringContractor = false;
-    private static bool expiredContractor = false;
-
-    public static void Main(string[] args)
+    public class Program
     {
-        //Start timer
-        timeForApp.Start();
+        //Reference to logger
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        //Log start of application
-        log.Info("Application Started: " + DateTime.Now);
+        //File paths from config file
+        private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
+        private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
+        //Stopwatch objects
+        private static Stopwatch timeForApp = new Stopwatch();
 
-       // CreateMaps();
-             
-        ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData); 
-        SendSummary sendSummary = new SendSummary(ref emailData);
+        private static Stopwatch timeForProcess = new Stopwatch();
+
+        private static SRSMapper map = new SRSMapper();
+
+        private static IMapper dataMapper;
+        private static EmailData emailData = new EmailData();
+        private static bool expiringContractor = false;
+        private static bool expiredContractor = false;
+
+        public static void Main(string[] args)
+        {
+            //Start timer
+            timeForApp.Start();
+
+            //Log start of application
+            log.Info("Application Started: " + DateTime.Now);
+
+            // CreateMaps();
+
+            ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData);
+            SendSummary sendSummary = new SendSummary(ref emailData);
             emailData.TimeBegin = DateTime.Now;
             emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
 
@@ -57,14 +57,20 @@ namespace SRS
                 if (expiringContractor)
                 {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
-                    processContractor.ProcessExpiringContractor();
+                    timeForProcess.Start();
+                    //processContractor.ProcessExpiringContractor(ContractorFilePath);
+                    timeForProcess.Stop();
                     log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
+                    log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
                 }
                 if(expiredContractor)
                 {
                     log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);
+                    timeForProcess.Start();
                     processContractor.ProcessExpiredContractor();
+                    timeForProcess.Stop();
                     log.Info("Time to Stop Expired Contractor Processing:" + DateTime.Now);
+                    log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
                 }
                 //log.Info("Start Contractor file Processing: " + DateTime.Now);
 
@@ -74,30 +80,31 @@ namespace SRS
 
                 log.Info("Done Contractor File processing: " + DateTime.Now);
                 log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
-                 
+
             }
-        else
+            else
             {
                 log.Error("Contractor File not found");
             }
-         
-        log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
-        log.Info("Sending SummaryEmail");
+            log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
-        sendSummary.SendSummaryEmail();
+            log.Info("Sending SummaryEmail");
 
-        log.Info("SummaryEmail sent");
+            sendSummary.SendSummaryEmail();
 
-        //Stop second timer
-        timeForApp.Stop();
+            log.Info("SummaryEmail sent");
 
-        //Log total time
-        log.Info(string.Format("Contractor processing Completed in {0} milliseconds", timeForApp.ElapsedMilliseconds));
+            //Stop second timer
+            timeForApp.Stop();
 
-        //Log processing end
-        log.Info("The end of processing Contractor: " + DateTime.Now);
-    }
+            //Log total time
+            log.Info(string.Format("Contractor processing Completed in {0} milliseconds", timeForApp.ElapsedMilliseconds));
+
+            //Log processing end
+            log.Info("The end of processing Contractor: " + DateTime.Now);
+
+        }
 
         private static void StartProcessing()
         {
@@ -107,28 +114,5 @@ namespace SRS
                 expiredContractor = true;
         }
 
-        //private static void CreateMaps()
-        //{
-        //    map.CreateDataConfig();
-        //    dataMapper = map.CreateDataMapping();
-        //}
-
-        //private static Lookup createLookups()
-        //{
-            //Lookup lookups;
-            //SRSMapper contractormap = new SRSMapper();
-            //IMapper lookupMapper;
-
-            //contractormap.CreateLookupConfig();
-
-            //lookupMapper = contractormap.CreateLookupMapping();
-
-            //LoadLookupData loadLookupData = new LoadLookupData(lookupMapper);
-
-            //lookups = loadLookupData.GetContractorLookupData();
-
-            //return lookups;
-        //}
-   }
-
+    }
 }

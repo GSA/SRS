@@ -5,11 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SRS.Process;
-  
+
 namespace SRS.Data
 {
     internal class RetrieveData
@@ -25,7 +21,7 @@ namespace SRS.Data
             //retrieveMapper.ConfigurationProvider.CompileMappings();
         }
 
-        public List<ContractorData> ExpiringContractor(DateTime accessingDate)
+        public List<Contractor> ExpiringContractor(DateTime accessingDate)
         {
             try
             {
@@ -38,11 +34,11 @@ namespace SRS.Data
                 ////Using Parameters
                 //MySqlCommand cmd = new MySqlCommand("SRS_GetContractors", conn);
 
-                List<ContractorData> allExpiringContractorData = new List<ContractorData>();
+                List<Contractor> allExpiringContractorData = new List<Contractor>();
 
                 using (conn)
                 {
-                    if (conn.State == ConnectionState.Closed)
+                    if (conn.State == System.Data.ConnectionState.Closed)
                         conn.Open();
 
                     using (cmd)
@@ -109,41 +105,41 @@ namespace SRS.Data
             catch (Exception ex)
             {
                 log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
-                return new List<ContractorData>();
+                return new List<Contractor>();
             }
         }
-             private List<ContractorData> MapAllContractorData(MySqlDataReader contractorData)
+             private List<Contractor> MapAllContractorData(MySqlDataReader contractorData)
         {
-            List<ContractorData> allRecords = new List<ContractorData>();
+            List<Contractor> allRecords = new List<Contractor>();
 
             log.Info("Contractor Retrieved Data: " + DateTime.Now);
             log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
             while (contractorData.Read())
             {
-                ContractorData allExpiringContractor = new ContractorData();
+                Contractor allExpiringContractor = new Contractor();
                 allExpiringContractor.PersID = contractorData[0].ToString();
                 allExpiringContractor.LastName = contractorData[1].ToString();
                 allExpiringContractor.FirstName = contractorData[2].ToString();
                 allExpiringContractor.MiddleName = contractorData[3].ToString();
                 allExpiringContractor.Suffix = contractorData[4].ToString(); 
-                allExpiringContractor.conpoc_email = contractorData[9].ToString(); 
                 allExpiringContractor.pers_investigation_date = (DateTime)contractorData[5];
                 allExpiringContractor.DaysToExpiration = contractorData.GetInt32(6);
                 allExpiringContractor.RegionalEmail = contractorData[7].ToString();
                 allExpiringContractor.pers_work_email = contractorData[8].ToString();
+                allExpiringContractor.conpoc_email = contractorData[9].ToString();
 
                 allRecords.Add(allExpiringContractor);
             }
             return allRecords;
         }
-        public List<ContractorData> allExpiredContractorData(DateTime accessingDate)
+        public List<Contractor> allExpiredContractorData(DateTime accessingDate)
         {
             try
             {
                 MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
 
                 MySqlCommand cmd = new MySqlCommand();
-                List<ContractorData> allExpiredContractorData = new List<ContractorData>();
+                List<Contractor> allExpiredContractorData = new List<Contractor>();
 
                 using (conn)
                 {
@@ -190,19 +186,19 @@ namespace SRS.Data
             catch (Exception ex)
             {
                 log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
-                return new List<ContractorData>();
+                return new List<Contractor>();
             }
 
         }
-        private List<ContractorData> MapAllExpiredContractorData(MySqlDataReader contractorData)
+        private List<Contractor> MapAllExpiredContractorData(MySqlDataReader contractorData)
         {
-            List<ContractorData> allRecords = new List<ContractorData>();
+            List<Contractor> allRecords = new List<Contractor>();
 
             log.Info("Contractor Retrieved Data: " + DateTime.Now);
             log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
             while (contractorData.Read())
             {
-                ContractorData allExpiredContractor = new ContractorData();
+                Contractor allExpiredContractor = new Contractor();
                 allExpiredContractor.PersID = contractorData[0].ToString();
                 allExpiredContractor.LastName = contractorData[1].ToString();
                 allExpiredContractor.FirstName = contractorData[2].ToString();
