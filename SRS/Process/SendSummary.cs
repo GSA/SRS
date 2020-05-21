@@ -70,11 +70,11 @@ namespace SRS.Process
             fileName.Append(", ");
 
             emailBody = emailBody.Replace("[FileName]", fileName.ToString());
-                            emailBody = emailBody.Replace("[AccessingDate]", emailData.AccessingDate.ToString());
-                            emailBody = emailBody.Replace("[NumberOfRecords]", emailData.ExpiringContractorRecords.ToString());
-                            emailBody = emailBody.Replace("[TimeBegin]", emailData.TimeBegin.ToString());
-                            emailBody = emailBody.Replace("[EndTime]", emailData.EndTime.ToString());
-                            emailBody = emailBody.Replace("[AccessingTime]", emailData.AccessingTime.ToString());
+            emailBody = emailBody.Replace("[AccessingDate]", emailData.AccessingDate.ToString());
+            emailBody = emailBody.Replace("[NumberOfRecords]", emailData.ExpiringContractorRecords.ToString());
+            emailBody = emailBody.Replace("[TimeBegin]", emailData.TimeBegin.ToString());
+            emailBody = emailBody.Replace("[EndTime]", emailData.EndTime.ToString());
+            emailBody = emailBody.Replace("[AccessingTime]", emailData.AccessingTime.ToString());
 
             if (emailData.ExpiringContractorHasErrors)
             {
