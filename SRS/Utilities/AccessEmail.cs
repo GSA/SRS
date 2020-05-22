@@ -99,11 +99,11 @@ namespace SRS.Utilities
 
             return eBody;
         }
-        internal bool AccessEmailTemplate(string summaryEmailTemplateName, ref string subject, ref string body)
+        internal bool AccessEmailTemplate(string emailBodyName, ref string subject, ref string body)
         {
             try
             {
-                switch (summaryEmailTemplateName)
+                switch (emailBodyName)
                 {
                     case EmailTemplate.ExpiringContractorEmailTemplate:
                         subject = "".GetEmailSetting();

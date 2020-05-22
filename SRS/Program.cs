@@ -16,8 +16,8 @@ namespace SRS
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         //File paths from config file
-        private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
-        private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
+       // private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
+        //private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
         //Stopwatch objects
         private static Stopwatch timeForApp = new Stopwatch();
 
@@ -52,13 +52,13 @@ namespace SRS
             log.Info("Contractors File Processing:" + DateTime.Now);
 
             //Contractor file
-            if (File.Exists(ContractorFilePath))
-            {
+            //if (File.Exists(ContractorFilePath))
+            //{
                 if (expiringContractor)
                 {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
-                    //processContractor.ProcessExpiringContractor(ContractorFilePath);
+                    processContractor.ProcessExpiringContractor();
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
                     log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
@@ -75,13 +75,13 @@ namespace SRS
                 //log.Info("Start Contractor file Processing: " + DateTime.Now);
 
                 //timeForProcess.Start();
-                ////processContractor.ProcessContractorFile(ContractorFilePath);
+                //processContractor.ProcessContractorFile();
                 //timeForProcess.Stop();
 
-                log.Info("Done Contractor File processing: " + DateTime.Now);
-                log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
+                //log.Info("Done Contractor File processing: " + DateTime.Now);
+                //log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
 
-            }
+           // }
             else
             {
                 log.Error("Contractor File not found");

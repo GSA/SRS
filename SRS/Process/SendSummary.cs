@@ -4,8 +4,6 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
 
 namespace SRS.Process
 {
@@ -63,18 +61,18 @@ namespace SRS.Process
             StringBuilder errors = new StringBuilder();
             StringBuilder fileName = new StringBuilder();
              
-                    string emailBody = File.ReadAllText(ConfigurationManager.AppSettings["SummaryTemplate"].ToString());
+            string emailBody = File.ReadAllText(ConfigurationManager.AppSettings["SummaryTemplate"].ToString());
 
-            fileName.Append(emailData.ContractorFileName == null ? "No Contractor File Found" : emailData.ContractorFileName.ToString());
+            //fileName.Append(emailData.ContractorFileName == null ? "No Contractor File Found" : emailData.ContractorFileName.ToString());
 
-            fileName.Append(", ");
-
-            emailBody = emailBody.Replace("[FileName]", fileName.ToString());
-            emailBody = emailBody.Replace("[AccessingDate]", emailData.AccessingDate.ToString());
-            emailBody = emailBody.Replace("[NumberOfRecords]", emailData.ExpiringContractorRecords.ToString());
-            emailBody = emailBody.Replace("[TimeBegin]", emailData.TimeBegin.ToString());
-            emailBody = emailBody.Replace("[EndTime]", emailData.EndTime.ToString());
-            emailBody = emailBody.Replace("[AccessingTime]", emailData.AccessingTime.ToString());
+            //fileName.Append(", ");
+            //replacing the parameters
+            emailBody = emailBody.Replace("{FileName}", fileName.ToString());
+            emailBody = emailBody.Replace("{AccessingDate}", emailData.AccessingDate.ToString());
+            emailBody = emailBody.Replace("{NumberOfRecords}", emailData.ExpiringContractorRecords.ToString());
+            emailBody = emailBody.Replace("{TimeBegin}", emailData.TimeBegin.ToString());
+            emailBody = emailBody.Replace("{EndTime}", emailData.EndTime.ToString());
+            emailBody = emailBody.Replace("{AccessingTime}", emailData.AccessingTime.ToString());
 
             if (emailData.ExpiringContractorHasErrors)
             {
