@@ -201,9 +201,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="AppSettings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -221,9 +218,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConnectionStrings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Templates\ContractorReminding.html" />
     <Content Include="Templates\ContractorSummary.html" />
   </ItemGroup>
