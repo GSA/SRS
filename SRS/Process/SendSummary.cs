@@ -13,67 +13,76 @@ namespace SRS.Process
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly EmailData emailData = new EmailData();
-
+       
         public SendSummary(ref EmailData emailData)
         {
             this.emailData = emailData;
         }
 
-        public void SendSummaryEmail()
+        public void SummaryEmailContent()
         {
             Email email = new Email();
 
             string subject = string.Empty;
-            string emailBody = string.Empty;
+            string body = string.Empty;
             string attachments = string.Empty;
-            string fileName = string.Empty;
-
-            subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
-
-            emailBody = GenerateEmailBody();
+            //string fileNames = string.Empty;
            
+                subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
+            
+            body = GenerateEmailBody();
+
             attachments = SummaryAttachments();
 
-                    try
-                    {
-                        using (email)
-                        {
-                            email.Send(ConfigurationManager.AppSettings["DefaultEmail"].ToString(),
-                                       ConfigurationManager.AppSettings["To"].ToString(),
-                                       ConfigurationManager.AppSettings["Cc"].ToString(),
-                                       ConfigurationManager.AppSettings["Bcc"].ToString(),
-                                       subject, emailBody, attachments.TrimEnd(';'),
-                                       ConfigurationManager.AppSettings["SMTPServer"].ToString(), true);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
-                    }
-                    finally
-                    {
-                        _log.Info("Contractor Summary Email Sent");
-                    }
+            try
+            {
+                using (email)
+                {
+                    email.Send(ConfigurationManager.AppSettings["DefaultEmail"].ToString(),
+                               ConfigurationManager.AppSettings["To"].ToString(),
+                               ConfigurationManager.AppSettings["Cc"].ToString(),
+                               ConfigurationManager.AppSettings["Bcc"].ToString(),
+                               subject, body, attachments.TrimEnd(';'), ConfigurationManager.AppSettings["SMTPServer"].ToString(), true);
                 }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+            }
+            finally
+            {
+                _log.Info("Contractor Summary Email Sent");
+            }
+            
+        }
 
         public string GenerateEmailBody()
         {
+
             StringBuilder errors = new StringBuilder();
-            StringBuilder fileName = new StringBuilder();
-             
-            string emailBody = File.ReadAllText(ConfigurationManager.AppSettings["SummaryTemplate"].ToString());
+            StringBuilder fileNames = new StringBuilder();
 
-            //fileName.Append(emailData.ContractorFileName == null ? "No Contractor File Found" : emailData.ContractorFileName.ToString());
+            //GenerateEmailBody message = new GenerateEmailBody();
+            //message.Body = fileNames.ToString();
 
-            //fileName.Append(", ");
+            string template = File.ReadAllText(ConfigurationManager.AppSettings["Summary"].ToString());
+
+            fileNames.Append(emailData.ExpiringContractorSummary == null ? "No Contractor File Found" : emailData.ExpiringContractorSummary.ToString());
+            fileNames.Append(", ");
+            fileNames.Append(emailData.ExpiredContractorSummary == null ? "No Contractor File Found" : emailData.ExpiredContractorSummary.ToString());
+            fileNames.Append(", ");
             //replacing the parameters
-            emailBody = emailBody.Replace("{FileName}", fileName.ToString());
-            emailBody = emailBody.Replace("{AccessingDate}", emailData.AccessingDate.ToString());
-            emailBody = emailBody.Replace("{NumberOfRecords}", emailData.ExpiringContractorRecords.ToString());
-            emailBody = emailBody.Replace("{TimeBegin}", emailData.TimeBegin.ToString());
-            emailBody = emailBody.Replace("{EndTime}", emailData.EndTime.ToString());
-            emailBody = emailBody.Replace("{AccessingTime}", emailData.AccessingTime.ToString());
+            //using (StreamReader reader = new StreamReader("Summary.html"))
+            //{
+            template = template.Replace("[FileName]", fileNames.ToString());
+            template = template.Replace("[AccessingDate]", emailData.AccessingDate.ToString());
+            template = template.Replace("[NumberOfRecords]", emailData.ExpiringContractorRecords.ToString());
+            template = template.Replace("[TimeBegin]", emailData.TimeBegin.ToString());
+            template = template.Replace("[EndTime]", emailData.EndTime.ToString());
+            template = template.Replace("[AccessingTime", emailData.AccessingTime.ToString());
 
+       // }
+             
             if (emailData.ExpiringContractorHasErrors)
             {
                 errors.Clear();
@@ -83,11 +92,11 @@ namespace SRS.Process
                 errors.Append(emailData.ExpiringContractorUnsuccessfulFileName);
                 errors.Append("</font></b>");
 
-                emailBody = emailBody.Replace("[IfExpiringContractorHasERRORS]", errors.ToString());
+                template = template.Replace("[IfExpiringContractorHasERRORS]", errors.ToString());
             }
             else
             {
-                emailBody = emailBody.Replace("[IfExpiringContractorHasERRORS]", null);
+                template = template .Replace("[IfExpiringContractorHasERRORS]", null);
             }
 
             if (emailData.ExpiredContractorHasErrors)
@@ -99,15 +108,16 @@ namespace SRS.Process
                 errors.Append(emailData.ExpiredContractorUnsuccessfulFileName);
                 errors.Append("</font></b>");
 
-                emailBody = emailBody.Replace("[IFExpiredContractorHasERRORS]", errors.ToString());
+                template = template.Replace("[IFExpiredContractorHasERRORS]", errors.ToString());
             }
             else
             {
-                emailBody = emailBody.Replace("[IfExpiredContractorHasERRORS]", null);
+                template = template.Replace("[IfExpiredContractorHasERRORS]", null);
             }
-            return emailBody;
-                        }
-                    
+            return template.ToString();
+             
+        }
+
         private string SummaryAttachments()
         {
             StringBuilder attachments = new StringBuilder();

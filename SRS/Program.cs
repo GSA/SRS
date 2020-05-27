@@ -25,7 +25,7 @@ namespace SRS
 
         private static SRSMapper map = new SRSMapper();
 
-        private static IMapper dataMapper;
+        //private static IMapper dataMapper;
         private static EmailData emailData = new EmailData();
         private static bool expiringContractor = false;
         private static bool expiredContractor = false;
@@ -40,7 +40,7 @@ namespace SRS
 
             // CreateMaps();
 
-            ProcessContractor processContractor = new ProcessContractor(dataMapper, ref emailData);
+            ProcessContractor processContractor = new ProcessContractor();
             SendSummary sendSummary = new SendSummary(ref emailData);
             emailData.TimeBegin = DateTime.Now;
             emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
@@ -58,7 +58,7 @@ namespace SRS
                 {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
-                    processContractor.ProcessExpiringContractor();
+                    processContractor.ProcessExpiringContractor(ref emailData);
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
                     log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
@@ -91,7 +91,7 @@ namespace SRS
 
             log.Info("Sending SummaryEmail");
 
-            sendSummary.SendSummaryEmail();
+            sendSummary.SummaryEmailContent();
 
             log.Info("SummaryEmail sent");
 

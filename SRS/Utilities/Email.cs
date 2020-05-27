@@ -17,13 +17,13 @@ namespace SRS.Utilities
         protected string _strSubject = string.Empty;
         protected string _strBody = string.Empty;
         protected string _strAttachments = string.Empty;
-        protected bool _IsBodyHtml = false;
+        protected bool _IsBodyHtml = true;
 
         private MailMessage message = new MailMessage();
         private SmtpClient SmtpMail = new SmtpClient();
 
         public void Send(string strFrom, string strTo, string strCc, string strBcc, string strSubject,
-                         string strBody, string strAttachments, string strSmtpServer, bool IsBodyHtml = false)
+                         string strBody, string strAttachments, string strSmtpServer, bool IsBodyHtml = true)
         {
             _strFrom = strFrom;
             _strTo = strTo;

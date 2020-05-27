@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<appSettings>
+﻿<appSettings>
   <add key="DEBUG" value="[TRUE/FALSE]" />
   <add key="ExpiringContractorProcessing" value="[TRUE/FALSE]" />
   <add key="ExpiredContractorProcessing" value="[TRUE/FALSE]" />
@@ -7,12 +6,12 @@
   <add key="Subject" value="" />
   <add key="DefaultEmail" value="[email]" />
   <add key="Bcc" value="[email]" />
-  <add key="SummarySubject" value="" />
+  <add key="SummarySubject" value="SRS Reminder" />
   <add key="TO" value="[email]" />
   <add key="CC" value="[email]" />
   <add key="BCC" value="[email]" />
   <add key="SummaryFilePath" value="[path]" />
-  <add key="SummaryTemplate" value="[FileName]" />
+  <add key="Summary" value="[path]" />
   <add key="ContractorFilePath" value="[path]" />
   <add key="SummaryEmailTemplate" value="[path]" />
   <add key="SuccessfullSummaryFilename" value="[FileName]" />

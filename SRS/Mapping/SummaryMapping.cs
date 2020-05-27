@@ -11,11 +11,11 @@ namespace SRS.Mapping
 {
     internal sealed class ExpiringContractorSummaryMapping : ClassMap<ExpiringContractorSummary>
     {
-        private Lookup lookups;
+       // private Lookup lookups;
 
         public ExpiringContractorSummaryMapping()
         {
-           // Map(m => m.contract_unid).Name("Contract unid");
+          
             Map(m => m.PersID).Name("Person ID");
             Map(m => m.FirstName).Name("First Name");
             Map(m => m.MiddleName).Name("Middle Name");
@@ -28,11 +28,7 @@ namespace SRS.Mapping
             Map(m => m.conpoc_email).Name("vender email"); 
         }
 
-        public ExpiringContractorSummaryMapping(Lookup lookups)
-        {
-            this.lookups = lookups;
-        }
-    }
+      }
 
     internal sealed class ExpiredContractorSummaryMapping : ClassMap<ExpiredContractorSummary>
     {

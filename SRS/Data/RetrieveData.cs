@@ -12,13 +12,13 @@ namespace SRS.Data
     {
         //Reference to logger
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IMapper retrieveMapper;
+        //private readonly IMapper retrieveMapper;
 
-        public RetrieveData(IMapper mapper)
+        public RetrieveData()
         {
-            retrieveMapper = mapper;
+            //retrieveMapper = mapper;
 
-            //retrieveMapper.ConfigurationProvider.CompileMappings();
+           // retrieveMapper.ConfigurationProvider.CompileMappings();
         }
 
         public List<Contractor> ExpiringContractor(DateTime accessingDate)
@@ -56,51 +56,88 @@ namespace SRS.Data
                         log.Info("Contractor data of expiration: " + DateTime.Now);
 
                         contractorData = cmd.ExecuteReader();
-                        var myReader = cmd.ExecuteReader();
-                        if (myReader.HasRows)
+                        //                var myReader = cmd.ExecuteReader();
+                        //                if (myReader.HasRows)
+                        //                {
+                        //                    //record found
+                        //                    myReader.Read();
+                        //                    var expiryDate = myReader.GetDateTime("expirationdate");
+
+                        //                    int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
+                        //                    string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
+                        //                    //expiryDate = time.ToFileTimeUtc();
+
+                        //                    //else if (DateTime.Today < expiryDate)
+                        //                    // else if (daysToExpiration <= 30)
+                        //                    if (daysToExpiration <= 30)
+                        //                    {
+                        //                        string lableCaption = daysToExpiration + "days more to contract expired.";
+                        //                        DateTime time = DateTime.Today.AddDays(30);
+                        //                        //useSeconds = false;
+                        //                    }
+                        //                    else if (daysToExpiration <= 15)
+                        //                    {
+                        //                        string lableCaption = daysToExpiration + "days more to contract expired.";
+                        //                        DateTime time = DateTime.Today.AddDays(15);
+                        //                        //useSeconds = false;
+                        //                    }
+                        //                    else if (daysToExpiration <= 7)
+                        //                    {
+                        //                        string lableCaption = daysToExpiration + "days more to contract expired.";
+                        //                        DateTime time = DateTime.Today.AddDays(7);
+                        //                        //useSeconds = false;
+                        //                    }
+
+                        //                }
+
+                        //                using (contractorData)
+                        //                {
+                        //                    if (contractorData.HasRows)
+                        //                    {
+                        //                        allExpiringContractorData = MapAllContractorData(contractorData);
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+
+                        //        return allExpiringContractorData;
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+                        //        log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
+                        //        return new List<Contractor>();
+                        //    }
+                        //}
+                        //     private List<Contractor> MapAllContractorData(MySqlDataReader contractorData)
+                        //{
+                        // List<Contractor> allRecords = new List<Contractor>();
+
+                        log.Info("Contractor Retrieved Data: " + DateTime.Now);
+                        log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+
+                        while (contractorData.Read())
                         {
-                            //record found
-                            myReader.Read();
-                            var expiryDate = myReader.GetDateTime("expirationdate");
-
-                            int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
-                            string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
-                            //expiryDate = time.ToFileTimeUtc();
- 
-                            //else if (DateTime.Today < expiryDate)
-                            // else if (daysToExpiration <= 30)
-                            if (daysToExpiration <= 30)
-                            {
-                                string lableCaption = daysToExpiration + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(30);
-                                //useSeconds = false;
-                            }
-                            else if (daysToExpiration <= 15)
-                            {
-                                string lableCaption = daysToExpiration + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(15);
-                                //useSeconds = false;
-                            }
-                            else if (daysToExpiration <= 7)
-                            {
-                                string lableCaption = daysToExpiration + "days more to contract expired.";
-                                DateTime time = DateTime.Today.AddDays(7);
-                                //useSeconds = false;
-                            }
-
+                            allExpiringContractorData.Add(
+                                new Contractor
+                                {
+                                    //Contractor allExpiringContractor = new Contractor();
+                                    PersID = contractorData[0].ToString(),
+                                    LastName = contractorData[1].ToString(),
+                                    FirstName = contractorData[2].ToString(),
+                                    MiddleName = contractorData[3].ToString(),
+                                    pers_investigation_date = (DateTime)contractorData[5],
+                                    DaysToExpiration = contractorData.GetInt32(6),
+                                    RegionalEmail = contractorData[7].ToString(),
+                                    pers_work_email = contractorData[8].ToString(),
+                                    //allExpiringContractor.conpoc_email = contractorData[9].ToString()
+                                }
+                           );
                         }
 
-                        using (contractorData)
-                        {
-                            if (contractorData.HasRows)
-                            {
-                                allExpiringContractorData = MapAllContractorData(contractorData);
-                            }
-                        }
+                        log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
                     }
+                    return allExpiringContractorData;
                 }
-
-                return allExpiringContractorData;
             }
             catch (Exception ex)
             {
@@ -108,30 +145,7 @@ namespace SRS.Data
                 return new List<Contractor>();
             }
         }
-             private List<Contractor> MapAllContractorData(MySqlDataReader contractorData)
-        {
-            List<Contractor> allRecords = new List<Contractor>();
 
-            log.Info("Contractor Retrieved Data: " + DateTime.Now);
-            log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
-            while (contractorData.Read())
-            {
-                Contractor allExpiringContractor = new Contractor();
-                allExpiringContractor.PersID = contractorData[0].ToString();
-                allExpiringContractor.LastName = contractorData[1].ToString();
-                allExpiringContractor.FirstName = contractorData[2].ToString();
-                allExpiringContractor.MiddleName = contractorData[3].ToString();
-                allExpiringContractor.Suffix = contractorData[4].ToString(); 
-                allExpiringContractor.pers_investigation_date = (DateTime)contractorData[5];
-                allExpiringContractor.DaysToExpiration = contractorData.GetInt32(6);
-                allExpiringContractor.RegionalEmail = contractorData[7].ToString();
-                allExpiringContractor.pers_work_email = contractorData[8].ToString();
-                allExpiringContractor.conpoc_email = contractorData[9].ToString();
-
-                allRecords.Add(allExpiringContractor);
-            }
-            return allRecords;
-        }
         public List<Contractor> allExpiredContractorData(DateTime accessingDate)
         {
             try
@@ -161,63 +175,57 @@ namespace SRS.Data
                         log.Info("Contractor data of expiration: " + DateTime.Now);
 
                         contractorData = cmd.ExecuteReader();
-                        var myReader = cmd.ExecuteReader();
-                        if (myReader.HasRows)
+                        //        var myReader = cmd.ExecuteReader();
+                        //        if (myReader.HasRows)
+                        //        {
+                        //            //record found
+                        //            myReader.Read();
+                        //            var expiryDate = myReader.GetDateTime("expirationdate");
+
+                        //            int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
+                        //            string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
+                        //            // if (DateTime.Today <= expiryDate)
+                        //            if (daysToExpiration <= 0)
+                        //            {
+
+                        //                string lableCaption = daysToExpiration + " Contract expired.";
+                        //                DateTime time = DateTime.Today.AddDays(0);
+                        //            }
+                        //        }
+                        //    }
+
+
+                        log.Info("Contractor Retrieved Data: " + DateTime.Now);
+                        log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+                        while (contractorData.Read())
                         {
-                            //record found
-                            myReader.Read();
-                            var expiryDate = myReader.GetDateTime("expirationdate");
-
-                            int daysToExpiration = (int)(DateTime.Today - expiryDate).TotalDays;
-                            string labelCaption = String.Format("{0} day(s) left.", daysToExpiration);
-                            // if (DateTime.Today <= expiryDate)
-                            if (daysToExpiration <= 0)
-                            {
-
-                                string lableCaption = daysToExpiration + " Contract expired.";
-                                DateTime time = DateTime.Today.AddDays(0);
-                            }
+                            allExpiredContractorData.Add(
+                                           new Contractor
+                                           {
+                                   //Contractor allExpiringContractor = new Contractor();
+                                   PersID = contractorData[0].ToString(),
+                                               LastName = contractorData[1].ToString(),
+                                               FirstName = contractorData[2].ToString(),
+                                               MiddleName = contractorData[3].ToString(),
+                                               pers_investigation_date = (DateTime)contractorData[5],
+                                               DaysToExpiration = contractorData.GetInt32(6),
+                                               RegionalEmail = contractorData[7].ToString(),
+                                               pers_work_email = contractorData[8].ToString(),
+                                   //allExpiringContractor.conpoc_email = contractorData[9].ToString()
+                               }
+                                      );
                         }
+                        log.Info("Adding Contractor expired data to object: " + DateTime.Now);
                     }
+                    return allExpiredContractorData;
                 }
-
-                return allExpiredContractorData;
             }
             catch (Exception ex)
             {
                 log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
                 return new List<Contractor>();
             }
-
-        }
-        private List<Contractor> MapAllExpiredContractorData(MySqlDataReader contractorData)
-        {
-            List<Contractor> allRecords = new List<Contractor>();
-
-            log.Info("Contractor Retrieved Data: " + DateTime.Now);
-            log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
-            while (contractorData.Read())
-            {
-                Contractor allExpiredContractor = new Contractor();
-                allExpiredContractor.PersID = contractorData[0].ToString();
-                allExpiredContractor.LastName = contractorData[1].ToString();
-                allExpiredContractor.FirstName = contractorData[2].ToString();
-                allExpiredContractor.MiddleName = contractorData[3].ToString();
-                allExpiredContractor.Suffix = contractorData[4].ToString(); 
-                allExpiredContractor.conpoc_email = contractorData.ToString(); 
-                allExpiredContractor.pers_investigation_date = (DateTime)contractorData[5];
-                allExpiredContractor.DaysToExpiration  = contractorData.GetInt32(6);
-                allExpiredContractor.RegionalEmail = contractorData[7].ToString();
-                allExpiredContractor.pers_work_email = contractorData[8].ToString();
-
-                allRecords.Add(allExpiredContractor);
-            }
-
-            return allRecords;
-        }
-
-        
         }
     }
-
+}
  

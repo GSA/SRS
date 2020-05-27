@@ -12,36 +12,7 @@ using System.Threading.Tasks;
 
 namespace SRS.Utilities
 {
-    internal class SummaryFileGenerator
-    {
-        //Reference to logger
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        //private readonly CultureInfo configuration;
-
-        internal string GenerateSummaryFile<TClass, TMap>(string fileName, IEnumerable<TClass> summaryData)
-            where TClass : class
-            where TMap : ClassMap<TClass>
-        {
-            try
-            {
-                var summaryFileName = fileName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss_FFFF") + ".csv";
-
-                TextWriter summaryFile = File.CreateText(ConfigurationManager.AppSettings["SUMMARYFILEPATH"] + summaryFileName);
-                using (CsvWriter csvWriter = new CsvWriter(summaryFile, CultureInfo.CurrentCulture, false)) 
-                {
-                    csvWriter.Configuration.RegisterClassMap<TMap>();
-                    csvWriter.WriteRecords(summaryData);
-                }
-
-                return summaryFileName;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Error Writing Summary File: " + fileName + " - " + ex.Message + " - " + ex.InnerException);
-                return string.Empty;
-            }
-        }
-    }
+    
 
     internal class FileReader
     {
@@ -103,5 +74,34 @@ namespace SRS.Utilities
             }
           }
         }
-     
+    internal class SummaryFileGenerator
+    {
+        //Reference to logger
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private readonly CultureInfo configuration;
+
+        internal string GenerateSummaryFile<TClass, TMap>(string fileName, IEnumerable<TClass> summaryData)
+            where TClass : class
+            where TMap : ClassMap<TClass>
+        {
+            try
+            {
+                var summaryFileName = fileName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss_FFFF") + ".csv";
+
+                TextWriter summaryFile = File.CreateText(ConfigurationManager.AppSettings["SUMMARYFILEPATH"] + summaryFileName);
+                using (CsvWriter csvWriter = new CsvWriter(summaryFile, CultureInfo.CurrentCulture, false))
+                {
+                    csvWriter.Configuration.RegisterClassMap<TMap>();
+                    csvWriter.WriteRecords(summaryData);
+                }
+
+                return summaryFileName;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error Writing Summary File: " + fileName + " - " + ex.Message + " - " + ex.InnerException);
+                return string.Empty;
+            }
+        }
+    }
 }

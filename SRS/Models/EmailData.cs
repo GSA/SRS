@@ -15,16 +15,16 @@ namespace SRS.Models
         public Int64 ExpiringContractorRecordsNotFound { get; set; }
         public Int64 ExpiredContractorRecordsNotFound { get; set; }
 
-        public String ExpiringContractorSuccessfulFileName { get; set; }
-        public String ExpiredContractorSuccessfulFileName { get; set; }
-        public String ExpiringContractorUnsuccessfulFileName { get; set; }
-        public String ExpiredContractorUnsuccessfulFileName { get; set; }
+        public string ExpiringContractorSuccessfulFileName { get; set; }
+        public string ExpiredContractorSuccessfulFileName { get; set; }
+        public string ExpiringContractorUnsuccessfulFileName { get; set; }
+        public string ExpiredContractorUnsuccessfulFileName { get; set; }
 
-        public String ExpiringContractorSummary { get; set; }
-        public String ExpiredContractorSummary { get; set; }
+        public string ExpiringContractorSummary { get; set; }
+        public string ExpiredContractorSummary { get; set; }
 
-        public String ExpiringContractorRecordsNotFoundFileName { get; set; }
-        public String ExpiredContractorRecordsNotFoundFileName { get; set; }
+        public string ExpiringContractorRecordsNotFoundFileName { get; set; }
+        public string ExpiredContractorRecordsNotFoundFileName { get; set; }
 
         public bool ExpiringContractorHasErrors { get; set; }
         public bool ExpiredContractorHasErrors { get; set; }
@@ -32,7 +32,7 @@ namespace SRS.Models
         public DateTime TimeBegin { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime  AccessingTime { get; set; }
-        public object ContractorFileName { get; set; }
-        public string FileName { get; }
+        //public object ContractorFileName { get; set; }
+        //public string FileName { get; }
     }
 }
