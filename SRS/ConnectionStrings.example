@@ -1,3 +1,3 @@
 ﻿<connectionStrings>
-  <add name="hspd" connectionString="Server=[]; Port=[port]; user id=[aeshetie]; password=[];persist security info=True;database=hspd; pooling=true;" providerName="MySql.Data.MySqlClient" />
+    <add name="[hspd]" connectionString="Server=[IP Address]; Port=[port]; user id=[username]; password=[password];persist security info=True;database=hspd; pooling=true;" providerName="MySql.Data.MySqlClient" />
 </connectionStrings>

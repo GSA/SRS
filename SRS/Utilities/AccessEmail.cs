@@ -38,18 +38,18 @@ namespace SRS.Utilities
             _log.Info("Email Configuration");
             setEmailDefaults();
 
-            string From, To, CC, BCC, Subject, emailBody, Attachments, SMTPServer;
+            string From, To, CC, BCC, Subject, Body, Attachments, SMTPServer;
 
             From = from;
             To = to;
             CC = cc;
             BCC = bcc;
             Subject = subject;
-            emailBody = body;
+            Body = body;
             Attachments = "";
             SMTPServer = server;
 
-            email.Send(From, To, CC, BCC, Subject, emailBody, Attachments, SMTPServer, true);
+            email.Send(From, To, CC, BCC, Subject, Body, Attachments, SMTPServer, true);
             return true;
         }
         /// <summary>
@@ -99,7 +99,7 @@ namespace SRS.Utilities
 
             return eBody;
         }
-        internal bool AccessEmailTemplate(string emailBodyName, ref string subject, ref string emailBody)
+        internal bool AccessEmailTemplate(string emailBodyName, ref string subject, ref string body)
         {
             try
             {
@@ -107,11 +107,11 @@ namespace SRS.Utilities
                 {
                     case EmailTemplate.ExpiringContractorEmailTemplate:
                         subject = "EMAILSUBJECT".GetEmailSetting();
-                        emailBody = File.ReadAllText("EMAILTEMPLATE".GetEmailSetting());
+                        body = File.ReadAllText("TEMPLATE".GetEmailSetting());
                         break;
                     case EmailTemplate.ExpiredContractorEmailTemplate:
                         subject = "".GetEmailSetting();
-                        emailBody = File.ReadAllText("".GetEmailSetting());
+                        body = File.ReadAllText("".GetEmailSetting());
                         break;
                     default:
                         break;
@@ -132,29 +132,29 @@ namespace SRS.Utilities
 
         internal string SendExpiringContractorEmailTemplate(Contractor row)
         {
-            string Subject = "", EmailBody = "", To = "", CC = "", BCC = "";
+            string Subject = "", Body = "", To = "", CC = "", BCC = "";
 
             if (Debug)
             {
                 _log.Info("Sending debug email");
-                AccessEmailTemplate(EmailTemplate.DebugExpiringContractorEmailTemplate, ref Subject, ref EmailBody);
+                AccessEmailTemplate(EmailTemplate.DebugExpiringContractorEmailTemplate, ref Subject, ref Body);
 
             }
             else
             {
                 _log.Info("Sending email.");
-                AccessEmailTemplate(EmailTemplate.ExpiringContractorEmailTemplate, ref Subject, ref EmailBody);
+                AccessEmailTemplate(EmailTemplate.ExpiringContractorEmailTemplate, ref Subject, ref Body);
             }
 
             To = AccessEmailTo(To, row, Debug);
             CC = AccessEmailCC(CC, row, Debug);
             BCC = AccessEmailBCC(BCC, row, Debug);
             Subject = AccessEmailSubject(Subject, row, Debug);
-            EmailBody = AccessEmailBody(EmailBody, row, Debug);
+            Body = AccessEmailBody(Body, row, Debug);
 
             _log.Info("The function of email sending call");
 
-            bool Result = SendEmail(To, CC, BCC, Subject, EmailBody);
+            bool Result = SendEmail(To, CC, BCC, Subject, Body);
 
             if (Result)
             {

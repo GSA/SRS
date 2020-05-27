@@ -28,7 +28,8 @@ namespace SRS.Process
             string attachments = string.Empty;
             //string fileNames = string.Empty;
            
-                subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
+            
+             subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
             
             body = GenerateEmailBody();
 
@@ -61,62 +62,72 @@ namespace SRS.Process
 
             StringBuilder errors = new StringBuilder();
             StringBuilder fileNames = new StringBuilder();
+            // StringBuilder html = new StringBuilder();
 
-            //GenerateEmailBody message = new GenerateEmailBody();
-            //message.Body = fileNames.ToString();
-
-            string template = File.ReadAllText(ConfigurationManager.AppSettings["Summary"].ToString());
-
+            //string template = System.IO.File.ReadAllText(ConfigurationManager.AppSettings["Summary"]);
+            string template = ConfigurationManager.AppSettings["Summary"];
             fileNames.Append(emailData.ExpiringContractorSummary == null ? "No Contractor File Found" : emailData.ExpiringContractorSummary.ToString());
             fileNames.Append(", ");
             fileNames.Append(emailData.ExpiredContractorSummary == null ? "No Contractor File Found" : emailData.ExpiredContractorSummary.ToString());
             fileNames.Append(", ");
             //replacing the parameters
             //using (StreamReader reader = new StreamReader("Summary.html"))
-            //{
-            template = template.Replace("[FileName]", fileNames.ToString());
-            template = template.Replace("[AccessingDate]", emailData.AccessingDate.ToString());
-            template = template.Replace("[NumberOfRecords]", emailData.ExpiringContractorRecords.ToString());
-            template = template.Replace("[TimeBegin]", emailData.TimeBegin.ToString());
-            template = template.Replace("[EndTime]", emailData.EndTime.ToString());
-            template = template.Replace("[AccessingTime", emailData.AccessingTime.ToString());
-
-       // }
-             
-            if (emailData.ExpiringContractorHasErrors)
+            try
             {
-                errors.Clear();
+                string SummaryFilePath = AppDomain.CurrentDomain.BaseDirectory + "\\Summary.html";
+                using (StreamReader reader = new StreamReader(SummaryFilePath))
 
-                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
-                errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.ExpiringContractorUnsuccessfulFileName);
-                errors.Append("</font></b>");
+                {
+                    template = reader.ReadToEnd();
+                }
 
-                template = template.Replace("[IfExpiringContractorHasERRORS]", errors.ToString());
-            }
-            else
+                    template = template.Replace("[FILENAME]", fileNames.ToString());
+                    template = template.Replace("[ACCESSINGDATE]", emailData.AccessingDate.ToString());
+                    template = template.Replace("[NUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
+                    template = template.Replace("[TIMEBEGIN]", emailData.TimeBegin.ToString());
+                    template = template.Replace("[ENDTIME]", emailData.EndTime.ToString());
+                    template = template.Replace("[ACCESSINGTIME]", emailData.AccessingTime.ToString());
+
+                 }
+            catch(Exception ex)
             {
-                template = template .Replace("[IfExpiringContractorHasERRORS]", null);
+
             }
 
-            if (emailData.ExpiredContractorHasErrors)
-            {
-                errors.Clear();
+                    if (emailData.ExpiringContractorHasErrors)
+                    {
+                        errors.Clear();
 
-                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
-                errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.ExpiredContractorUnsuccessfulFileName);
-                errors.Append("</font></b>");
+                        errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
+                        errors.Append("<br />Please see the attached file: <b><font color='red'>");
+                        errors.Append(emailData.ExpiringContractorUnsuccessfulFileName);
+                        errors.Append("</font></b>");
 
-                template = template.Replace("[IFExpiredContractorHasERRORS]", errors.ToString());
-            }
-            else
-            {
-                template = template.Replace("[IfExpiredContractorHasERRORS]", null);
-            }
-            return template.ToString();
-             
-        }
+                        template = template.Replace("[IfExpiringContractorHasERRORS]", errors.ToString());
+                    }
+                    else
+                    {
+                        template = template.Replace("[IfExpiringContractorHasERRORS]", null);
+                    }
+
+                    if (emailData.ExpiredContractorHasErrors)
+                    {
+                        errors.Clear();
+
+                        errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
+                        errors.Append("<br />Please see the attached file: <b><font color='red'>");
+                        errors.Append(emailData.ExpiredContractorUnsuccessfulFileName);
+                        errors.Append("</font></b>");
+
+                        template = template.Replace("[IFExpiredContractorHasERRORS]", errors.ToString());
+                    }
+                    else
+                    {
+                        template = template.Replace("[IfExpiredContractorHasERRORS]", null);
+                    }
+                    return template.ToString();
+
+                }
 
         private string SummaryAttachments()
         {
@@ -134,7 +145,7 @@ namespace SRS.Process
 
             if (emailData.ExpiredContractorUnsuccessfulFileName != null)
                 attachments.Append(AddAttachment(emailData.ExpiredContractorUnsuccessfulFileName));
-
+            
             return attachments.ToString();
         }
 
