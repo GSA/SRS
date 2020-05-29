@@ -168,6 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Process\ExpiredContractor.cs" />
     <Compile Include="Process\ExpiringContractor.cs" />
     <Compile Include="Utilities\ExtentionMethods.cs" />
     <Compile Include="Utilities\EmailTemplate.cs" />
@@ -219,7 +220,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\ExpiringContractor.html" />
+    <Content Include="Templates\ExpiredSAC.html" />
+    <Content Include="Templates\ExpiringSAC.html" />
     <Content Include="Templates\Summary.html" />
   </ItemGroup>
   <ItemGroup />

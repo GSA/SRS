@@ -15,10 +15,10 @@ namespace SRS.Mapping
         public const int PersID = 4; 
         public const int pers_work_email = 5;
         public const int RegionalEmail = 6; 
-        public const int pers_investigation_date = 7; 
-        public const int conpoc_email = 8; 
-        public const int DaysToExpiration = 9;
-
+        //public const int pers_investigation_date = 7; 
+        public const int conpoc_email = 7; 
+        public const int DaysToExpiration = 8;
+        public const int pers_status = 9;
     }
 }
    

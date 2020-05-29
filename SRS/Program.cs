@@ -32,6 +32,7 @@ namespace SRS
 
         public static void Main(string[] args)
         {
+            
             //Start timer
             timeForApp.Start();
 
@@ -67,7 +68,7 @@ namespace SRS
                 {
                     log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
-                    processContractor.ProcessExpiredContractor();
+                    processContractor.ProcessExpiredContractor(ref emailData);
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expired Contractor Processing:" + DateTime.Now);
                     log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
@@ -104,6 +105,7 @@ namespace SRS
             //Log processing end
             log.Info("The end of processing Contractor: " + DateTime.Now);
 
+             
         }
 
         private static void StartProcessing()
@@ -113,6 +115,6 @@ namespace SRS
             if (!Boolean.TryParse("ExpiredContractor", out expiredContractor))
                 expiredContractor = true;
         }
-
+        
     }
 }

@@ -10,53 +10,52 @@ using System.Threading.Tasks;
 
 namespace SRS.Process
 {
-    class ExpiringContractor
+    internal class ExpiredContractor
     {
         //Reference to logger
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly EmailData emailData;
         private readonly RetrieveData retrieveData = new RetrieveData();
         private readonly AccessEmail accessEmail = new AccessEmail();
-        private List<Contractor> expiringContractor = new List<Contractor>();
+        private List<Contractor> expiredContractor = new List<Contractor>();
 
-        public ExpiringContractor(ref EmailData emailData)
+        public ExpiredContractor(ref EmailData emailData)
         {
-            //InitializeComponent();
             retrieveData = new RetrieveData();
             this.emailData = emailData;
         }
-        public void ProcessExpiringContractor()
+        public void ProcessExpiredContractor()
         {
-            _log.Info("Processing Expiring Contractor File" + DateTime.Now);
+            _log.Info("Processing Expired Contractor File" + DateTime.Now);
             var summary = new ContractorSummary();
 
             try
             {
-                expiringContractor = retrieveData.ExpiringContractor(emailData.AccessingDate);
-                _log.Info("Loading Expiring Contractor File" + expiringContractor.Count + " expiring contractor: " + DateTime.Now);
+                expiredContractor = retrieveData.allExpiredContractorData(emailData.AccessingDate);
+                _log.Info("Loading Expired Contractor File" + expiredContractor.Count + " expired contractor: " + DateTime.Now);
 
-                foreach (Contractor contractor in expiringContractor)
+                foreach (Contractor contractor in expiredContractor)
                 {
-                    _log.Info("The expiring Contractor email send " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
-                    accessEmail.SendExpiringContractorEmailTemplate(contractor);
+                    _log.Info("The expired Contractor email send " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
+                    accessEmail.SendExpiredContractorEmailTemplate(contractor);
 
-                    _log.Info("The expiring contractor email sent successfully " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
-                    summary.SuccessfulProcessed.Add(new ExpiringContractorSummary
+                    _log.Info("The expired contractor email sent successfully " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
+                    summary.ExpiredSuccessfulProcessed.Add(new ExpiredContractorSummary
                     {
                         PersID = contractor.PersID,
                         LastName = contractor.LastName,
                         FirstName = contractor.FirstName,
+                        MiddleName = contractor.MiddleName,
                         Suffix = contractor.Suffix,
                         pers_work_email = contractor.pers_work_email,
                         RegionalEmail = contractor.RegionalEmail,
                         //pers_investigation_date = contractor.pers_investigation_date,
                         DaysToExpiration = contractor.DaysToExpiration,
-                        pers_status = contractor.pers_status 
+                        pers_status = contractor.pers_status
                     });
-
                 }
                 summary.GenerateSummaryFiles(emailData);
-                emailData.ExpiringContractorRecords = expiringContractor.Count;
+                emailData.ExpiredContractorRecords = expiredContractor.Count;
 
                 // Contractor SRSRecord;
                 var columnList = string.Empty;
@@ -79,6 +78,6 @@ namespace SRS.Process
                 _log.Error("Process contractor File Error:" + ex.Message + " " + ex.InnerException + " " + ex.StackTrace);
             }
         }
-
     }
 }
+

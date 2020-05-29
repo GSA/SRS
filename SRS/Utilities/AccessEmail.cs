@@ -18,7 +18,7 @@ namespace SRS.Utilities
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         Email email = new Email();
        
-        string from, to, cc, bcc, subject, emailBody, server;
+        string from, to, cc, bcc, subject, body, server;
         private RetrieveData rd;
         private bool Debug;
 
@@ -84,7 +84,7 @@ namespace SRS.Utilities
 
             eSubject = eSubject.Replace("[PersID]", contractorData.PersID);
             //eSubject = eSubject.Replace("[ContractNumber]", contractor.contract_number);
-            eSubject = eSubject.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
+            eSubject = eSubject.Replace("[ContractDateEnd]", contractorData.DaysToExpiration.ToString("MM/DD/YYYY"));
 
             return eSubject;
         }
@@ -95,7 +95,7 @@ namespace SRS.Utilities
 
             eBody = eBody.Replace("[PersID]", contractorData.PersID);
          
-            eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
+            eBody = eBody.Replace("[ContractDateEnd]", contractorData.DaysToExpiration.ToString("MM/DD/YYYY"));
 
             return eBody;
         }
@@ -110,8 +110,8 @@ namespace SRS.Utilities
                         body = File.ReadAllText("TEMPLATE".GetEmailSetting());
                         break;
                     case EmailTemplate.ExpiredContractorEmailTemplate:
-                        subject = "".GetEmailSetting();
-                        body = File.ReadAllText("".GetEmailSetting());
+                        subject = "EMAILSUBJECT".GetEmailSetting();
+                        body = File.ReadAllText("TEMPLATE".GetEmailSetting());
                         break;
                     default:
                         break;
@@ -144,6 +144,43 @@ namespace SRS.Utilities
             {
                 _log.Info("Sending email.");
                 AccessEmailTemplate(EmailTemplate.ExpiringContractorEmailTemplate, ref Subject, ref Body);
+            }
+
+            To = AccessEmailTo(To, row, Debug);
+            CC = AccessEmailCC(CC, row, Debug);
+            BCC = AccessEmailBCC(BCC, row, Debug);
+            Subject = AccessEmailSubject(Subject, row, Debug);
+            Body = AccessEmailBody(Body, row, Debug);
+
+            _log.Info("The function of email sending call");
+
+            bool Result = SendEmail(To, CC, BCC, Subject, Body);
+
+            if (Result)
+            {
+                _log.Info("Sent email Successfully.");
+                return prependStatusMessage(Debug, "The email sent successfully.");
+            }
+            else
+            {
+                _log.Info("Faild to send email.");
+                return prependStatusMessage(Debug, "Failed to send email.");
+            }
+        }
+         internal string SendExpiredContractorEmailTemplate(Contractor row)
+        {
+            string Subject = "", Body = "", To = "", CC = "", BCC = "";
+
+            if (Debug)
+            {
+                _log.Info("Sending debug email");
+                AccessEmailTemplate(EmailTemplate.DebugExpiredContractorEmailTemplate, ref Subject, ref Body);
+
+            }
+            else
+            {
+                _log.Info("Sending email.");
+                AccessEmailTemplate(EmailTemplate.ExpiredContractorEmailTemplate, ref Subject, ref Body);
             }
 
             To = AccessEmailTo(To, row, Debug);

@@ -23,9 +23,10 @@ namespace SRS.Mapping
             Map(m => m.Suffix).Name("Suffix"); 
             Map(m => m.pers_work_email).Name("person POC Email");
             Map(m => m.RegionalEmail).Name("Reginal email"); 
-            Map(m => m.pers_investigation_date).Name("SAC Expiration DATE"); 
+            //Map(m => m.pers_investigation_date).Name("SAC Expiration DATE"); 
             Map(m => m.DaysToExpiration).Name("DaysToExpiration");
-            Map(m => m.conpoc_email).Name("vender email"); 
+            Map(m => m.conpoc_email).Name("vender email");
+            Map(m => m.pers_status).Name("Contractor Status");
         }
 
       }
@@ -41,10 +42,10 @@ namespace SRS.Mapping
             Map(m => m.Suffix).Name("Suffix");
             Map(m => m.pers_work_email).Name("person POC Email");
             Map(m => m.RegionalEmail).Name("Reginal email"); 
-            Map(m => m.pers_investigation_date).Name("Contract date end"); 
+           // Map(m => m.pers_investigation_date).Name("Contract date end"); 
             Map(m => m.DaysToExpiration).Name("DaysToExpiration");
             Map(m => m.conpoc_email).Name("vender email");
-             
+            Map(m => m.pers_status).Name("Contractor Status");
         }
         
     }

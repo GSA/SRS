@@ -1,20 +1,24 @@
 ﻿<appSettings>
-  <add key="DEBUG" value="[TRUE/FALSE]" />
-  <add key="ExpiringContractorProcessing" value="[TRUE/FALSE]" />
-  <add key="ExpiredContractorProcessing" value="[TRUE/FALSE]" />
-  <add key="SMTPServer" value="" />
-  <add key="Subject" value="" />
-  <add key="DefaultEmail" value="[email]" />
-  <add key="Bcc" value="[email]" />
-  <add key="SummarySubject" value="SRS Reminder" />
-  <add key="TO" value="[email]" />
-  <add key="CC" value="[email]" />
-  <add key="BCC" value="[email]" />
-  <add key="SummaryFilePath" value="[path]" />
-  <add key="Summary" value="[path]" />
-  <add key="ContractorFilePath" value="[path]" />
-  <add key="SummaryEmailTemplate" value="[path]" />
-  <add key="SuccessfullSummaryFilename" value="[FileName]" />
-  <add key="ErrorSummaryFilename" value="[FileName]" />
+  <add key="DEBUG" value="TRUE" />
+  <add key="ExpiringContractorProcessing" value="TRUE" />
+  <add key="ExpiredContractorProcessing" value="TRUE" />
+  <add key="SMTPServer" value="smtp.gsa.gov" />
+  <add key="Subject" value="SRS Reminder" />
+  <add key="DefaultEmail" value=" " />
+  <add key="Bcc" value="" />
+  <add key="SummarySubject" value="SRS Summary" />
+  <add key="TO" value=" " />
+  <add key="CC" value="" />
+  <add key="BCC" value="" />
+  <add key="SummaryFilePath" value=" " />
+  <add key="Summary" value="Summary.html" />
+  <add key="ExpiringSACFilePath" value=" " />
+  <add key="ExpiringSACEmailTemplate" value="ExpiringSAC.html" />
+  <add key="ExpiredSACFilePath" value=" "/>
+  <add key="ExpiredSACEmailTemplate" value="ExpiredSAC.html" />
+  <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="SuccessProcessed" />
+  <add key="ExpiringERRORSUMMARYFILENAME" value="UnsuccessProcessed" />
+  <add key="ExpiredSUCCESSFULSUMMARYFILENAME" value="ExpiredSuccessProcessed" />
+  <add key="ExpiredERRORSUMMARYFILENAME" value="ExpiredUnsuccessProcessed" />
   <add key="ClientSettingsProvider.ServiceUri" value="" />
 </appSettings>

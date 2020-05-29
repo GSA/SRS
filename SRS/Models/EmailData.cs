@@ -31,8 +31,8 @@ namespace SRS.Models
         public DateTime  AccessingDate { get; set; }
         public DateTime TimeBegin { get; set; }
         public DateTime EndTime { get; set; }
-        public DateTime  AccessingTime { get; set; }
+        public DateTime  TimeElapsed { get; set; }
         //public object ContractorFileName { get; set; }
-        //public string FileName { get; }
+        public string FileName { get; set; }
     }
 }

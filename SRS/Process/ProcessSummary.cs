@@ -16,6 +16,8 @@ namespace SRS.Process
        
         public List<ExpiringContractorSummary> SuccessfulProcessed { get; set; }
         public List<ExpiringContractorSummary> UnsuccessfulProcessed { get; set; }
+        public List<ExpiredContractorSummary> ExpiredSuccessfulProcessed { get; set; }
+        public List<ExpiredContractorSummary> ExpiredUnsuccessfulProcessed { get; set; }
 
         public ContractorSummary()
         {
@@ -24,7 +26,11 @@ namespace SRS.Process
             SuccessfulProcessed = new List<ExpiringContractorSummary>();
              
             UnsuccessfulProcessed = new List<ExpiringContractorSummary>();
-            
+
+            ExpiredSuccessfulProcessed = new List<ExpiredContractorSummary>();
+
+            ExpiredUnsuccessfulProcessed = new List<ExpiredContractorSummary>();
+
         }
         public void GenerateSummaryFiles(EmailData emailData)
         {
@@ -32,7 +38,7 @@ namespace SRS.Process
             {
                 SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ExpiringContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["SUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
+                emailData.ExpiringContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiringSUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
                 _log.Info(" Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFileName);
             }
 
@@ -40,10 +46,26 @@ namespace SRS.Process
             {
                 UnsuccessfulProcessed = UnsuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
-                emailData.ExpiringContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
+                emailData.ExpiringContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiringERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
                 _log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFileName);
             }
- 
+
+            if (SuccessfulProcessed.Count > 0)
+            {
+                SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID).ThenBy(t => t.LastName).ToList();
+
+                emailData.ExpiredContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredSUCCESSFULSUMMARYFILENAME"].ToString(), ExpiredSuccessfulProcessed);
+                _log.Info(" Expired Contractor Successfull File: " + emailData.ExpiredContractorSuccessfulFileName);
+            }
+
+            if (UnsuccessfulProcessed.Count > 0)
+            {
+                UnsuccessfulProcessed = UnsuccessfulProcessed.OrderBy(o => o.PersID).ThenBy(t => t.LastName).ToList();
+
+                emailData.ExpiredContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredERRORSUMMARYFILENAME"].ToString(), ExpiredUnsuccessfulProcessed);
+                _log.Info("Contractors Error File: " + emailData.ExpiredContractorUnsuccessfulFileName);
+            }
+
         }
     }
 }

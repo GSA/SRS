@@ -5,6 +5,7 @@ using SRS.Mapping;
 using SRS.Models;
 using System;
 using System.Collections.Generic;
+using SRS.Process;
 
 namespace SRS.Process
 {
@@ -32,9 +33,19 @@ namespace SRS.Process
         }
         
             
-        public void ProcessExpiredContractor()
+        public void ProcessExpiredContractor(ref EmailData emailData)
         {
-            ExpiredContractorSummary expiredContractor = new ExpiredContractorSummary();
+            ExpiredContractor  expiredContractor = new ExpiredContractor(ref emailData);
+            try
+            {
+                expiredContractor.ProcessExpiredContractor();
+                var summary = new ContractorSummary();
+                var fileReader = new FileReader();
+            }
+            catch(Exception ex)
+            {
+                _log.Error("Getting Contracts:" + "_" + ex.Message + "_" + ex.InnerException);
+            }
         }
     }
      

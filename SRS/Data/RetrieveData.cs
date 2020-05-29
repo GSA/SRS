@@ -125,12 +125,14 @@ namespace SRS.Data
                                     LastName = contractorData[1].ToString(),
                                     FirstName = contractorData[2].ToString(),
                                     MiddleName = contractorData[3].ToString(),
-                                    pers_investigation_date = (DateTime)contractorData[5],
-                                    DaysToExpiration = contractorData.GetInt32(6),
-                                    RegionalEmail = contractorData[7].ToString(),
-                                    pers_work_email = contractorData[8].ToString(),
-                                    //allExpiringContractor.conpoc_email = contractorData[9].ToString()
-                                }
+                                    Suffix = contractorData[4].ToString(),
+                                    //pers_investigation_date = (DateTime)contractorData[5],
+                                    DaysToExpiration = contractorData.GetInt32(5),
+                                    RegionalEmail = contractorData[6].ToString(),
+                                    pers_work_email = contractorData[7].ToString(),
+                                    pers_status = contractorData[9].ToString(),
+                            //allExpiringContractor.conpoc_email = contractorData[9].ToString()
+                        }
                            );
                         }
 
@@ -207,12 +209,14 @@ namespace SRS.Data
                                                LastName = contractorData[1].ToString(),
                                                FirstName = contractorData[2].ToString(),
                                                MiddleName = contractorData[3].ToString(),
-                                               pers_investigation_date = (DateTime)contractorData[5],
-                                               DaysToExpiration = contractorData.GetInt32(6),
-                                               RegionalEmail = contractorData[7].ToString(),
-                                               pers_work_email = contractorData[8].ToString(),
-                                   //allExpiringContractor.conpoc_email = contractorData[9].ToString()
-                               }
+                                               Suffix = contractorData[4].ToString(),
+                                               //pers_investigation_date = (DateTime)contractorData[5],
+                                               DaysToExpiration = contractorData.GetInt32(5),
+                                               RegionalEmail = contractorData[6].ToString(),
+                                               pers_work_email = contractorData[7].ToString(),
+                                               pers_status = contractorData[9].ToString(),
+                                               //allExpiringContractor.conpoc_email = contractorData[9].ToString()
+                                           }
                                       );
                         }
                         log.Info("Adding Contractor expired data to object: " + DateTime.Now);
