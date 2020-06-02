@@ -48,8 +48,7 @@ namespace SRS.Process
                         MiddleName = contractor.MiddleName,
                         Suffix = contractor.Suffix,
                         pers_work_email = contractor.pers_work_email,
-                        RegionalEmail = contractor.RegionalEmail,
-                        //pers_investigation_date = contractor.pers_investigation_date,
+                        RegionalEmail = contractor.RegionalEmail, 
                         DaysToExpiration = contractor.DaysToExpiration,
                         pers_status = contractor.pers_status
                     });

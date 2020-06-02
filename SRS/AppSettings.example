@@ -1,20 +1,20 @@
 ﻿<appSettings>
   <add key="DEBUG" value="TRUE" />
-  <add key="ExpiringContractorProcessing" value="TRUE" />
-  <add key="ExpiredContractorProcessing" value="TRUE" />
+  <add key="ExpiringContractor" value="TRUE" />
+  <add key="ExpiredContractor" value="TRUE" />
   <add key="SMTPServer" value="smtp.gsa.gov" />
   <add key="Subject" value="SRS Reminder" />
-  <add key="DefaultEmail" value=" " />
+  <add key="DefaultEmail" value="abebaw.eshetie+from@gsa.gov" />
   <add key="Bcc" value="" />
   <add key="SummarySubject" value="SRS Summary" />
-  <add key="TO" value=" " />
+  <add key="TO" value="abebaw.eshetie+to@gsa.gov" />
   <add key="CC" value="" />
   <add key="BCC" value="" />
-  <add key="SummaryFilePath" value=" " />
+  <add key="SummaryFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\Templates\" />
   <add key="Summary" value="Summary.html" />
-  <add key="ExpiringSACFilePath" value=" " />
+  <add key="ExpiringSACFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\Templates\" />
   <add key="ExpiringSACEmailTemplate" value="ExpiringSAC.html" />
-  <add key="ExpiredSACFilePath" value=" "/>
+  <add key="ExpiredSACFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\Templates\"/>
   <add key="ExpiredSACEmailTemplate" value="ExpiredSAC.html" />
   <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="SuccessProcessed" />
   <add key="ExpiringERRORSUMMARYFILENAME" value="UnsuccessProcessed" />

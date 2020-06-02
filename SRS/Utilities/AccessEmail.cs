@@ -17,20 +17,18 @@ namespace SRS.Utilities
     {
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         Email email = new Email();
-       
-        string from, to, cc, bcc, subject, body, server;
-        private RetrieveData rd;
         private bool Debug;
+        string from, to, cc, bcc, subject, body, server;
+        private RetrieveData rd = new RetrieveData();
 
- 
         private void setEmailDefaults()
         {
             from = "DEFAULTEMAIL".GetEmailSetting();
             to = "TO".GetEmailSetting();
             cc = "CC".GetEmailSetting();
             bcc = "BCC".GetEmailSetting();
-            //subject = "EmailSubject".GetEmailSetting();
-            //emailBody = File.ReadAllText("SummaryEmailTemplate".GetEmailSetting());
+            subject = "EmailSubject".GetEmailSetting();
+            body = File.ReadAllText("SummaryEmailTemplate".GetEmailSetting());
             server = "SMTPServer".GetEmailSetting();
         }
         private bool SendEmail(string to, string cc, string bcc, string subject, string body)
@@ -59,7 +57,7 @@ namespace SRS.Utilities
         /// <param name="contractorData"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private string AccessEmailTo(string to, Contractor contractorData, bool debug)
+        private string AccessEmailTo(string to, Contractor contractorData, bool Debug)
         {
             return contractorData.pers_work_email;
         }
@@ -70,15 +68,15 @@ namespace SRS.Utilities
         /// <param name="contractorData"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private string AccessEmailCC(string cc, Contractor contractorData, bool debug)
+        private string AccessEmailCC(string cc, Contractor contractorData, bool Debug)
         {
             return contractorData.RegionalEmail;
         }
-        private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
+        private string AccessEmailBCC(string bcc, Contractor contractorData, bool Debug)
         {
             return contractorData.RegionalEmail;
         }
-        private string AccessEmailSubject(String subject, Contractor contractorData, bool debug)
+        private string AccessEmailSubject(String subject, Contractor contractorData, bool Debug)
         {
             string eSubject = subject;
 
@@ -89,7 +87,7 @@ namespace SRS.Utilities
             return eSubject;
         }
 
-        private string AccessEmailBody(string emailBody, Contractor contractorData, bool debug)
+        private string AccessEmailBody(string emailBody, Contractor contractorData, bool Debug)
         {
             string eBody = emailBody;
 

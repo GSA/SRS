@@ -10,7 +10,7 @@ namespace SRS.Process
     internal class ContractorSummary
     {
         //Reference to logger
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public readonly SummaryFileGenerator SummaryFileGenerator;
        
@@ -39,7 +39,7 @@ namespace SRS.Process
                 SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
                 emailData.ExpiringContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiringSUCCESSFULSUMMARYFILENAME"].ToString(), SuccessfulProcessed);
-                _log.Info(" Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFileName);
+                log.Info("Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFileName);
             }
 
             if (UnsuccessfulProcessed.Count > 0)
@@ -47,7 +47,7 @@ namespace SRS.Process
                 UnsuccessfulProcessed = UnsuccessfulProcessed.OrderBy(o => o.PersID ).ThenBy(t => t.LastName ).ToList();
 
                 emailData.ExpiringContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiringERRORSUMMARYFILENAME"].ToString(), UnsuccessfulProcessed);
-                _log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFileName);
+                log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFileName);
             }
 
             if (SuccessfulProcessed.Count > 0)
@@ -55,7 +55,7 @@ namespace SRS.Process
                 SuccessfulProcessed = SuccessfulProcessed.OrderBy(o => o.PersID).ThenBy(t => t.LastName).ToList();
 
                 emailData.ExpiredContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredSUCCESSFULSUMMARYFILENAME"].ToString(), ExpiredSuccessfulProcessed);
-                _log.Info(" Expired Contractor Successfull File: " + emailData.ExpiredContractorSuccessfulFileName);
+                log.Info(" Expired Contractor Successfull File: " + emailData.ExpiredContractorSuccessfulFileName);
             }
 
             if (UnsuccessfulProcessed.Count > 0)
@@ -63,7 +63,7 @@ namespace SRS.Process
                 UnsuccessfulProcessed = UnsuccessfulProcessed.OrderBy(o => o.PersID).ThenBy(t => t.LastName).ToList();
 
                 emailData.ExpiredContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredERRORSUMMARYFILENAME"].ToString(), ExpiredUnsuccessfulProcessed);
-                _log.Info("Contractors Error File: " + emailData.ExpiredContractorUnsuccessfulFileName);
+                log.Info("Contractors Error File: " + emailData.ExpiredContractorUnsuccessfulFileName);
             }
 
         }

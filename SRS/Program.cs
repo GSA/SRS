@@ -16,8 +16,9 @@ namespace SRS
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         //File paths from config file
-       // private static string ContractorFilePath = ConfigurationManager.AppSettings["ContractorFilePath"].ToString();
-        //private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
+        private static string ExpiringSACFilePath = ConfigurationManager.AppSettings["ExpiringSACFilePath"].ToString();
+        private static string ExpiredSACFilePath = ConfigurationManager.AppSettings["ExpiredSACFilePath"].ToString();
+        private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
         //Stopwatch objects
         private static Stopwatch timeForApp = new Stopwatch();
 
@@ -27,8 +28,8 @@ namespace SRS
 
         //private static IMapper dataMapper;
         private static EmailData emailData = new EmailData();
-        private static bool expiringContractor = false;
-        private static bool expiredContractor = false;
+        private static bool expiringContractor = true;
+        private static bool expiredContractor = true;
 
         public static void Main(string[] args)
         {

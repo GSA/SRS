@@ -32,7 +32,7 @@ namespace SRS.Models
         public DateTime TimeBegin { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime  TimeElapsed { get; set; }
-        //public object ContractorFileName { get; set; }
+        public Int16 TotalContractorsProcessed { get; set; }
         public string FileName { get; set; }
     }
 }

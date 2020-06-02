@@ -21,24 +21,20 @@ namespace SRS.Process
 
         public void SummaryEmailContent()
         {
+            //Basic email class reference
             Email email = new Email();
 
+            //variable declaration
             string subject = string.Empty;
             string body = string.Empty;
-            string expiringSAC = string.Empty;
-            string expiredSAC = string.Empty;
             string attachments = string.Empty;
-            string fileNames = string.Empty;
+            //string fileNames = string.Empty;
            
             
-             subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
-            
-            body = GenerateTemplate();
+            subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
 
-            expiringSAC = GenerateExpiringSAC();
-
-            expiredSAC = GenerateExpiredSAC();
-
+            body = GenerateTemplate(); GenerateExpiringSAC(); GenerateExpiredSAC();
+ 
             attachments = SummaryAttachments();
 
             try
@@ -81,18 +77,16 @@ namespace SRS.Process
 
                     {
                         template = reader.ReadToEnd();
-                    }
-                    template = template.Replace("[FILENAME]", fileNames.ToString());
+                    } 
                     template = template.Replace("[ACCESSINGDATE]", emailData.AccessingDate.ToString());
-                    template = template.Replace("[NUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
+                    template = template.Replace("[NUMBEROFRECORDS]", emailData.TotalContractorsProcessed.ToString());
                     template = template.Replace("[TIMEBEGIN]", emailData.TimeBegin.ToString());
                     template = template.Replace("[ENDTIME]", emailData.EndTime.ToString());
                     template = template.Replace("[ACCESSINGTIME]", emailData.TimeElapsed.ToString());
 
                 }
                 catch (Exception ex)
-                {
-
+                { 
                 }
 
                 return template.ToString();
@@ -110,7 +104,7 @@ namespace SRS.Process
             string template = @ConfigurationManager.AppSettings["ExpiringSACEmailTemplate"] + "ExpiringSAC.html";
             expiringSAC.Append(emailData.ExpiringContractorSummary == null ? "No Contractor File Found" : emailData.ExpiringContractorSummary.ToString());
             expiringSAC.Append(", ");
-
+         
             try
             {
                 string ExpiringSACFilePath = AppDomain.CurrentDomain.BaseDirectory + "ExpiringSAC.html";
@@ -120,13 +114,12 @@ namespace SRS.Process
                     template = reader.ReadToEnd();
                 }
 
-                object lastName = null;
-                template = template.Replace("[LastName]", lastName.ToString());
+                //object lastName = null;
+                //template = template.Replace("[LastName]", lastName.ToString());
                  
             }
             catch (Exception ex)
-            {
-
+            { 
             }
             if (emailData.ExpiringContractorHasErrors)
             {
