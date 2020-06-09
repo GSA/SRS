@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SRS.Models
 {
-    public class Contractor
+    public class Person
     {
-        public Person Person { get; set; }
+        
         public string Pers_id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -20,5 +20,6 @@ namespace SRS.Models
         public DateTime pers_investigation_date { get; set; }
         public int DaysToExpiration { get; set; }
         public string pers_status { get; set; }
+ 
     }
 }

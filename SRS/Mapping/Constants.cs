@@ -13,12 +13,12 @@ namespace SRS.Mapping
         public const int LAST_NAME = 2;
         public const int SUFFIX = 3;
         public const int PersID = 4; 
-        public const int pers_work_email = 5;
-        public const int RegionalEmail = 6; 
-        //public const int pers_investigation_date = 7; 
-        public const int conpoc_email = 7; 
-        public const int DaysToExpiration = 8;
-        public const int pers_status = 9;
+        public const int vpoc_emails = 5;
+        public const int gpoc_emails = 6; 
+        public const int pers_investigation_date = 7; 
+        public const int conpoc_email = 8; 
+        public const int DaysToExpiration = 9;
+        public const int pers_status = 10;
     }
 }
    

@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
+using SRS.Process;
 
 namespace SRS.Utilities
 {
@@ -25,7 +28,10 @@ namespace SRS.Utilities
 
             return hashedFullSsn;
         }
-        
 
-        }
+        //internal static void AddBadRecordsToSummary(List<string> badRecords, ref ContractorSummary summary)
+        //{
+        //    throw new NotImplementedException();
+        //}
+    }
     }

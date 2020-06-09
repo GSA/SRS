@@ -28,21 +28,20 @@ namespace SRS
 
         //private static IMapper dataMapper;
         private static EmailData emailData = new EmailData();
-        private static bool expiringContractor = true;
-        private static bool expiredContractor = true;
+        private static bool expiringContractor = false;
+        private static bool expiredContractor = false;
 
         public static void Main(string[] args)
-        {
-            
+        {  
             //Start timer
             timeForApp.Start();
-
+             
             //Log start of application
             log.Info("Application Started: " + DateTime.Now);
 
             // CreateMaps();
 
-            ProcessContractor processContractor = new ProcessContractor();
+           ProcessContractor processContractor = new ProcessContractor();
             SendSummary sendSummary = new SendSummary(ref emailData);
             emailData.TimeBegin = DateTime.Now;
             emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
@@ -74,14 +73,14 @@ namespace SRS
                     log.Info("Time to Stop Expired Contractor Processing:" + DateTime.Now);
                     log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
                 }
-                //log.Info("Start Contractor file Processing: " + DateTime.Now);
+            //log.Info("Start Contractor file Processing: " + DateTime.Now);
 
-                //timeForProcess.Start();
-                //processContractor.ProcessContractorFile();
-                //timeForProcess.Stop();
+            //timeForProcess.Start();
+            //processContractor.ProcessContractorFile();
+            //timeForProcess.Stop();
 
-                //log.Info("Done Contractor File processing: " + DateTime.Now);
-                //log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
+            //log.Info("Done Contractor File processing: " + DateTime.Now);
+            //log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
 
            // }
             else
@@ -105,8 +104,7 @@ namespace SRS
 
             //Log processing end
             log.Info("The end of processing Contractor: " + DateTime.Now);
-
-             
+      
         }
 
         private static void StartProcessing()

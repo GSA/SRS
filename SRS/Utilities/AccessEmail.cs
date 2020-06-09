@@ -19,7 +19,7 @@ namespace SRS.Utilities
         Email email = new Email();
         private bool Debug;
         string from, to, cc, bcc, subject, body, server;
-        private RetrieveData rd = new RetrieveData();
+        private RetrieveData rd; // = new RetrieveData();
 
         private void setEmailDefaults()
         {
@@ -28,7 +28,7 @@ namespace SRS.Utilities
             cc = "CC".GetEmailSetting();
             bcc = "BCC".GetEmailSetting();
             subject = "EmailSubject".GetEmailSetting();
-            body = File.ReadAllText("SummaryEmailTemplate".GetEmailSetting());
+            body = File.ReadAllText("Summary".GetEmailSetting());
             server = "SMTPServer".GetEmailSetting();
         }
         private bool SendEmail(string to, string cc, string bcc, string subject, string body)
@@ -59,7 +59,7 @@ namespace SRS.Utilities
         /// <returns></returns>
         private string AccessEmailTo(string to, Contractor contractorData, bool Debug)
         {
-            return contractorData.pers_work_email;
+            return contractorData.gpoc_emails;
         }
         /// <summary>
         /// 
@@ -70,46 +70,45 @@ namespace SRS.Utilities
         /// <returns></returns>
         private string AccessEmailCC(string cc, Contractor contractorData, bool Debug)
         {
-            return contractorData.RegionalEmail;
+            return contractorData.gpoc_emails;
         }
         private string AccessEmailBCC(string bcc, Contractor contractorData, bool Debug)
         {
-            return contractorData.RegionalEmail;
+            return contractorData.gpoc_emails;
         }
         private string AccessEmailSubject(String subject, Contractor contractorData, bool Debug)
         {
             string eSubject = subject;
 
-            eSubject = eSubject.Replace("[PersID]", contractorData.PersID);
-            //eSubject = eSubject.Replace("[ContractNumber]", contractor.contract_number);
-            eSubject = eSubject.Replace("[ContractDateEnd]", contractorData.DaysToExpiration.ToString("MM/DD/YYYY"));
+            eSubject = eSubject.Replace("[Pers_id]", contractorData.Pers_id); 
+            eSubject = eSubject.Replace("[ContractorDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eSubject;
         }
 
-        private string AccessEmailBody(string emailBody, Contractor contractorData, bool Debug)
+        private string AccessEmailBody(string body, Contractor contractorData, bool Debug)
         {
-            string eBody = emailBody;
+            string eBody = body;
 
-            eBody = eBody.Replace("[PersID]", contractorData.PersID);
+            eBody = eBody.Replace("[Pers_id]", contractorData.Pers_id);
          
-            eBody = eBody.Replace("[ContractDateEnd]", contractorData.DaysToExpiration.ToString("MM/DD/YYYY"));
+            eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eBody;
         }
-        internal bool AccessEmailTemplate(string emailBodyName, ref string subject, ref string body)
+        internal bool AccessEmailTemplate(string templateName, ref string subject, ref string body)
         {
             try
             {
-                switch (emailBodyName)
+                switch (templateName)
                 {
                     case EmailTemplate.ExpiringContractorEmailTemplate:
                         subject = "EMAILSUBJECT".GetEmailSetting();
-                        body = File.ReadAllText("TEMPLATE".GetEmailSetting());
+                        body = File.ReadAllText("ExpiringSACEmailTemplate".GetEmailSetting());
                         break;
                     case EmailTemplate.ExpiredContractorEmailTemplate:
                         subject = "EMAILSUBJECT".GetEmailSetting();
-                        body = File.ReadAllText("TEMPLATE".GetEmailSetting());
+                        body = File.ReadAllText("ExpiredSACEmailTemplate".GetEmailSetting());
                         break;
                     default:
                         break;

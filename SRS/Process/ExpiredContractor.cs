@@ -1,7 +1,9 @@
-﻿using SRS.Data;
+﻿using AutoMapper;
+using SRS.Data;
 using SRS.Models;
 using SRS.Process;
 using SRS.Utilities;
+using SRS.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +17,13 @@ namespace SRS.Process
         //Reference to logger
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly EmailData emailData;
-        private readonly RetrieveData retrieveData = new RetrieveData();
+        private RetrieveData retrieveData;// = new RetrieveData();
         private readonly AccessEmail accessEmail = new AccessEmail();
         private List<Contractor> expiredContractor = new List<Contractor>();
 
         public ExpiredContractor(ref EmailData emailData)
         {
-            retrieveData = new RetrieveData();
+           // retrieveData = new RetrieveData();
             this.emailData = emailData;
         }
         public void ProcessExpiredContractor()
@@ -36,19 +38,20 @@ namespace SRS.Process
 
                 foreach (Contractor contractor in expiredContractor)
                 {
-                    _log.Info("The expired Contractor email send " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
+                    _log.Info("The expired Contractor email send " + contractor.Pers_id + "To" + contractor.vpoc_emails + "cc" + contractor.gpoc_emails);
                     accessEmail.SendExpiredContractorEmailTemplate(contractor);
 
-                    _log.Info("The expired contractor email sent successfully " + contractor.PersID + "To" + contractor.pers_work_email + "cc" + contractor.RegionalEmail);
+                    _log.Info("The expired contractor email sent successfully " + contractor.Pers_id + "To" + contractor.vpoc_emails + "cc" + contractor.gpoc_emails);
                     summary.ExpiredSuccessfulProcessed.Add(new ExpiredContractorSummary
                     {
-                        PersID = contractor.PersID,
-                        LastName = contractor.LastName,
-                        FirstName = contractor.FirstName,
-                        MiddleName = contractor.MiddleName,
-                        Suffix = contractor.Suffix,
-                        pers_work_email = contractor.pers_work_email,
-                        RegionalEmail = contractor.RegionalEmail, 
+                        Pers_id = contractor.Pers_id,
+                        LastName = contractor.Person.LastName,
+                        FirstName = contractor.Person.FirstName,
+                        MiddleName = contractor.Person.MiddleName,
+                        Suffix = contractor.Person.Suffix,
+                        pers_investigation_date = contractor.pers_investigation_date,
+                        vpoc_emails = contractor.vpoc_emails,
+                        gpoc_emails = contractor.gpoc_emails, 
                         DaysToExpiration = contractor.DaysToExpiration,
                         pers_status = contractor.pers_status
                     });
@@ -60,7 +63,7 @@ namespace SRS.Process
                 var columnList = string.Empty;
 
                 var fileReader = new FileReader();
-                //var validate = new ValidateContractor();
+                var validate = new ValidateContractor();
                 //var save = new SaveData();
                 //var em = new ExpiringContractorSummaryMapping();
                 //List<string> badRecords;

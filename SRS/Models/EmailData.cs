@@ -9,11 +9,11 @@ namespace SRS.Models
     internal class EmailData
     {
         
-        public Int64 ExpiringContractorRecords { get; set; }
-        public Int64 ExpiredContractorRecords { get; set; }
+        public long ExpiringContractorRecords { get; set; }
+        public long ExpiredContractorRecords { get; set; }
  
-        public Int64 ExpiringContractorRecordsNotFound { get; set; }
-        public Int64 ExpiredContractorRecordsNotFound { get; set; }
+        public long ExpiringContractorRecordsNotFound { get; set; }
+        public long ExpiredContractorRecordsNotFound { get; set; }
 
         public string ExpiringContractorSuccessfulFileName { get; set; }
         public string ExpiredContractorSuccessfulFileName { get; set; }
@@ -32,7 +32,7 @@ namespace SRS.Models
         public DateTime TimeBegin { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime  TimeElapsed { get; set; }
-        public Int16 TotalContractorsProcessed { get; set; }
+        public long TotalContractorsProcessed { get; set; }
         public string FileName { get; set; }
     }
 }
