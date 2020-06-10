@@ -51,41 +51,33 @@ namespace SRS
             StartProcessing();
             log.Info("Processing of App Settings:" + DateTime.Now);
             log.Info("Contractors File Processing:" + DateTime.Now);
-
-            //Contractor file
-            //if (File.Exists(ContractorFilePath))
-            //{
-                if (expiringContractor)
-                {
+             
+            if (File.Exists(ExpiringSACFilePath))
+             {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
                     processContractor.ProcessExpiringContractor(ref emailData);
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
-                    log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
-                }
-                if(expiredContractor)
-                {
+                    log.Info("Expiring Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
+              }
+            else
+              {
+                log.Error("Expiring Contractor File not found");
+              }
+            if (File.Exists(ExpiredSACFilePath))
+               {
                     log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
                     processContractor.ProcessExpiredContractor(ref emailData);
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expired Contractor Processing:" + DateTime.Now);
-                    log.Info("Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
+                    log.Info("Expired Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
                 }
-            //log.Info("Start Contractor file Processing: " + DateTime.Now);
-
-            //timeForProcess.Start();
-            //processContractor.ProcessContractorFile();
-            //timeForProcess.Stop();
-
-            //log.Info("Done Contractor File processing: " + DateTime.Now);
-            //log.Info("Contractor File Processing Time: " + timeForProcess.ElapsedMilliseconds);
-
-           // }
+            
             else
             {
-                log.Error("Contractor File not found");
+                log.Error("Expired Contractor File not found");
             }
 
             log.Info("Done Contractor File(s) Processing :" + DateTime.Now);

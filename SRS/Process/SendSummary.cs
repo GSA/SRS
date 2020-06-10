@@ -14,7 +14,7 @@ namespace SRS.Process
 
         private readonly EmailData emailData = new EmailData();
 
-        static readonly string SummaryFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Summary");
+      //  static readonly string SummaryFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Summary");
        
         public SendSummary(ref EmailData emailData)
         {

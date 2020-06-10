@@ -39,8 +39,8 @@ namespace SRS.Data
 
                     using (cmd)
                     {
-                        MySqlDataReader expiringContractorData;
-
+                        MySqlDataReader expiringContractorData = cmd.ExecuteReader();
+                       
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "SRS_GetContractors";
@@ -50,10 +50,7 @@ namespace SRS.Data
                         cmd.Parameters.Add("DateTime", todaysDate);
 
                         log.Info("Contractor data of expiration: " + DateTime.Now);
-
-                        expiringContractorData = cmd.ExecuteReader();
-
-     
+                   
                         log.Info("Contractor Retrieved Data: " + DateTime.Now);
                         log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
 
@@ -105,8 +102,8 @@ namespace SRS.Data
 
                     using (cmd)
                     {
-                        MySqlDataReader expiredContractorData;
-
+                        MySqlDataReader expiredContractorData = cmd.ExecuteReader();
+                         
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "SRS_GetContractors";
@@ -116,19 +113,16 @@ namespace SRS.Data
                         cmd.Parameters.Add("DateTime", todaysDate);
 
                         log.Info("Contractor data of expiration: " + DateTime.Now);
-
-                        expiredContractorData = cmd.ExecuteReader();
-       
-            log.Info("Contractor Retrieved Data: " + DateTime.Now);
-            log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+ 
+                        log.Info("Contractor Retrieved Data: " + DateTime.Now);
+                        log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
  
                         while (expiredContractorData.Read())
                         {
                             allExpiredContractorData.Add(
                                                             
                                 new Contractor
-                                  {
-                                      //Contractor allExpiringContractor = new Contractor();
+                                  { 
                                        Pers_id = expiredContractorData[0].ToString(),
                                        LastName = expiredContractorData[1].ToString(),
                                        FirstName = expiredContractorData[2].ToString(),
