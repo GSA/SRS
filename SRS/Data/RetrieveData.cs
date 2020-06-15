@@ -13,19 +13,9 @@ namespace SRS.Data
     {
         //Reference to logger
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        //private readonly IMapper retrieveMapper;
-        ////private IMapper dataMapper;
-
-        //public RetrieveData(IMapper mapper)
-        //{
-        //    retrieveMapper = mapper;
-
-        //    retrieveMapper.ConfigurationProvider.CompileMappings();
-        //}
+       
         public List<Contractor> GetExpiringContractor(DateTime accessingDate)
-        {
-
-           // MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+        {  
             try
             {
                 log.Info("Getting Contractor Data");
@@ -48,10 +38,8 @@ namespace SRS.Data
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "SRS_GetContractors";
                         cmd.Parameters.Clear();
-
-                        //MySqlDbType todaysDate = default(MySqlDbType);
-                        //cmd.Parameters.Add("DateTime", todaysDate);
-                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
+ 
+                        cmd.Parameters.AddWithValue("inDate", accessingDate); //"2020-06-06"
 
                         log.Info("Contractor data of expiration: " + DateTime.Now);
                         expiringContractorData = cmd.ExecuteReader();
@@ -92,7 +80,7 @@ namespace SRS.Data
 
             public List<Contractor> allExpiredContractorData(DateTime accessingDate)
               {
-           // MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+           
             try
             {
                 MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
@@ -114,10 +102,8 @@ namespace SRS.Data
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "SRS_GetContractors";
                         cmd.Parameters.Clear();
-
-                        //MySqlDbType todaysDate = default(MySqlDbType);
-                        //cmd.Parameters.Add("DateTime", todaysDate);
-                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
+ 
+                        cmd.Parameters.AddWithValue("inDate", accessingDate); //"2020-06-06"
                         log.Info("Contractor data of expiration: " + DateTime.Now);
                         expiredContractorData = cmd.ExecuteReader();
                         log.Info("Contractor Retrieved Data: " + DateTime.Now);

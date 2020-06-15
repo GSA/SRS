@@ -21,43 +21,7 @@ namespace SRS.Process
         {
            // retrieveData = new RetrieveData();
             this.emailData = emailData;
-        }
-
-        //public void getExpiredContractor()
-        //{
-        //    MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
-        //    //try
-        //    //{
-        //        // MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
-
-        //        MySqlCommand cmd = new MySqlCommand();
-        //        List<Contractor> allExpiredContractorData = new List<Contractor>();
-
-        //        using (conn)
-        //        {
-        //            if (conn.State == ConnectionState.Closed)
-        //                conn.Open();
-
-        //            using (cmd)
-        //            {
-        //                MySqlDataReader expiredContractorData;
-
-
-        //                cmd.Connection = conn;
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                cmd.CommandText = "SRS_GetContractors";
-        //                cmd.Parameters.Clear();
-
-        //                //MySqlDbType todaysDate = default(MySqlDbType);
-        //                //cmd.Parameters.Add("DateTime", todaysDate);
-        //                cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
-        //                _log.Info("Contractor data of expiration: " + DateTime.Now);
-        //                expiredContractorData = cmd.ExecuteReader();
-        //                _log.Info("Contractor Retrieved Data: " + DateTime.Now);
-        //                _log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
-        //            }
-        //        }
-        //    }
+        } 
         public void ProcessExpiredContractor()
         {
             _log.Info("Processing Expired Contractor File" + DateTime.Now);
@@ -90,22 +54,7 @@ namespace SRS.Process
                 }
                 summary.GenerateSummaryFiles(emailData);
                 emailData.ExpiredContractorRecords = expiredContractor.Count;
-
-                // Contractor SRSRecord;
-                var columnList = string.Empty;
-
-                var fileReader = new FileReader();
-                var validate = new ValidateContractor();
-                var save = new SaveData();
-                var em = new ExpiredContractorSummaryMapping();
-                //List<string> badRecords;
-
-                //var expiringProcess = fileReader.GetFileData<ContractorData, ExpiredContractorSummaryMapping>(ContractorFile, out badRecords, em);
-                //Helpers.AddBadRecordsToSummary(badRecords, ref summary);
-
-                _log.Info("Loading POCs Data");
-                //var contractorData = RetrieveData.ContractorData();
-
+  
             }
             catch (Exception ex)
             {

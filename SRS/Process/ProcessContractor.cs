@@ -13,14 +13,7 @@ namespace SRS.Process
     {
         //Reference to logger
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        //private readonly RetrieveData retrieve;
-        //private readonly EmailData emailData;
-
-        //public ProcessContractor(IMapper dataMapper, ref EmailData emailData)
-        //{
-        //    retrieve = new RetrieveData(dataMapper);
-        //    emailData = new EmailData();
-        //}
+         
 
         public void ProcessExpiringContractor(ref EmailData emailData)
         {
