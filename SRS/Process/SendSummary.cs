@@ -10,7 +10,7 @@ namespace SRS.Process
     internal class SendSummary
     {
         //Reference to logger
-        private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly EmailData emailData = new EmailData();
 
@@ -20,6 +20,7 @@ namespace SRS.Process
         {
             this.emailData = emailData;
         }
+
 
         public void SummaryEmailContent()
         {
@@ -39,9 +40,9 @@ namespace SRS.Process
 
             attachments = SummaryAttachments();
 
-            body = GenerateExpiringSAC();
+            //body = GenerateExpiringSAC();
 
-            body = GenerateExpiredSAC();
+            //body = GenerateExpiredSAC();
 
             try
             {
@@ -56,15 +57,15 @@ namespace SRS.Process
             }
             catch (Exception ex)
             {
-                _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
             }
             finally
             {
-                _log.Info("Contractor Summary Email Sent");
+                log.Info("Contractor Summary Email Sent");
             }
             
         }
-
+      
         public string GenerateTemplate()
         {
             StringBuilder errors = new StringBuilder();
@@ -93,14 +94,14 @@ namespace SRS.Process
                 }
                 catch (Exception ex)
                 {
-                    _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+                    log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
                 }
                 finally
                 {
-                    _log.Info("Contractor Summary Email Sent");
+                    log.Info("Contractor Summary Email Sent");
                 }
                 errors.Clear();
-                 errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
+                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
                 errors.Append("<br />Please see the attached file: <b><font color='red'>");
                 return template.ToString(); 
             }
@@ -161,11 +162,11 @@ namespace SRS.Process
             }
             catch (Exception ex)
             {
-                _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
             }
             finally
             {
-                _log.Info("Contractor Summary Email Sent");
+                log.Info("Contractor Summary Email Sent");
             }
             if (emailData.ExpiringContractorHasErrors)
             {
@@ -209,11 +210,11 @@ namespace SRS.Process
             }
             catch (Exception ex)
             {
-                _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
             }
             finally
             {
-                _log.Info("Contractor Summary Email Sent");
+                log.Info("Contractor Summary Email Sent");
             }
 
             if (emailData.ExpiredContractorHasErrors)
@@ -233,6 +234,137 @@ namespace SRS.Process
             }
             return template.ToString();
         }
-    
+        //public void GetExpiringContractor()
+        //{
+
+        //    MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+
+        //    //try
+        //    //{
+        //    //    _log.Info("Getting Contractor Data");
+        //    //    // MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+
+        //        MySqlCommand cmd = new MySqlCommand();
+
+        //        List<Contractor> allExpiringContractorData = new List<Contractor>();
+
+        //        using (conn)
+        //        {
+        //            if (conn.State == ConnectionState.Closed)
+        //                conn.Open();
+
+        //            using (cmd)
+        //            {
+        //                MySqlDataReader expiringContractorData;
+
+        //                cmd.Connection = conn;
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.CommandText = "SRS_GetContractors";
+        //                cmd.Parameters.Clear();
+
+        //                //MySqlDbType todaysDate = default(MySqlDbType);
+        //                //cmd.Parameters.Add("DateTime", todaysDate);
+        //                cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
+        //                _log.Info("Contractor data of expiration: " + DateTime.Now);
+        //                expiringContractorData = cmd.ExecuteReader();
+        //                _log.Info("Contractor Retrieved Data: " + DateTime.Now);
+        //                _log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+
+        //                while (expiringContractorData.Read())
+        //                {
+        //                    allExpiringContractorData.Add(
+        //                        new Contractor
+        //                        {
+        //                            Pers_id = expiringContractorData[0].ToString(),
+        //                            LastName = expiringContractorData[1].ToString(),
+        //                            FirstName = expiringContractorData[2].ToString(),
+        //                            MiddleName = expiringContractorData[3].ToString(),
+        //                            Suffix = expiringContractorData[4].ToString(),
+        //                            DaysToExpiration = expiringContractorData.GetInt32(5),
+        //                            vpoc_emails = expiringContractorData[6].ToString(),
+        //                            gpoc_emails = expiringContractorData[7].ToString(),
+        //                            pers_status = expiringContractorData[8].ToString(),
+        //                            pers_investigation_date = (DateTime)expiringContractorData[9]
+
+        //                        }
+        //                       );
+        //                }
+        //                _log.Info("Adding Contractor expired data to object: " + DateTime.Now);
+        //            }
+        //           // return allExpiringContractorData;
+        //        }
+        //    //}
+        //    //catch (Exception ex)
+        //    //{
+        //    //    _log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
+        //    //    return new List<Contractor>();
+        //    //}
+
+        //}
+
+        //public List<Contractor> allExpiredContractorData(DateTime accessingDate)
+        //{
+        //    MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+        //    try
+        //    {
+        //        // MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
+
+        //        MySqlCommand cmd = new MySqlCommand();
+        //        List<Contractor> allExpiredContractorData = new List<Contractor>();
+
+        //        using (conn)
+        //        {
+        //            if (conn.State == ConnectionState.Closed)
+        //                conn.Open();
+
+        //            using (cmd)
+        //            {
+        //                MySqlDataReader expiredContractorData;
+
+
+        //                cmd.Connection = conn;
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.CommandText = "SRS_GetContractors";
+        //                cmd.Parameters.Clear();
+
+        //                //MySqlDbType todaysDate = default(MySqlDbType);
+        //                //cmd.Parameters.Add("DateTime", todaysDate);
+        //                cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
+        //                _log.Info("Contractor data of expiration: " + DateTime.Now);
+        //                expiredContractorData = cmd.ExecuteReader();
+        //                _log.Info("Contractor Retrieved Data: " + DateTime.Now);
+        //                _log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+
+        //                while (expiredContractorData.Read())
+        //                {
+        //                    allExpiredContractorData.Add(
+
+        //                        new Contractor
+        //                        {
+        //                            Pers_id = expiredContractorData[0].ToString(),
+        //                            LastName = expiredContractorData[1].ToString(),
+        //                            FirstName = expiredContractorData[2].ToString(),
+        //                            MiddleName = expiredContractorData[3].ToString(),
+        //                            Suffix = expiredContractorData[4].ToString(),
+        //                            DaysToExpiration = expiredContractorData.GetInt32(5),
+        //                            vpoc_emails = expiredContractorData[6].ToString(),
+        //                            gpoc_emails = expiredContractorData[7].ToString(),
+        //                            pers_status = expiredContractorData[8].ToString(),
+        //                            pers_investigation_date = (DateTime)expiredContractorData[9]
+
+        //                        }
+        //                            );
+        //                }
+        //                _log.Info("Adding Contractor expired data to object: " + DateTime.Now);
+        //            }
+        //            return allExpiredContractorData;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
+        //        return new List<Contractor>();
+        //    }
+        //}
     }
 }

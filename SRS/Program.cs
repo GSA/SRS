@@ -2,6 +2,7 @@
 using SRS.Mapping;
 using SRS.Process;
 using SRS.Models;
+using SRS.Data;
 using System.Diagnostics;
 using System.IO;
 using System;
@@ -18,7 +19,7 @@ namespace SRS
         //File paths from config file
         private static string ExpiringSACFilePath = ConfigurationManager.AppSettings["ExpiringSACFilePath"].ToString();
         private static string ExpiredSACFilePath = ConfigurationManager.AppSettings["ExpiredSACFilePath"].ToString();
-        private static string ConnectionString = ConfigurationManager.ConnectionStrings["hspd"].ConnectionString;
+        
         //Stopwatch objects
         private static Stopwatch timeForApp = new Stopwatch();
 
@@ -30,19 +31,21 @@ namespace SRS
         private static EmailData emailData = new EmailData();
         private static bool expiringContractor = false;
         private static bool expiredContractor = false;
+        private static object dataMapper;
 
         public static void Main(string[] args)
         {  
+            ProcessContractor processContractor = new ProcessContractor();
+            SendSummary sendSummary = new SendSummary(ref emailData);
             //Start timer
             timeForApp.Start();
              
             //Log start of application
             log.Info("Application Started: " + DateTime.Now);
 
-            // CreateMaps();
+            CreateMaps();
 
-           ProcessContractor processContractor = new ProcessContractor();
-            SendSummary sendSummary = new SendSummary(ref emailData);
+           
             emailData.TimeBegin = DateTime.Now;
             emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
 
@@ -51,11 +54,13 @@ namespace SRS
             StartProcessing();
             log.Info("Processing of App Settings:" + DateTime.Now);
             log.Info("Contractors File Processing:" + DateTime.Now);
-             
-            if (File.Exists(ExpiringSACFilePath))
+              
+           //if (File.Exists(ExpiringSACFilePath))
+           if (expiringContractor)
              {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
+                    //processContractor.ProcessExpiringContractor(ref emailData);
                     processContractor.ProcessExpiringContractor(ref emailData);
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
@@ -65,8 +70,9 @@ namespace SRS
               {
                 log.Error("Expiring Contractor File not found");
               }
-            if (File.Exists(ExpiredSACFilePath))
-               {
+            //if (File.Exists(ExpiredSACFilePath))
+                if (expiredContractor)
+                {
                     log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
                     processContractor.ProcessExpiredContractor(ref emailData);
@@ -76,9 +82,9 @@ namespace SRS
                 }
             
             else
-            {
+              {
                 log.Error("Expired Contractor File not found");
-            }
+              }
 
             log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
@@ -98,12 +104,17 @@ namespace SRS
             log.Info("The end of processing Contractor: " + DateTime.Now);
       
         }
+        private static void CreateMaps()
+        {
+            map.CreateDataConfig();
+            dataMapper = map.CreateDataMapping();
+        }
 
         private static void StartProcessing()
         {
-            if (!Boolean.TryParse("ExpiringContractor", out expiringContractor))
+            if (!bool.TryParse("ExpiringContractor".GetEmailSetting(), out expiringContractor))
                 expiringContractor = true;
-            if (!Boolean.TryParse("ExpiredContractor", out expiredContractor))
+            if (!bool.TryParse("ExpiredContractor".GetEmailSetting(), out expiredContractor))
                 expiredContractor = true;
         }
         

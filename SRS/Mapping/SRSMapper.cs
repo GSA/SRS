@@ -1,42 +1,33 @@
 ﻿using AutoMapper;
+using AutoMapper.Data;
 
 namespace SRS.Mapping
 {
     internal class SRSMapper
     {
-        private MapperConfiguration lookupConfig;
-        //private MapperConfiguration dataConfig;
+        
+        private MapperConfiguration dataConfig;
 
-        public void CreateLookupConfig()
+         
+
+        public void CreateDataConfig()
         {
-            lookupConfig = new MapperConfiguration(cfg =>
+            dataConfig = new MapperConfiguration(cfg =>
             {
-                 
-                // cfg.AddDataReaderMapping();
+                 //cfg.AddDataReaderMapping();
                 cfg.AllowNullCollections = true;
+
+                //cfg.CreateMap<ExpiringContractorData, ExpiringContractorData>().ReverseMap();
+                //cfg.CreateMap<ExpiredContractorData, ExpiredContractorData>().ReverseMap();
+
             });
         }
 
-    //    public void CreateDataConfig()
-    //    {
-    //        dataConfig = new MapperConfiguration(cfg =>
-    //        {
-    //            // cfg.AddDataReaderMapping();
-    //            cfg.AllowNullCollections = true;
+       
 
-    //            cfg.CreateMap<ContractorData, ContractorData>().ReverseMap();
-              
-    //});
-    //    }
-
-    //    public IMapper CreateLookupMapping()
-    //    {
-    //        return lookupConfig.CreateMapper();
-    //    }
-
-    //    public IMapper CreateDataMapping()
-    //    {
-    //        return dataConfig.CreateMapper();
-    //    }
+        public IMapper CreateDataMapping()
+        {
+            return dataConfig.CreateMapper();
+        }
     }
 }

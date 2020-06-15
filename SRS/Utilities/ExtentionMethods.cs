@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 
-namespace SRS
+namespace SRS.Utilities
 {
     public static class ExtentionMethods
     {

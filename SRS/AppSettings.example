@@ -4,13 +4,15 @@
   <add key="ExpiredContractor" value="TRUE" />
   <add key="SMTPServer" value="smtp.gsa.gov" />
   <add key="Subject" value="SRS Reminder" />
-  <add key="DefaultEmail" value="abebaw.eshetie+from@gsa.gov" />
+  <add key="DefaultEmail" value=" " />
   <add key="Bcc" value="" />
   <add key="SummarySubject" value="SRS Summary" />
-  <add key="TO" value="abebaw.eshetie+to@gsa.gov" />
+  <add key="TO" value=" " />
   <add key="CC" value="" />
   <add key="BCC" value="" />
   <add key="SummaryFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\" />
+  <add key="SummaryAttachment" value="" />
+  <add key="Summary" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\" />
   <add key="Summary" value="Summary.html" />
   <add key="ExpiringSACFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\" />
   <add key="ExpiringSACEmailTemplate" value="ExpiringSAC.html" />
