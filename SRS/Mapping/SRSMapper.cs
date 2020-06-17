@@ -14,7 +14,7 @@ namespace SRS.Mapping
         {
             dataConfig = new MapperConfiguration(cfg =>
             {
-                 //cfg.AddDataReaderMapping();
+                //cfg.AddDataReaderMapping();
                 cfg.AllowNullCollections = true;
 
                 //cfg.CreateMap<ExpiringContractorData, ExpiringContractorData>().ReverseMap();
@@ -22,9 +22,7 @@ namespace SRS.Mapping
 
             });
         }
-
-       
-
+         
         public IMapper CreateDataMapping()
         {
             return dataConfig.CreateMapper();

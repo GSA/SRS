@@ -23,7 +23,7 @@ namespace SRS.Process
             try
             {
                 expiringContractor.ProcessExpiringContractor();
-                var summary = new ContractorSummary();
+                var summary = new ExpiringContractorSummary();
                 var fileReader = new FileReader(); 
             }
             catch(Exception ex)
@@ -37,7 +37,7 @@ namespace SRS.Process
             try
             {
                 expiredContractor.ProcessExpiredContractor();
-                var summary = new ContractorSummary();
+                var summary = new ExpiredContractorSummary();
                 var fileReader = new FileReader();
             }
             catch(Exception ex)

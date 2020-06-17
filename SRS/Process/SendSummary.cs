@@ -35,11 +35,7 @@ namespace SRS.Process
             //Generate an email 
             body = GenerateTemplate();
 
-            attachments = SummaryAttachments();
-
-           // body = GenerateExpiringSAC();
-
-            //body = GenerateExpiredSAC();
+            attachments = SummaryAttachments(); 
 
             try
             {
@@ -69,34 +65,35 @@ namespace SRS.Process
             StringBuilder fileNames = new StringBuilder();
 
             {
-                //string template = File.ReadAllText(@ConfigurationManager.AppSettings["Summary"] + "Summary.html");
-                string template = @ConfigurationManager.AppSettings["Summary" + "Summary.html"];
+            string template = File.ReadAllText(@ConfigurationManager.AppSettings["Summary"]);// + "Summary.html");
+                //string template = @ConfigurationManager.AppSettings["Summary" + "Summary.html"];
 
-                //replacing the parameters
-                try
-                {
-                     
-                    using (StreamReader reader = new StreamReader("Summary.html"))
+            //replacing the parameters
+            try
+            {
 
-                    {
-                        template = reader.ReadToEnd();
-                    }
+                using (StreamReader reader = new StreamReader("Summary.html"))
+
+            {
+                template = reader.ReadToEnd();
+            }
                     template = template.Replace("[ACCESSINGDATE]", emailData.AccessingDate.ToString());
-                    template = template.Replace("[NUMBEROFRECORDS]", emailData.TotalContractorsProcessed.ToString());
+                    template = template.Replace("[ExpiringNUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
+                    template = template.Replace("[ExpiredNUMBEROFRECORDS]", emailData.ExpiredContractorRecords.ToString());
                     template = template.Replace("[TIMEBEGIN]", emailData.TimeBegin.ToString());
                     template = template.Replace("[ENDTIME]", emailData.EndTime.ToString());
                     template = template.Replace("[ACCESSINGTIME]", emailData.TimeElapsed.ToString());
 
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
-                }
-                finally
-                {
-                    log.Info("Contractor Summary Email Sent");
-                }
-                errors.Clear();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+            }
+            finally
+            {
+                log.Info("Contractor Summary Email Sent");
+            }
+            errors.Clear();
                 errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
                 errors.Append("<br />Please see the attached file: <b><font color='red'>");
                 return template.ToString(); 
@@ -132,102 +129,6 @@ namespace SRS.Process
 
             return addAttachment.ToString();
         }
-        private string GenerateExpiringSAC()
-        {
-
-            StringBuilder errors = new StringBuilder();
-            StringBuilder expiringSAC = new StringBuilder();
-
-            // string template = File.ReadAllText(@ConfigurationManager.AppSettings["ExpiringSACEmailTemplate"] + "ExpiringSAC.html");
-            string template = @ConfigurationManager.AppSettings["ExpiringSACEmailTemplate"] + "ExpiringSAC.html";
-            expiringSAC.Append(emailData.ExpiringContractorSummary == null ? "No Contractor File Found" : emailData.ExpiringContractorSummary.ToString());
-            expiringSAC.Append(", ");
-
-            try
-            {
-                string ExpiringSACFilePath = AppDomain.CurrentDomain.BaseDirectory + "ExpiringSAC.html";
-                using (StreamReader reader = new StreamReader(ExpiringSACFilePath))
-                //using (StreamReader reader = new StreamReader("ExpiringSAC.html"))
-                {
-                    template = reader.ReadToEnd();
-                }
-
-                object lastName = null;
-                template = template.Replace("[LastName]", lastName.ToString());
-
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
-            }
-            finally
-            {
-                log.Info("Contractor Summary Email Sent");
-            }
-            if (emailData.ExpiringContractorHasErrors)
-            {
-                errors.Clear();
-
-                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
-                errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.ExpiringContractorUnsuccessfulFileName);
-                errors.Append("</font></b>");
-
-                expiringSAC = expiringSAC.Replace("[IfExpiringContractorHasERRORS]", errors.ToString());
-            }
-            else
-            {
-                expiringSAC = expiringSAC.Replace("[IfExpiringContractorHasERRORS]", null);
-            }
-            return template.ToString();
-        }
-        private string GenerateExpiredSAC()
-        {
-            StringBuilder errors = new StringBuilder();
-            StringBuilder expiredSAC = new StringBuilder();
-
-           // string template = File.ReadAllText(@ConfigurationManager.AppSettings["ExpiredSACEmailTemplate"] + "ExpiredSAC.html");
-            string template = @ConfigurationManager.AppSettings["ExpiredSACEmailTemplate"] + "ExpiredSAC.html";
-            expiredSAC.Append(emailData.ExpiredContractorSummary == null ? "No Contractor File Found" : emailData.ExpiredContractorSummary.ToString());
-            expiredSAC.Append(", ");
-
-            try
-            { 
-                using (StreamReader reader = new StreamReader("ExpiredSAC.html"))
-                {
-                   template = reader.ReadToEnd();
-                }
-
-                object lastName = null;
-                template = template.Replace("[LastName]", lastName.ToString());
-
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
-            }
-            finally
-            {
-                log.Info("Contractor Summary Email Sent");
-            }
-
-            if (emailData.ExpiredContractorHasErrors)
-            {
-                errors.Clear();
-
-                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
-                errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                errors.Append(emailData.ExpiredContractorUnsuccessfulFileName);
-                errors.Append("</font></b>");
-
-                expiredSAC = expiredSAC.Replace("[IFExpiredContractorHasERRORS]", errors.ToString());
-            }
-            else
-            {
-                expiredSAC = expiredSAC.Replace("[IfExpiredContractorHasERRORS]", null);
-            }
-            return template.ToString();
-        }
-       
+         
     }
 }

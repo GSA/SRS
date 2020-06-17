@@ -20,38 +20,36 @@ namespace SRS.Process
         public ExpiringContractor( ref EmailData emailData)
         {
             //InitializeComponent();
-           // retrieveData = new RetrieveData();
+            retrieveData = new RetrieveData();
             this.emailData = emailData;
         }
         public void ProcessExpiringContractor()
         {
             _log.Info("Processing Expiring Contractor File" + DateTime.Now);
-            
+            var summary = new ContractorSummary();
             try
-            {
-                var summary = new ContractorSummary();
-
+            {   
                 expiringContractor = retrieveData.GetExpiringContractor(emailData.AccessingDate);
                 _log.Info("Loading Expiring Contractor File" + expiringContractor.Count + " expiring contractor: " + DateTime.Now);
 
                 foreach (Contractor contractor in expiringContractor)
                 {
-                    _log.Info("The expiring Contractor email send " + contractor .Pers_id + "To" + contractor.vpoc_emails + "cc" + contractor.gpoc_emails);
+                    _log.Info("The expiring Contractor email send " + contractor.LastName + "To" + contractor.RegionalEMails + "cc" + contractor.RegionalEMails);
                     accessEmail.SendExpiringContractorEmailTemplate(contractor);
 
-                    _log.Info("The expiring contractor email sent successfully " + contractor.Pers_id + "To" + contractor.vpoc_emails + "cc" + contractor.gpoc_emails);
-                    summary.SuccessfulProcessed.Add(new ExpiringContractorSummary
+                    _log.Info("The expiring contractor email sent successfully " + contractor.LastName + "To" + contractor.RegionalEMails + "cc" + contractor.RegionalEMails);
+                    summary.ExpiringSuccessfulProcessed.Add(new ExpiringContractorSummary
                     {
-                        Pers_id = contractor.Pers_id,
-                        LastName = contractor.Person.LastName,
-                        FirstName = contractor.Person.FirstName,
-                        MiddleName = contractor.Person.MiddleName,
-                        Suffix = contractor.Person.Suffix,
-                        pers_investigation_date = contractor.pers_investigation_date,
-                        vpoc_emails = contractor.vpoc_emails,
-                        gpoc_emails = contractor.gpoc_emails,
+                        LastName = contractor.LastName,
+                        Suffix = contractor.Suffix,
+                        FirstName = contractor.FirstName,
+                        MiddleName = contractor.MiddleName,
                         DaysToExpiration = contractor.DaysToExpiration,
-                        pers_status = contractor.pers_status
+                        gpoc_emails = contractor.gpoc_emails,
+                        vpoc_emails = contractor.vpoc_emails,
+                        RegionalEMails = contractor.RegionalEMails,
+                        MajorEMails = contractor.MajorEMails,
+                       pers_investigation_date = contractor.pers_investigation_date
                     });
 
                 }

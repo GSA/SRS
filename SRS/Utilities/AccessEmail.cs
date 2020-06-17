@@ -80,7 +80,7 @@ namespace SRS.Utilities
         {
             string eSubject = subject;
 
-            eSubject = eSubject.Replace("[Pers_id]", contractorData.Pers_id); 
+            eSubject = eSubject.Replace("[RegionalEMails]", contractorData.RegionalEMails); 
             eSubject = eSubject.Replace("[ContractorDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eSubject;
@@ -90,7 +90,7 @@ namespace SRS.Utilities
         {
             string eBody = body;
 
-            eBody = eBody.Replace("[Pers_id]", contractorData.Pers_id);
+            eBody = eBody.Replace("[RegionalEMails]", contractorData.RegionalEMails);
          
             eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 

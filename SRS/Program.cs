@@ -29,8 +29,8 @@ namespace SRS
 
         //private static IMapper dataMapper;
         private static EmailData emailData = new EmailData();
-        private static bool expiringContractor = false;
-        private static bool expiredContractor = false;
+        private static bool expiringContractor = true;
+        private static bool expiredContractor = true;
         private static object dataMapper;
 
         public static void Main(string[] args)
@@ -59,8 +59,7 @@ namespace SRS
            if (expiringContractor)
              {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
-                    timeForProcess.Start();
-                    //processContractor.ProcessExpiringContractor(ref emailData);
+                    timeForProcess.Start(); 
                     processContractor.ProcessExpiringContractor(ref emailData);
                     timeForProcess.Stop();
                     log.Info("Time to Stop Expiring Contractor Processing:" + DateTime.Now);
