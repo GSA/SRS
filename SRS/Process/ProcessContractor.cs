@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using SRS.Data;
-using SRS.Utilities;
-using SRS.Mapping;
+﻿using SRS.Utilities;
 using SRS.Models;
 using System;
-using System.Collections.Generic;
-using SRS.Process;
 
 namespace SRS.Process
 {
@@ -28,7 +23,7 @@ namespace SRS.Process
             }
             catch(Exception ex)
             {
-                _log.Error("Getting Contracts:" + "-" + ex.Message + "-" + ex.InnerException);
+                _log.Error("Getting Contractor:" + "-" + ex.Message + "-" + ex.InnerException);
             }  
         } 
       public void ProcessExpiredContractor(ref EmailData emailData)
@@ -42,7 +37,7 @@ namespace SRS.Process
             }
             catch(Exception ex)
             {
-                _log.Error("Getting Contracts:" + "_" + ex.Message + "_" + ex.InnerException);
+                _log.Error("Getting Contractor:" + "_" + ex.Message + "_" + ex.InnerException);
             }
         }
     }

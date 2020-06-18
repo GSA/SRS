@@ -5,8 +5,7 @@ namespace SRS.Mapping
 {
     internal sealed class ExpiringContractorSummaryMapping : ClassMap<ExpiringContractorSummary>
     {
-       // private Lookup lookups;
-
+       
         public ExpiringContractorSummaryMapping()
         { 
             Map(m => m.LastName).Name("Last Name");

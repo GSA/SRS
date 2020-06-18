@@ -10,16 +10,16 @@
   <add key="TO" value=" " />
   <add key="CC" value="" />
   <add key="BCC" value="" />
-  <add key="SummaryFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\" />
+  <add key="SUMMARYFILEPATH" value=" " />
   <add key="SummaryAttachment" value="" />
-  <add key="Summary" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\" />
+  <add key="Summary" value=" " />
   <add key="Summary" value="Summary.html" />
-  <add key="ExpiringSACFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\" />
+  <add key="ExpiringSACFilePath" value=" " />
   <add key="ExpiringSACEmailTemplate" value="ExpiringSAC.html" />
-  <add key="ExpiredSACFilePath" value="C:\Users\abebawgeshetie\Source\Repos\GSA\srs\SRS\bin\Debug\"/>
+  <add key="ExpiredSACFilePath" value=" "/>
   <add key="ExpiredSACEmailTemplate" value="ExpiredSAC.html" />
-  <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="SuccessProcessed" />
-  <add key="ExpiringERRORSUMMARYFILENAME" value="UnsuccessProcessed" />
+  <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="ExpiringSuccessProcessed" />
+  <add key="ExpiringERRORSUMMARYFILENAME" value="ExpiringUnsuccessProcessed" />
   <add key="ExpiredSUCCESSFULSUMMARYFILENAME" value="ExpiredSuccessProcessed" />
   <add key="ExpiredERRORSUMMARYFILENAME" value="ExpiredUnsuccessProcessed" />
   <add key="ClientSettingsProvider.ServiceUri" value="" />

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRS.Models
 {
     internal class ExpiringContractorSummary
     {
-       // public Person Person { get; set; }
+        public Person Person { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }
@@ -18,12 +14,11 @@ namespace SRS.Models
         public string vpoc_emails { get; set; }
         public string RegionalEMails { get; set; }
         public string MajorEMails { get; set; }
-        public DateTime pers_investigation_date { get; set; }
-        //public string pers_status { get; set; }
+        public DateTime pers_investigation_date { get; set; } 
     }
     internal class ExpiredContractorSummary
     {
-       // public Person Person { get; set; }
+        public Person Person { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }
@@ -33,8 +28,7 @@ namespace SRS.Models
         public string vpoc_emails { get; set; }
         public string RegionalEMails { get; set; }
         public string MajorEMails { get; set; }
-        public DateTime pers_investigation_date { get; set; }
-       // public string pers_status { get; set; }
+        public DateTime pers_investigation_date { get; set; } 
     }
     
     

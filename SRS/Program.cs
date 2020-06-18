@@ -31,7 +31,7 @@ namespace SRS
         private static EmailData emailData = new EmailData();
         private static bool expiringContractor = true;
         private static bool expiredContractor = true;
-        private static object dataMapper;
+        //private static object dataMapper;
 
         public static void Main(string[] args)
         {  
@@ -42,10 +42,7 @@ namespace SRS
              
             //Log start of application
             log.Info("Application Started: " + DateTime.Now);
-
-            CreateMaps();
-
-           
+             
             emailData.TimeBegin = DateTime.Now;
             emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
 
@@ -101,14 +98,8 @@ namespace SRS
 
             //Log processing end
             log.Info("The end of processing Contractor: " + DateTime.Now);
-      
-        }
-        private static void CreateMaps()
-        {
-            map.CreateDataConfig();
-            dataMapper = map.CreateDataMapping();
-        }
-
+             
+        } 
         private static void StartProcessing()
         {
             if (!bool.TryParse("ExpiringContractor".GetEmailSetting(), out expiringContractor))

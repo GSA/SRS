@@ -28,12 +28,14 @@ namespace SRS.Process
             _log.Info("Processing Expiring Contractor File" + DateTime.Now);
             var summary = new ContractorSummary();
             try
-            {   
+            {    
                 expiringContractor = retrieveData.GetExpiringContractor(emailData.AccessingDate);
                 _log.Info("Loading Expiring Contractor File" + expiringContractor.Count + " expiring contractor: " + DateTime.Now);
-
+                
                 foreach (Contractor contractor in expiringContractor)
                 {
+                    summary.GenerateSummaryFiles(emailData);
+                    emailData.ExpiringContractorRecords = expiringContractor.Count;
                     _log.Info("The expiring Contractor email send " + contractor.LastName + "To" + contractor.RegionalEMails + "cc" + contractor.RegionalEMails);
                     accessEmail.SendExpiringContractorEmailTemplate(contractor);
 
@@ -49,13 +51,11 @@ namespace SRS.Process
                         vpoc_emails = contractor.vpoc_emails,
                         RegionalEMails = contractor.RegionalEMails,
                         MajorEMails = contractor.MajorEMails,
-                       pers_investigation_date = contractor.pers_investigation_date
+                        pers_investigation_date = contractor.pers_investigation_date
                     });
 
                 }
-                summary.GenerateSummaryFiles(emailData);
-                emailData.ExpiringContractorRecords = expiringContractor.Count;
- 
+                 
             }
             catch (Exception ex)
             {

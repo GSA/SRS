@@ -123,7 +123,7 @@ namespace SRS.Process
         {
             StringBuilder addAttachment = new StringBuilder();
 
-            addAttachment.Append(ConfigurationManager.AppSettings["SummaryFilePath"]);
+            addAttachment.Append(ConfigurationManager.AppSettings["SUMMARYFILEPATH"]);
             addAttachment.Append(fileName);
             addAttachment.Append(";");
 

@@ -38,14 +38,13 @@ namespace SRS.Data
                         cmd.CommandText = "SRS_GetExpiringContractors";
                         cmd.Parameters.Clear();
 
-                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
+                        cmd.Parameters.AddWithValue("inDate", "2020-06-15");// accessingDate); //"2020-06-06"
                         MySqlDataReader expiringContractorData = cmd.ExecuteReader();
 
                         log.Info("Contractor data of expiration: " + DateTime.Now);
-                        //expiringContractorData = cmd.ExecuteReader();
+                        
                         log.Info("Contractor Retrieved Data: " + DateTime.Now);
-                        //log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
-
+                           
                         while (expiringContractorData.Read())
                         {
                             allExpiringContractorData.Add(
@@ -100,11 +99,11 @@ namespace SRS.Data
                         cmd.CommandText = "SRS_GetExpiredContractors";
                         cmd.Parameters.Clear();
 
-                        cmd.Parameters.AddWithValue("inDate", "2020-06-06"); //accessingDate); //"2020-06-06"
+                        cmd.Parameters.AddWithValue("inDate", "2020-06-15"); //accessingDate); //"2020-06-06"
 
                         MySqlDataReader expiredContractorData = cmd.ExecuteReader();
                         log.Info("Contractor data of expiration: " + DateTime.Now);
-                        // expiredContractorData = cmd.ExecuteReader();
+                         
                         log.Info("Contractor Retrieved Data: " + DateTime.Now);
                         log.Info("Adding Contractor expired data to object: " + DateTime.Now);
 
@@ -125,8 +124,8 @@ namespace SRS.Data
                                     MajorEMails = expiredContractorData[8].ToString(),
                                     //pers_investigation_date = (DateTime)expiredContractorData[9]
 
-                                }
-                                    );
+                                } );
+                                   
                         }
                         log.Info("Adding Contractor expired data to object: " + DateTime.Now);
                     }

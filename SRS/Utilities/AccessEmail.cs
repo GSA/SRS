@@ -1,15 +1,7 @@
 ﻿using SRS.Models;
-using SRS.Utilities;
 using SRS.Data;
-using SRS.Mapping;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Configuration;
-using System.Diagnostics.Contracts;
 
 namespace SRS.Utilities
 {
@@ -80,7 +72,7 @@ namespace SRS.Utilities
         {
             string eSubject = subject;
 
-            eSubject = eSubject.Replace("[RegionalEMails]", contractorData.RegionalEMails); 
+            eSubject = eSubject.Replace("[LastName]", contractorData.LastName); 
             eSubject = eSubject.Replace("[ContractorDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 
             return eSubject;
@@ -90,7 +82,7 @@ namespace SRS.Utilities
         {
             string eBody = body;
 
-            eBody = eBody.Replace("[RegionalEMails]", contractorData.RegionalEMails);
+            eBody = eBody.Replace("[LastName]", contractorData.LastName);
          
             eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
 

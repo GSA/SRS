@@ -42,13 +42,13 @@ namespace SRS.Process
                 log.Info("Expiring Contractor Successfull File: " + emailData.ExpiringContractorSuccessfulFileName);
             }
 
-            //if (ExpiringUnsuccessfulProcessed.Count > 0)
-            //{
-            //    ExpiringUnsuccessfulProcessed = ExpiringUnsuccessfulProcessed.OrderBy(o => o.RegionalEMails).ThenBy(t => t.LastName ).ToList();
+            if (ExpiringUnsuccessfulProcessed.Count > 0)
+            {
+                ExpiringUnsuccessfulProcessed = ExpiringUnsuccessfulProcessed.OrderBy(o => o.RegionalEMails).ThenBy(t => t.LastName).ToList();
 
-            //    emailData.ExpiringContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiringERRORSUMMARYFILENAME"].ToString(), ExpiringUnsuccessfulProcessed);
-            //    log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFileName);
-            //}
+                emailData.ExpiringContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiringContractorSummary, ExpiringContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiringERRORSUMMARYFILENAME"].ToString(), ExpiringUnsuccessfulProcessed);
+                log.Info("Contractors Error File: " + emailData.ExpiringContractorUnsuccessfulFileName);
+            }
 
             if (ExpiredSuccessfulProcessed.Count > 0)
             {
@@ -58,13 +58,13 @@ namespace SRS.Process
                 log.Info(" Expired Contractor Successfull File: " + emailData.ExpiredContractorSuccessfulFileName);
             }
 
-            //if (ExpiredUnsuccessfulProcessed.Count > 0)
-            //{
-            //    ExpiredUnsuccessfulProcessed = ExpiredUnsuccessfulProcessed.OrderBy(o => o.RegionalEMails).ThenBy(t => t.LastName).ToList();
+            if (ExpiredUnsuccessfulProcessed.Count > 0)
+            {
+                ExpiredUnsuccessfulProcessed = ExpiredUnsuccessfulProcessed.OrderBy(o => o.RegionalEMails).ThenBy(t => t.LastName).ToList();
 
-            //    emailData.ExpiredContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredERRORSUMMARYFILENAME"].ToString(), ExpiredUnsuccessfulProcessed);
-            //    log.Info("Contractors Error File: " + emailData.ExpiredContractorUnsuccessfulFileName);
-            //}
+                emailData.ExpiredContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredERRORSUMMARYFILENAME"].ToString(), ExpiredUnsuccessfulProcessed);
+                log.Info("Contractors Error File: " + emailData.ExpiredContractorUnsuccessfulFileName);
+            }
 
         }
     }
