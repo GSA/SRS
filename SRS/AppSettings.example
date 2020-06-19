@@ -3,7 +3,8 @@
   <add key="ExpiringContractor" value="TRUE" />
   <add key="ExpiredContractor" value="TRUE" />
   <add key="SMTPServer" value="smtp.gsa.gov" />
-  <add key="Subject" value="SRS Reminder" />
+  <add key="SACExpiringSubject" value="SRS Expiring Reminder" />
+  <add key="SACExpiredSubject" value="SRS Expired Reminder"/>
   <add key="DefaultEmail" value=" " />
   <add key="Bcc" value="" />
   <add key="SummarySubject" value="SRS Summary" />
@@ -11,7 +12,7 @@
   <add key="CC" value="" />
   <add key="BCC" value="" />
   <add key="SUMMARYFILEPATH" value=" " />
-  <add key="SummaryAttachment" value="" />
+  <add key="SummaryAttachment" value=" " />
   <add key="Summary" value=" " />
   <add key="Summary" value="Summary.html" />
   <add key="ExpiringSACFilePath" value=" " />

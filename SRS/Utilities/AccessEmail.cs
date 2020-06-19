@@ -49,9 +49,9 @@ namespace SRS.Utilities
         /// <param name="contractorData"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private string AccessEmailTo(string to, Contractor contractorData, bool Debug)
+        private string AccessEmailTo(string to, Contractor contractorData, bool debug)
         {
-            return contractorData.gpoc_emails;
+            return contractorData.gpoc_emails; 
         }
         /// <summary>
         /// 
@@ -60,32 +60,32 @@ namespace SRS.Utilities
         /// <param name="contractorData"></param>
         /// <param name="debug"></param>
         /// <returns></returns>
-        private string AccessEmailCC(string cc, Contractor contractorData, bool Debug)
+        private string AccessEmailCC(string cc, Contractor contractorData, bool debug)
         {
             return contractorData.gpoc_emails;
         }
-        private string AccessEmailBCC(string bcc, Contractor contractorData, bool Debug)
+        private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
         {
             return contractorData.gpoc_emails;
         }
-        private string AccessEmailSubject(String subject, Contractor contractorData, bool Debug)
+        private string AccessEmailSubject(String subject, Contractor contractorData, bool debug)
         {
             string eSubject = subject;
 
             eSubject = eSubject.Replace("[LastName]", contractorData.LastName); 
             eSubject = eSubject.Replace("[ContractorDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
-
+      
             return eSubject;
         }
 
-        private string AccessEmailBody(string body, Contractor contractorData, bool Debug)
+        private string AccessEmailBody(string body, Contractor contractorData, bool debug)
         {
             string eBody = body;
 
             eBody = eBody.Replace("[LastName]", contractorData.LastName);
          
             eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
-
+             
             return eBody;
         }
         internal bool AccessEmailTemplate(string templateName, ref string subject, ref string body)
@@ -95,11 +95,11 @@ namespace SRS.Utilities
                 switch (templateName)
                 {
                     case EmailTemplate.ExpiringContractorEmailTemplate:
-                        subject = "EMAILSUBJECT".GetEmailSetting();
+                        subject = "SACExpiringSubject".GetEmailSetting();
                         body = File.ReadAllText("ExpiringSACEmailTemplate".GetEmailSetting());
                         break;
                     case EmailTemplate.ExpiredContractorEmailTemplate:
-                        subject = "EMAILSUBJECT".GetEmailSetting();
+                        subject = "SACExpiredSubject".GetEmailSetting();
                         body = File.ReadAllText("ExpiredSACEmailTemplate".GetEmailSetting());
                         break;
                     default:
