@@ -52,7 +52,7 @@ namespace SRS
             log.Info("Processing of App Settings:" + DateTime.Now);
             log.Info("Contractors File Processing:" + DateTime.Now);
               
-           //if (File.Exists(ExpiringSACFilePath))
+          // if (File.Exists(ExpiringSACFilePath))
            if (expiringContractor)
              {
                     log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
@@ -66,7 +66,7 @@ namespace SRS
               {
                 log.Error("Expiring Contractor File not found");
               }
-            //if (File.Exists(ExpiredSACFilePath))
+           // if (File.Exists(ExpiredSACFilePath))
                 if (expiredContractor)
                 {
                     log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);

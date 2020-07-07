@@ -29,9 +29,6 @@ namespace SRS.Utilities
             return hashedFullSsn;
         }
 
-        //internal static void AddBadRecordsToSummary(List<string> badRecords, ref ContractorSummary summary)
-        //{
-        //    throw new NotImplementedException();
-        //}
+         
     }
     }

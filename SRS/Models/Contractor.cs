@@ -12,7 +12,7 @@ namespace SRS.Models
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }
-        public string MiddleName { get; set; }
+        public string MiddleName { get; set; } 
         public int DaysToExpiration { get; set; }
         public string gpoc_emails { get; set; }
         public string vpoc_emails { get; set; }

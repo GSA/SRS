@@ -180,8 +180,6 @@
     <Compile Include="Models\EmailData.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Mapping\Constants.cs" />
-    <Compile Include="Data\LoadLookupData.cs" />
-    <Compile Include="Lookups\Lookup.cs" />
     <Compile Include="Models\ProcessResult.cs" />
     <Compile Include="Process\ProcessContractor.cs" />
     <Compile Include="Process\ProcessSummary.cs" />

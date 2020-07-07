@@ -17,7 +17,7 @@ namespace SRS.Mapping
         public const int vpoc_emails = 6;
         public const int RegionalEMails = 7; 
         public const int MajorEMails = 8;
-        public const int pers_investigation_date = 9;
+        //public const int pers_investigation_date = 9;
     }
 }
    

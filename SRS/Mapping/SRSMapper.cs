@@ -4,12 +4,8 @@ using AutoMapper.Data;
 namespace SRS.Mapping
 {
     internal class SRSMapper
-    {
-        
-        private MapperConfiguration dataConfig;
-
-         
-
+    { 
+        private MapperConfiguration dataConfig; 
         public void CreateDataConfig()
         {
             dataConfig = new MapperConfiguration(cfg =>

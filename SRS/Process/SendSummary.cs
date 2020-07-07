@@ -65,7 +65,7 @@ namespace SRS.Process
             StringBuilder fileNames = new StringBuilder();
 
             {
-            string template = File.ReadAllText(@ConfigurationManager.AppSettings["Summary"]);// + "Summary.html");
+            string template = File.ReadAllText(ConfigurationManager.AppSettings["Summary"]);// + "Summary.html");
                 //string template = @ConfigurationManager.AppSettings["Summary" + "Summary.html"];
 
             //replacing the parameters

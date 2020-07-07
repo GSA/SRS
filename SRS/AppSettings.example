@@ -3,25 +3,25 @@
   <add key="ExpiringContractor" value="TRUE" />
   <add key="ExpiredContractor" value="TRUE" />
   <add key="SMTPServer" value="smtp.gsa.gov" />
-  <add key="SACExpiringSubject" value="SRS Expiring Reminder" />
-  <add key="SACExpiredSubject" value="SRS Expired Reminder"/>
+  <add key="SACExpiringSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiring on [pers_investigation_date];" />
+  <add key="SACExpiredSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiration [pers_investigation_date]"/>
   <add key="DefaultEmail" value=" " />
-  <add key="Bcc" value="" />
+  <add key="Bcc" value="" /> 
   <add key="SummarySubject" value="SRS Summary" />
   <add key="TO" value=" " />
   <add key="CC" value="" />
   <add key="BCC" value="" />
-  <add key="SUMMARYFILEPATH" value=" " />
-  <add key="SummaryAttachment" value=" " />
-  <add key="Summary" value=" " />
+  <add key="SUMMARYFILEPATH" value="C:\Users "/>
+  <add key="SummaryAttachment" value="C:\Users " />
+  <add key="Summary" value="C:\Users\ " />
   <add key="Summary" value="Summary.html" />
-  <add key="ExpiringSACFilePath" value=" " />
+  <add key="ExpiringSACFilePath" value="C:\Users\ " />
   <add key="ExpiringSACEmailTemplate" value="ExpiringSAC.html" />
-  <add key="ExpiredSACFilePath" value=" "/>
+  <add key="ExpiredSACFilePath" value="C:\Users\ "/>
   <add key="ExpiredSACEmailTemplate" value="ExpiredSAC.html" />
-  <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="ExpiringSuccessProcessed" />
-  <add key="ExpiringERRORSUMMARYFILENAME" value="ExpiringUnsuccessProcessed" />
-  <add key="ExpiredSUCCESSFULSUMMARYFILENAME" value="ExpiredSuccessProcessed" />
-  <add key="ExpiredERRORSUMMARYFILENAME" value="ExpiredUnsuccessProcessed" />
+  <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="Expiring Success Processed" />
+  <add key="ExpiringERRORSUMMARYFILENAME" value="Expiring Unsuccess Processed" />
+  <add key="ExpiredSUCCESSFULSUMMARYFILENAME" value="Expired Success Processed" />
+  <add key="ExpiredERRORSUMMARYFILENAME" value="Expired Unsuccess Processed" />
   <add key="ClientSettingsProvider.ServiceUri" value="" />
 </appSettings>

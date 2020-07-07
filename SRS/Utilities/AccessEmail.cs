@@ -51,6 +51,7 @@ namespace SRS.Utilities
         /// <returns></returns>
         private string AccessEmailTo(string to, Contractor contractorData, bool debug)
         {
+           // return contractorData.RegionalEMails;
             return contractorData.gpoc_emails; 
         }
         /// <summary>
@@ -63,18 +64,22 @@ namespace SRS.Utilities
         private string AccessEmailCC(string cc, Contractor contractorData, bool debug)
         {
             return contractorData.gpoc_emails;
+           // return contractorData.RegionalEMails;
         }
-        private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
-        {
-            return contractorData.gpoc_emails;
-        }
+        //private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
+        //{
+        //    return contractorData.gpoc_emails;
+        //}
         private string AccessEmailSubject(String subject, Contractor contractorData, bool debug)
         {
             string eSubject = subject;
 
-            eSubject = eSubject.Replace("[LastName]", contractorData.LastName); 
-            eSubject = eSubject.Replace("[ContractorDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
-      
+            eSubject = eSubject.Replace("[LastName]", contractorData.LastName);
+            eSubject = eSubject.Replace("[Suffix]", contractorData.Suffix);
+            eSubject = eSubject.Replace("[FirstName]", contractorData.FirstName);
+            eSubject = eSubject.Replace("[MiddleName]", contractorData.MiddleName);
+            eSubject = eSubject.Replace("[pers_investigation_date]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
+              
             return eSubject;
         }
 
@@ -83,9 +88,12 @@ namespace SRS.Utilities
             string eBody = body;
 
             eBody = eBody.Replace("[LastName]", contractorData.LastName);
-         
-            eBody = eBody.Replace("[ContractDateEnd]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
-             
+            eBody = eBody.Replace("[Suffix]", contractorData.Suffix);
+            eBody = eBody.Replace("[FirstName]", contractorData.FirstName);
+            eBody = eBody.Replace("[MiddleName]", contractorData.MiddleName);
+            eBody = eBody.Replace("[DaysToExpiration]", contractorData.DaysToExpiration.ToString());
+            eBody = eBody.Replace("[pers_investigation_date]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
+           
             return eBody;
         }
         internal bool AccessEmailTemplate(string templateName, ref string subject, ref string body)
@@ -137,7 +145,7 @@ namespace SRS.Utilities
 
             To = AccessEmailTo(To, row, Debug);
             CC = AccessEmailCC(CC, row, Debug);
-            BCC = AccessEmailBCC(BCC, row, Debug);
+            //BCC = AccessEmailBCC(BCC, row, Debug);
             Subject = AccessEmailSubject(Subject, row, Debug);
             Body = AccessEmailBody(Body, row, Debug);
 
@@ -174,7 +182,7 @@ namespace SRS.Utilities
 
             To = AccessEmailTo(To, row, Debug);
             CC = AccessEmailCC(CC, row, Debug);
-            BCC = AccessEmailBCC(BCC, row, Debug);
+           // BCC = AccessEmailBCC(BCC, row, Debug);
             Subject = AccessEmailSubject(Subject, row, Debug);
             Body = AccessEmailBody(Body, row, Debug);
 

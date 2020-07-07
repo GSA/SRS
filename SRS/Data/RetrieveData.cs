@@ -50,7 +50,7 @@ namespace SRS.Data
                             allExpiringContractorData.Add(
                                 new Contractor
                                 {
-                                     LastName = expiringContractorData[0].ToString(),
+                                      LastName = expiringContractorData[0].ToString(),
                                       Suffix = expiringContractorData[1].ToString(),
                                       FirstName = expiringContractorData[2].ToString(),
                                       MiddleName = expiringContractorData[3].ToString(), 
@@ -58,9 +58,9 @@ namespace SRS.Data
                                       gpoc_emails = expiringContractorData[5].ToString(),
                                       vpoc_emails = expiringContractorData[6].ToString(),
                                       RegionalEMails = expiringContractorData[7].ToString(),
-                                      MajorEMails = expiringContractorData[8].ToString(), 
+                                      MajorEMails = expiringContractorData[8].ToString(),
                                      // pers_investigation_date = (DateTime)expiringContractorData[9]                           
-                                  }
+                                }
                                );
                     }
                         log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
@@ -122,9 +122,8 @@ namespace SRS.Data
                                     vpoc_emails = expiredContractorData[6].ToString(),
                                     RegionalEMails = expiredContractorData[7].ToString(),
                                     MajorEMails = expiredContractorData[8].ToString(),
-                                    //pers_investigation_date = (DateTime)expiredContractorData[9]
-
-                                } );
+                                    //pers_investigation_date = (DateTime)expiredContractorData[9] 
+                                });
                                    
                         }
                         log.Info("Adding Contractor expired data to object: " + DateTime.Now);
