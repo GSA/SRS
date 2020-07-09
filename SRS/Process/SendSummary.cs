@@ -77,12 +77,12 @@ namespace SRS.Process
             {
                 template = reader.ReadToEnd();
             }
-                    template = template.Replace("[ACCESSINGDATE]", emailData.AccessingDate.ToString());
+                    template = template.Replace("[ACCESSINGDATE]", emailData.ACCESSINGDATE.ToString());
                     template = template.Replace("[ExpiringNUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
                     template = template.Replace("[ExpiredNUMBEROFRECORDS]", emailData.ExpiredContractorRecords.ToString());
-                    template = template.Replace("[TIMEBEGIN]", emailData.TimeBegin.ToString());
-                    template = template.Replace("[ENDTIME]", emailData.EndTime.ToString());
-                    template = template.Replace("[ACCESSINGTIME]", emailData.TimeElapsed.ToString());
+                    template = template.Replace("[TIMEBEGIN]", emailData.TIMEBEGIN.ToString());
+                    template = template.Replace("[ENDTIME]", emailData.ENDTIME.ToString());
+                    template = template.Replace("[ACCESSINGTIME]", emailData.ACCESSINGTIME.ToString());
 
             }
             catch (Exception ex)
@@ -96,7 +96,7 @@ namespace SRS.Process
             errors.Clear();
                 errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
                 errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                return template.ToString(); 
+                return template;//.ToString(); 
             }
         }
         private string SummaryAttachments()

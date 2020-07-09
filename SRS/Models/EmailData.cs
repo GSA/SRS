@@ -28,10 +28,10 @@ namespace SRS.Models
 
         public bool ExpiringContractorHasErrors { get; set; }
         public bool ExpiredContractorHasErrors { get; set; }
-        public DateTime  AccessingDate { get; set; }
-        public DateTime TimeBegin { get; set; }
-        public DateTime EndTime { get; set; }
-        public DateTime  TimeElapsed { get; set; }
+        public DateTime ACCESSINGDATE { get; set; }
+        public DateTime TIMEBEGIN { get; set; }
+        public DateTime ENDTIME { get; set; }
+        public long ACCESSINGTIME { get; set; }
        // public long NumberOfRecords { get; set; } 
     }
 }

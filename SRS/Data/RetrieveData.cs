@@ -41,10 +41,11 @@ namespace SRS.Data
                         cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
                         MySqlDataReader expiringContractorData = cmd.ExecuteReader();
 
-                        log.Info("Contractor data of expiration: " + DateTime.Now);
+                        log.Info("Contractor data of expiration: " + DateTime.Today);
                         
-                        log.Info("Contractor Retrieved Data: " + DateTime.Now);
-                           
+                        log.Info("Contractor Retrieved Data: " + DateTime.Today);
+                        log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
+
                         while (expiringContractorData.Read())
                         {
                             allExpiringContractorData.Add(
@@ -53,17 +54,18 @@ namespace SRS.Data
                                       LastName = expiringContractorData[0].ToString(),
                                       Suffix = expiringContractorData[1].ToString(),
                                       FirstName = expiringContractorData[2].ToString(),
-                                      MiddleName = expiringContractorData[3].ToString(), 
-                                      DaysToExpiration = expiringContractorData.GetInt32(4),
-                                      gpoc_emails = expiringContractorData[5].ToString(),
-                                      vpoc_emails = expiringContractorData[6].ToString(),
-                                      RegionalEMails = expiringContractorData[7].ToString(),
-                                      MajorEMails = expiringContractorData[8].ToString(),
-                                     // pers_investigation_date = (DateTime)expiringContractorData[9]                           
+                                      MiddleName = expiringContractorData[3].ToString(),
+                                      InvestigationDate = (DateTime)expiringContractorData[4],
+                                      DaysToExpiration = expiringContractorData.GetInt32(5),
+                                      gpoc_emails = expiringContractorData[6].ToString(),
+                                      vpoc_emails = expiringContractorData[7].ToString(),
+                                      RegionalEMails = expiringContractorData[8].ToString(),
+                                      MajorEMails = expiringContractorData[9].ToString()
+                                                               
                                 }
                                );
                     }
-                        log.Info("Adding Contractor expiring data to object: " + DateTime.Now);
+                        log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
                     }
                     return allExpiringContractorData;
                 }
@@ -102,10 +104,10 @@ namespace SRS.Data
                         cmd.Parameters.AddWithValue("inDate", "2020-06-06");//accessingDate); //"2020-06-06"
 
                         MySqlDataReader expiredContractorData = cmd.ExecuteReader();
-                        log.Info("Contractor data of expiration: " + DateTime.Now);
+                        log.Info("Contractor data of expiration: " + DateTime.Today);
                          
-                        log.Info("Contractor Retrieved Data: " + DateTime.Now);
-                        log.Info("Adding Contractor expired data to object: " + DateTime.Now);
+                        log.Info("Contractor Retrieved Data: " + DateTime.Today);
+                        log.Info("Adding Contractor expired data to object: " + DateTime.Today);
 
                         while (expiredContractorData.Read())
                         {
@@ -117,16 +119,17 @@ namespace SRS.Data
                                     Suffix = expiredContractorData[1].ToString(),
                                     FirstName = expiredContractorData[2].ToString(),
                                     MiddleName = expiredContractorData[3].ToString(),
-                                    DaysToExpiration = expiredContractorData.GetInt32(4),
-                                    gpoc_emails = expiredContractorData[5].ToString(),
-                                    vpoc_emails = expiredContractorData[6].ToString(),
-                                    RegionalEMails = expiredContractorData[7].ToString(),
-                                    MajorEMails = expiredContractorData[8].ToString(),
-                                    //pers_investigation_date = (DateTime)expiredContractorData[9] 
+                                    InvestigationDate = (DateTime)expiredContractorData[4],
+                                    DaysToExpiration = expiredContractorData.GetInt32(5),
+                                    gpoc_emails = expiredContractorData[6].ToString(),
+                                    vpoc_emails = expiredContractorData[7].ToString(),
+                                    RegionalEMails = expiredContractorData[8].ToString(),
+                                    MajorEMails = expiredContractorData[9].ToString(),
+                                   
                                 });
                                    
                         }
-                        log.Info("Adding Contractor expired data to object: " + DateTime.Now);
+                        log.Info("Adding Contractor expired data to object: " + DateTime.Today);
                     }
                     return allExpiredContractorData;
                 }

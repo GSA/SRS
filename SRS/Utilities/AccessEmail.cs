@@ -78,7 +78,7 @@ namespace SRS.Utilities
             eSubject = eSubject.Replace("[Suffix]", contractorData.Suffix);
             eSubject = eSubject.Replace("[FirstName]", contractorData.FirstName);
             eSubject = eSubject.Replace("[MiddleName]", contractorData.MiddleName);
-            eSubject = eSubject.Replace("[pers_investigation_date]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
+            eSubject = eSubject.Replace("[InvestigationDate]", contractorData.InvestigationDate.ToString("MM/dd/yyyy"));
               
             return eSubject;
         }
@@ -92,7 +92,7 @@ namespace SRS.Utilities
             eBody = eBody.Replace("[FirstName]", contractorData.FirstName);
             eBody = eBody.Replace("[MiddleName]", contractorData.MiddleName);
             eBody = eBody.Replace("[DaysToExpiration]", contractorData.DaysToExpiration.ToString());
-            eBody = eBody.Replace("[pers_investigation_date]", contractorData.pers_investigation_date.ToString("MM/DD/YYYY"));
+            eBody = eBody.Replace("[InvestigationDate]", contractorData.InvestigationDate.ToString("MM/dd/yyyy"));
            
             return eBody;
         }

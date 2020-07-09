@@ -43,8 +43,8 @@ namespace SRS
             //Log start of application
             log.Info("Application Started: " + DateTime.Now);
              
-            emailData.TimeBegin = DateTime.Now;
-            emailData.AccessingDate = emailData.AccessingDate.GetDateTime(args.Length <1 ? null : args[0]);
+            emailData.TIMEBEGIN = DateTime.Now;
+            emailData.ACCESSINGDATE = emailData.ACCESSINGDATE.GetDateTime(args.Length <1 ? null : args[0]);
 
             //Log action
             log.Info("First step of App Settings:" + DateTime.Now);
@@ -84,15 +84,16 @@ namespace SRS
 
             log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
-            log.Info("Sending SummaryEmail");
+            emailData.ENDTIME = DateTime.Now;
 
-            sendSummary.SummaryEmailContent();
-
-            log.Info("SummaryEmail sent");
-
+           
             //Stop second timer
             timeForApp.Stop();
+            emailData.ACCESSINGTIME = timeForApp.ElapsedMilliseconds;
+            log.Info("Sending SummaryEmail"); 
+            sendSummary.SummaryEmailContent();
 
+            log.Info("SummaryEmail sent"); 
             //Log total time
             log.Info(string.Format("Contractor processing Completed in {0} milliseconds", timeForApp.ElapsedMilliseconds));
 

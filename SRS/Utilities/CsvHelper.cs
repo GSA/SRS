@@ -21,13 +21,13 @@ namespace SRS.Utilities
             using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite))
             {
                 var buffer = new byte[fs.Length];
-                fs.Read(buffer, 0, Convert.ToInt32(fs.Length));
+                fs.Read(buffer, 0, Convert.ToInt32(fs.Length)); 
                 var fileText = CsvFixer.FixRecord(new string(Encoding.UTF8.GetChars(buffer)));
                 fs.SetLength(0);
                 fs.Write(Encoding.UTF8.GetBytes(fileText), 0, fileText.Length);
                 fs.Flush();
             }
-
+           
             using (var sr = new StreamReader(filePath))
             {
                 using (var CsvParser = new CsvParser(sr, CultureInfo.InvariantCulture))

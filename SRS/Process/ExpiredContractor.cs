@@ -24,13 +24,13 @@ namespace SRS.Process
         } 
         public void ProcessExpiredContractor()
         {
-            _log.Info("Processing Expired Contractor File" + DateTime.Now);
+            _log.Info("Processing Expired Contractor File" + DateTime.Today);
             var summary = new ContractorSummary();
 
             try
             {
-                expiredContractor = retrieveData.allExpiredContractorData(emailData.AccessingDate);
-                _log.Info("Loading Expired Contractor File" + expiredContractor.Count + " expired contractor: " + DateTime.Now);
+                expiredContractor = retrieveData.allExpiredContractorData(emailData.ACCESSINGDATE);
+                _log.Info("Loading Expired Contractor File" + expiredContractor.Count + " expired contractor: " + DateTime.Today);
                  
                 foreach (Contractor contractor in expiredContractor)
                 {
@@ -46,13 +46,13 @@ namespace SRS.Process
                         LastName = contractor.Person.LastName,
                         Suffix = contractor.Person.Suffix,
                         FirstName = contractor.Person.FirstName,
-                        MiddleName = contractor.Person.MiddleName, 
+                        MiddleName = contractor.Person.MiddleName,
+                        InvestigationDate = contractor.InvestigationDate.ToString(),
                         DaysToExpiration = contractor.DaysToExpiration,
                         gpoc_emails = contractor.gpoc_emails,
                         vpoc_emails = contractor.vpoc_emails,
                         RegionalEMails = contractor.RegionalEMails,
-                        MajorEMails = contractor.MajorEMails,
-                        pers_investigation_date = contractor.pers_investigation_date
+                        MajorEMails = contractor.MajorEMails
                     }); 
                 }  
             }
