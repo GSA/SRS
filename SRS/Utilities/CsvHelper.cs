@@ -11,8 +11,7 @@ using System.Text;
 namespace SRS.Utilities
 {
     internal class FileReader
-    {
-
+    { 
         public List<TClass> GetFileData<TClass, TMap>(string filePath, out List<string> badRecords, ClassMap<Contractor> contractorMap = null)
            where TClass : class
            where TMap : ClassMap<TClass>
@@ -33,7 +32,7 @@ namespace SRS.Utilities
                 using (var CsvParser = new CsvParser(sr, CultureInfo.InvariantCulture))
                 {
                     var csvReader = new CsvReader(CsvParser);
-                    csvReader.Configuration.Delimiter = ",";
+                    csvReader.Configuration.Delimiter = "~";
                     csvReader.Configuration.HasHeaderRecord = false;
                     csvReader.Configuration.MissingFieldFound = null;
                     if (contractorMap != null)

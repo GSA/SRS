@@ -29,20 +29,20 @@ namespace SRS
 
         //private static IMapper dataMapper;
         private static EmailData emailData = new EmailData();
-        private static bool expiringContractor = true;
-        private static bool expiredContractor = true;
+        private static bool expiringContractor = false;
+        private static bool expiredContractor = false;
         //private static object dataMapper;
 
         public static void Main(string[] args)
-        {  
-            ProcessContractor processContractor = new ProcessContractor();
-            SendSummary sendSummary = new SendSummary(ref emailData);
+        {   
             //Start timer
             timeForApp.Start();
              
             //Log start of application
             log.Info("Application Started: " + DateTime.Now);
-             
+
+        ProcessContractor processContractor = new ProcessContractor();
+            SendSummary sendSummary = new SendSummary(ref emailData);
             emailData.TIMEBEGIN = DateTime.Now;
             emailData.ACCESSINGDATE = emailData.ACCESSINGDATE.GetDateTime(args.Length <1 ? null : args[0]);
 
@@ -84,8 +84,7 @@ namespace SRS
 
             log.Info("Done Contractor File(s) Processing :" + DateTime.Now);
 
-            emailData.ENDTIME = DateTime.Now;
-
+            emailData.ENDTIME = DateTime.Now; 
            
             //Stop second timer
             timeForApp.Stop();

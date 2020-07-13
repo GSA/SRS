@@ -38,7 +38,7 @@ namespace SRS.Data
                         cmd.CommandText = "SRS_GetExpiringContractors";
                         cmd.Parameters.Clear();
 
-                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //"2020-06-06"
+                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //ACCESSINGDATE
                         MySqlDataReader expiringContractorData = cmd.ExecuteReader();
 
                         log.Info("Contractor data of expiration: " + DateTime.Today);
@@ -101,7 +101,7 @@ namespace SRS.Data
                         cmd.CommandText = "SRS_GetExpiredContractors";
                         cmd.Parameters.Clear();
 
-                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");//accessingDate); //"2020-06-06"
+                        cmd.Parameters.AddWithValue("inDate", "2020-06-06");//accessingDate); //ACCESSINGDATE
 
                         MySqlDataReader expiredContractorData = cmd.ExecuteReader();
                         log.Info("Contractor data of expiration: " + DateTime.Today);

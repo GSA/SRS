@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Mail;
 
 namespace SRS.Utilities
@@ -17,7 +13,7 @@ namespace SRS.Utilities
         protected string _strSubject = string.Empty;
         protected string _strBody = string.Empty;
         protected string _strAttachments = string.Empty;
-        protected bool _IsBodyHtml = true;
+        protected bool _IsBodyHtml = false;
 
         private MailMessage message = new MailMessage();
         private SmtpClient SmtpMail = new SmtpClient();

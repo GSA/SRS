@@ -1,5 +1,7 @@
-﻿using SRS.Utilities;
+﻿using SRS.Data;
+using SRS.Utilities;
 using SRS.Models;
+using System.IO;
 using System;
 
 namespace SRS.Process
@@ -8,10 +10,13 @@ namespace SRS.Process
     {
         //Reference to logger
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-         
 
+        private readonly RetrieveData retrieve;
+        private readonly EmailData emailData;
+ 
         public void ProcessExpiringContractor(ref EmailData emailData)
         {
+            _log.Info("Process Expiring contractors");
  
             ExpiringContractor expiringContractor = new ExpiringContractor(ref emailData);
          
@@ -28,6 +33,7 @@ namespace SRS.Process
         } 
       public void ProcessExpiredContractor(ref EmailData emailData)
         {
+            _log.Info("Process Expired Contractors");
             ExpiredContractor  expiredContractor = new ExpiredContractor(ref emailData);
             try
             {

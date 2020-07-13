@@ -61,9 +61,8 @@ namespace SRS.Process
       
         public string GenerateTemplate()
         {
-            StringBuilder errors = new StringBuilder();
             StringBuilder fileNames = new StringBuilder();
-
+            StringBuilder errors = new StringBuilder(); 
             {
             string template = File.ReadAllText(ConfigurationManager.AppSettings["Summary"]);// + "Summary.html");
                 //string template = @ConfigurationManager.AppSettings["Summary" + "Summary.html"];
@@ -82,8 +81,7 @@ namespace SRS.Process
                     template = template.Replace("[ExpiredNUMBEROFRECORDS]", emailData.ExpiredContractorRecords.ToString());
                     template = template.Replace("[TIMEBEGIN]", emailData.TIMEBEGIN.ToString());
                     template = template.Replace("[ENDTIME]", emailData.ENDTIME.ToString());
-                    template = template.Replace("[ACCESSINGTIME]", emailData.ACCESSINGTIME.ToString());
-
+                    template = template.Replace("[ACCESSINGTIME]", emailData.ACCESSINGTIME.ToString()); 
             }
             catch (Exception ex)
             {

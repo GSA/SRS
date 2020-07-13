@@ -41,7 +41,10 @@ namespace SRS.Process
                     accessEmail.SendExpiredContractorEmailTemplate(contractor);
 
                     _log.Info("The expired contractor email sent successfully " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.gpoc_emails);
-                    summary.ExpiredSuccessfulProcessed.Add(new ExpiredContractorSummary
+
+                    if (expiredContractor.Count > 0)
+                    {
+                        summary.ExpiredSuccessfulProcessed.Add(new ExpiredContractorSummary
                     {
                         LastName = contractor.Person.LastName,
                         Suffix = contractor.Person.Suffix,
@@ -54,7 +57,29 @@ namespace SRS.Process
                         RegionalEMails = contractor.RegionalEMails,
                         MajorEMails = contractor.MajorEMails
                     }); 
-                }  
+                }
+                    else
+                    {
+                        summary.ExpiredUnsuccessfulProcessed.Add(new ExpiredContractorSummary
+                        {
+                            LastName = contractor.LastName,
+                            Suffix = contractor.Suffix,
+                            FirstName = contractor.FirstName,
+                            MiddleName = contractor.MiddleName,
+                            InvestigationDate = contractor.InvestigationDate.ToString(),
+                            DaysToExpiration = contractor.DaysToExpiration,
+                            gpoc_emails = contractor.gpoc_emails,
+                            vpoc_emails = contractor.vpoc_emails,
+                            RegionalEMails = contractor.RegionalEMails,
+                            MajorEMails = contractor.MajorEMails
+                        });
+                      
+                    }
+                }
+
+                _log.Info("Successfull processed Expired contractors: " + $"{summary.ExpiredSuccessfulProcessed.Count}");
+                _log.Info("Unsuccessfull processed Expired contractors: " + $"{summary.ExpiredUnsuccessfulProcessed.Count}");
+
             }
             catch (Exception ex)
             {

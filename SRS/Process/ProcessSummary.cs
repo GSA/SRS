@@ -23,14 +23,10 @@ namespace SRS.Process
         {
             SummaryFileGenerator = new SummaryFileGenerator();
               
-            ExpiringSuccessfulProcessed = new List<ExpiringContractorSummary>();
-             
-            ExpiringUnsuccessfulProcessed = new List<ExpiringContractorSummary>();
-
-            ExpiredSuccessfulProcessed = new List<ExpiredContractorSummary>();
-
-            ExpiredUnsuccessfulProcessed = new List<ExpiredContractorSummary>();
-
+            ExpiringSuccessfulProcessed = new List<ExpiringContractorSummary>(); 
+            ExpiringUnsuccessfulProcessed = new List<ExpiringContractorSummary>(); 
+            ExpiredSuccessfulProcessed = new List<ExpiredContractorSummary>(); 
+            ExpiredUnsuccessfulProcessed = new List<ExpiredContractorSummary>(); 
         }
         public void GenerateSummaryFiles(EmailData emailData)
         {
