@@ -29,8 +29,6 @@ namespace SRS.Models
         public string RegionalEMails { get; set; }
         public string MajorEMails { get; set; }
         public Person Person { get; set; }
-    }
-
-
+    } 
 }
 

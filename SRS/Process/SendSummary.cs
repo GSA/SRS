@@ -10,7 +10,7 @@ namespace SRS.Process
     internal class SendSummary
     {
         //Reference to logger
-        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly EmailData emailData = new EmailData();
    
@@ -50,11 +50,11 @@ namespace SRS.Process
             }
             catch (Exception ex)
             {
-                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+                _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
             }
             finally
             {
-                log.Info("Contractor Summary Email Sent");
+                _log.Info("Contractor Summary Email Sent");
             }
             
         }
@@ -85,11 +85,11 @@ namespace SRS.Process
             }
             catch (Exception ex)
             {
-                log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
+                    _log.Error("Error Sending Contractor Summary Email: " + ex.Message + " - " + ex.InnerException);
             }
             finally
             {
-                log.Info("Contractor Summary Email Sent");
+                    _log.Info("Contractor Summary Email Sent");
             }
             errors.Clear();
                 errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");

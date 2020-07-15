@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Data;
 
 namespace SRS.Mapping
 {
@@ -14,8 +13,7 @@ namespace SRS.Mapping
                 cfg.AllowNullCollections = true;
 
                 //cfg.CreateMap<ExpiringContractorData, ExpiringContractorData>().ReverseMap();
-                //cfg.CreateMap<ExpiredContractorData, ExpiredContractorData>().ReverseMap();
-
+                //cfg.CreateMap<ExpiredContractorData, ExpiredContractorData>().ReverseMap(); 
             });
         }
          

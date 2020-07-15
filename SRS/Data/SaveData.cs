@@ -14,14 +14,12 @@ namespace SRS.Data
     internal class SaveData
     {
         //Reference to logger
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         //Set up connection
         private readonly MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
 
-        private readonly MySqlCommand cmd = new MySqlCommand();
-
-        
+        private readonly MySqlCommand cmd = new MySqlCommand(); 
     }
 }
 

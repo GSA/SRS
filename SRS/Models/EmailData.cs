@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRS.Models
 {
     internal class EmailData
-    {
-        
+    { 
         public Int64 ExpiringContractorRecords { get; set; }
         public Int64 ExpiredContractorRecords { get; set; }
  

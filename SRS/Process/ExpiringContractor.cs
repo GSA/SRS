@@ -1,8 +1,6 @@
 ﻿using SRS.Data;
-using SRS.Mapping;
 using SRS.Models;
 using SRS.Utilities;
-using SRS.Validation;
 using System;
 using System.Collections.Generic;
 
@@ -61,19 +59,19 @@ namespace SRS.Process
                     }
                     else
                     {
-                        summary.ExpiringUnsuccessfulProcessed.Add(new ExpiringContractorSummary
-                        {
-                            LastName = contractor.LastName,
-                            Suffix = contractor.Suffix,
-                            FirstName = contractor.FirstName,
-                            MiddleName = contractor.MiddleName,
-                            InvestigationDate = contractor.InvestigationDate.ToString(),
-                            DaysToExpiration = contractor.DaysToExpiration,
-                            gpoc_emails = contractor.gpoc_emails,
-                            vpoc_emails = contractor.vpoc_emails,
-                            RegionalEMails = contractor.RegionalEMails,
-                            MajorEMails = contractor.MajorEMails
-                        }); 
+                    summary.ExpiringUnsuccessfulProcessed.Add(new ExpiringContractorSummary
+                    {
+                       LastName = contractor.LastName,
+                       Suffix = contractor.Suffix,
+                       FirstName = contractor.FirstName,
+                       MiddleName = contractor.MiddleName,
+                       InvestigationDate = contractor.InvestigationDate.ToString(),
+                       DaysToExpiration = contractor.DaysToExpiration,
+                       gpoc_emails = contractor.gpoc_emails,
+                       vpoc_emails = contractor.vpoc_emails,
+                       RegionalEMails = contractor.RegionalEMails,
+                       MajorEMails = contractor.MajorEMails
+                    }); 
                     }
                 }
 

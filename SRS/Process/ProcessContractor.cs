@@ -11,10 +11,7 @@ namespace SRS.Process
         //Reference to logger
         private static log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly RetrieveData retrieve;
-        private readonly EmailData emailData;
- 
-        public void ProcessExpiringContractor(ref EmailData emailData)
+       public void ProcessExpiringContractor(ref EmailData emailData)
         {
             _log.Info("Process Expiring contractors");
  

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SRS.Mapping
+﻿namespace SRS.Mapping
 {
     internal static class ContractorConstants
     {
@@ -17,8 +11,7 @@ namespace SRS.Mapping
         public const int gpoc_emails = 6;
         public const int vpoc_emails = 7;
         public const int RegionalEMails = 8;
-        public const int MajorEMails = 9;
-        
+        public const int MajorEMails = 9; 
     }
 }
    

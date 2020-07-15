@@ -1,24 +1,22 @@
-﻿using AutoMapper;
-using SRS.Models;
+﻿using SRS.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using SRS.Process;
 
 namespace SRS.Data
 {
     internal class RetrieveData
     {
         //Reference to logger
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
        
         public List<Contractor> GetExpiringContractor(DateTime accessingDate)
         {  
             try
             {
-                log.Info("Getting Contractor Data");
+                _log.Info("Getting Contractor Data");
                 MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
 
                 MySqlCommand cmd = new MySqlCommand();
@@ -41,10 +39,10 @@ namespace SRS.Data
                         cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //ACCESSINGDATE
                         MySqlDataReader expiringContractorData = cmd.ExecuteReader();
 
-                        log.Info("Contractor data of expiration: " + DateTime.Today);
-                        
-                        log.Info("Contractor Retrieved Data: " + DateTime.Today);
-                        log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
+                        _log.Info("Contractor data of expiration: " + DateTime.Today);
+
+                        _log.Info("Contractor Retrieved Data: " + DateTime.Today);
+                        _log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
 
                         while (expiringContractorData.Read())
                         {
@@ -65,14 +63,14 @@ namespace SRS.Data
                                 }
                                );
                     }
-                        log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
+                        _log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
                     }
                     return allExpiringContractorData;
                 }
             }
             catch (Exception ex)
             {
-                log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
+                _log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
                 return new List<Contractor>();
             }
 
@@ -104,10 +102,10 @@ namespace SRS.Data
                         cmd.Parameters.AddWithValue("inDate", "2020-06-06");//accessingDate); //ACCESSINGDATE
 
                         MySqlDataReader expiredContractorData = cmd.ExecuteReader();
-                        log.Info("Contractor data of expiration: " + DateTime.Today);
-                         
-                        log.Info("Contractor Retrieved Data: " + DateTime.Today);
-                        log.Info("Adding Contractor expired data to object: " + DateTime.Today);
+                        _log.Info("Contractor data of expiration: " + DateTime.Today);
+
+                        _log.Info("Contractor Retrieved Data: " + DateTime.Today);
+                        _log.Info("Adding Contractor expired data to object: " + DateTime.Today);
 
                         while (expiredContractorData.Read())
                         {
@@ -129,14 +127,14 @@ namespace SRS.Data
                                 });
                                    
                         }
-                        log.Info("Adding Contractor expired data to object: " + DateTime.Today);
+                        _log.Info("Adding Contractor expired data to object: " + DateTime.Today);
                     }
                     return allExpiredContractorData;
                 }
             }
             catch (Exception ex)
             {
-                log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
+                _log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
                 return new List<Contractor>();
             }
         }
