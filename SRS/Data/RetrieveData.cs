@@ -49,16 +49,17 @@ namespace SRS.Data
                             allExpiringContractorData.Add(
                                 new Contractor
                                 {
-                                      LastName = expiringContractorData[0].ToString(),
-                                      Suffix = expiringContractorData[1].ToString(),
-                                      FirstName = expiringContractorData[2].ToString(),
-                                      MiddleName = expiringContractorData[3].ToString(),
-                                      InvestigationDate = (DateTime)expiringContractorData[4],
-                                      DaysToExpiration = expiringContractorData.GetInt32(5),
-                                      gpoc_emails = expiringContractorData[6].ToString(),
-                                      vpoc_emails = expiringContractorData[7].ToString(),
-                                      RegionalEMails = expiringContractorData[8].ToString(),
-                                      MajorEMails = expiringContractorData[9].ToString()
+                                      PersonID = expiringContractorData.GetInt32(0),
+                                      LastName = expiringContractorData[1].ToString(),
+                                      Suffix = expiringContractorData[2].ToString(),
+                                      FirstName = expiringContractorData[3].ToString(),
+                                      MiddleName = expiringContractorData[4].ToString(),
+                                      InvestigationDate = (DateTime)expiringContractorData[5],
+                                      DaysToExpiration = expiringContractorData.GetInt32(6),
+                                      gpoc_emails = expiringContractorData[7].ToString(),
+                                      vpoc_emails = expiringContractorData[8].ToString(),
+                                      RegionalEMails = expiringContractorData[9].ToString(),
+                                      MajorEMails = expiringContractorData[10].ToString()
                                                                
                                 }
                                );
@@ -113,16 +114,17 @@ namespace SRS.Data
 
                                 new Contractor
                                 {
-                                    LastName = expiredContractorData[0].ToString(),
-                                    Suffix = expiredContractorData[1].ToString(),
-                                    FirstName = expiredContractorData[2].ToString(),
-                                    MiddleName = expiredContractorData[3].ToString(),
-                                    InvestigationDate = (DateTime)expiredContractorData[4],
-                                    DaysToExpiration = expiredContractorData.GetInt32(5),
-                                    gpoc_emails = expiredContractorData[6].ToString(),
-                                    vpoc_emails = expiredContractorData[7].ToString(),
-                                    RegionalEMails = expiredContractorData[8].ToString(),
-                                    MajorEMails = expiredContractorData[9].ToString(),
+                                    PersonID = expiredContractorData.GetInt32(0),
+                                    LastName = expiredContractorData[1].ToString(),
+                                    Suffix = expiredContractorData[2].ToString(),
+                                    FirstName = expiredContractorData[3].ToString(),
+                                    MiddleName = expiredContractorData[4].ToString(),
+                                    InvestigationDate = (DateTime)expiredContractorData[5],
+                                    DaysToExpiration = expiredContractorData.GetInt32(6),
+                                    gpoc_emails = expiredContractorData[7].ToString(),
+                                    vpoc_emails = expiredContractorData[8].ToString(),
+                                    RegionalEMails = expiredContractorData[9].ToString(),
+                                    MajorEMails = expiredContractorData[10].ToString(),
                                    
                                 });
                                    

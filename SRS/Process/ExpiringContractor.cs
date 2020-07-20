@@ -44,6 +44,7 @@ namespace SRS.Process
  
                     summary.ExpiringSuccessfulProcessed.Add(new ExpiringContractorSummary
                     {
+                        PersonID = contractor.PersonID,
                         LastName = contractor.LastName,
                         Suffix = contractor.Suffix,
                         FirstName = contractor.FirstName,
@@ -61,6 +62,7 @@ namespace SRS.Process
                     {
                     summary.ExpiringUnsuccessfulProcessed.Add(new ExpiringContractorSummary
                     {
+                       PersonID = contractor.PersonID,
                        LastName = contractor.LastName,
                        Suffix = contractor.Suffix,
                        FirstName = contractor.FirstName,

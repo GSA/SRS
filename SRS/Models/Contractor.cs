@@ -5,6 +5,7 @@ namespace SRS.Models
     public class Contractor
     {
         public Person Person { get; set; }
+        public int PersonID { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }

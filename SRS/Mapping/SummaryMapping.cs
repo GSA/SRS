@@ -6,7 +6,8 @@ namespace SRS.Mapping
     internal sealed class ExpiringContractorSummaryMapping : ClassMap<ExpiringContractorSummary>
     { 
         public ExpiringContractorSummaryMapping()
-        { 
+        {
+            Map(m => m.PersonID).Name("PersonID");
             Map(m => m.LastName).Name("LastName");
             Map(m => m.Suffix).Name("Suffix");
             Map(m => m.FirstName).Name("FirstName");
@@ -24,6 +25,7 @@ namespace SRS.Mapping
     {
         public ExpiredContractorSummaryMapping()
         {
+            Map(m => m.PersonID).Name("PersonID");
             Map(m => m.LastName).Name("LastName");
             Map(m => m.Suffix).Name("Suffix");
             Map(m => m.FirstName).Name("FirstName");

@@ -28,8 +28,7 @@ namespace SRS.Process
             string subject = string.Empty;
             string body = string.Empty;
             string attachments = string.Empty;
-             
-            
+              
             subject = ConfigurationManager.AppSettings["SummarySubject"].ToString() + " - " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss");
 
             //Generate an email 
@@ -65,10 +64,13 @@ namespace SRS.Process
             StringBuilder errors = new StringBuilder(); 
             {
             string template = File.ReadAllText(ConfigurationManager.AppSettings["Summary"]);// + "Summary.html");
-                //string template = @ConfigurationManager.AppSettings["Summary" + "Summary.html"];
-
-            //replacing the parameters
-            try
+                fileNames.Append(emailData.ExpiringContractorFileName == null ? "Expiring contractor file is not found" : emailData.ExpiringContractorFileName.ToString());
+                fileNames.Append(",");
+                fileNames.Append(emailData.ExpiredContractorFileName == null ? "Expired contractor file is not found" : emailData.ExpiredContractorFileName.ToString());
+                fileNames.Append(",");
+ 
+                //replacing the parameters
+                try
             {
 
                 using (StreamReader reader = new StreamReader("Summary.html"))
@@ -76,6 +78,7 @@ namespace SRS.Process
             {
                 template = reader.ReadToEnd();
             }
+                    template = template.Replace("[FILENAMES]", fileNames.ToString());
                     template = template.Replace("[ACCESSINGDATE]", emailData.ACCESSINGDATE.ToString());
                     template = template.Replace("[ExpiringNUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
                     template = template.Replace("[ExpiredNUMBEROFRECORDS]", emailData.ExpiredContractorRecords.ToString());

@@ -44,10 +44,11 @@ namespace SRS.Process
                     {
                         summary.ExpiredSuccessfulProcessed.Add(new ExpiredContractorSummary
                     {
-                        LastName = contractor.Person.LastName,
-                        Suffix = contractor.Person.Suffix,
-                        FirstName = contractor.Person.FirstName,
-                        MiddleName = contractor.Person.MiddleName,
+                        PersonID = contractor.PersonID,
+                        LastName = contractor.LastName,
+                        Suffix = contractor.Suffix,
+                        FirstName = contractor.FirstName,
+                        MiddleName = contractor.MiddleName,
                         InvestigationDate = contractor.InvestigationDate.ToString(),
                         DaysToExpiration = contractor.DaysToExpiration,
                         gpoc_emails = contractor.gpoc_emails,
@@ -60,6 +61,7 @@ namespace SRS.Process
                     {
                         summary.ExpiredUnsuccessfulProcessed.Add(new ExpiredContractorSummary
                         {
+                            PersonID = contractor.PersonID,
                             LastName = contractor.LastName,
                             Suffix = contractor.Suffix,
                             FirstName = contractor.FirstName,

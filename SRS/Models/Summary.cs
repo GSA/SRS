@@ -4,6 +4,7 @@ namespace SRS.Models
 {
     internal class ExpiringContractorSummary
     {
+        public int PersonID { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }
@@ -18,6 +19,7 @@ namespace SRS.Models
     }
     internal class ExpiredContractorSummary
     {
+        public int PersonID { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }

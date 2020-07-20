@@ -10,6 +10,8 @@ namespace SRS.Models
         public Int64 ExpiringContractorRecordsNotFound { get; set; }
         public Int64 ExpiredContractorRecordsNotFound { get; set; }
 
+        public string ExpiringContractorFileName { get; set; }
+        public string ExpiredContractorFileName { get; set; }
         public string ExpiringContractorSuccessfulFileName { get; set; }
         public string ExpiredContractorSuccessfulFileName { get; set; }
         public string ExpiringContractorUnsuccessfulFileName { get; set; }
