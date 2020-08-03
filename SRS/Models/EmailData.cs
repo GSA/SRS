@@ -29,6 +29,6 @@ namespace SRS.Models
         public DateTime TIMEBEGIN { get; set; }
         public DateTime ENDTIME { get; set; }
         public long ACCESSINGTIME { get; set; }
-       // public long NumberOfRecords { get; set; } 
+        public long NumberOfRecords { get; set; } 
     }
 }

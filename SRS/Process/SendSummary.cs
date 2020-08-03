@@ -54,8 +54,7 @@ namespace SRS.Process
             finally
             {
                 _log.Info("Contractor Summary Email Sent");
-            }
-            
+            } 
         }
       
         public string GenerateTemplate()
@@ -78,8 +77,9 @@ namespace SRS.Process
             {
                 template = reader.ReadToEnd();
             }
+                //Replace summary info
                     template = template.Replace("[FILENAMES]", fileNames.ToString());
-                    template = template.Replace("[ACCESSINGDATE]", emailData.ACCESSINGDATE.ToString());
+                    template = template.Replace("[ACCESSINGDATE]", emailData.ACCESSINGDATE.ToString()); 
                     template = template.Replace("[ExpiringNUMBEROFRECORDS]", emailData.ExpiringContractorRecords.ToString());
                     template = template.Replace("[ExpiredNUMBEROFRECORDS]", emailData.ExpiredContractorRecords.ToString());
                     template = template.Replace("[TIMEBEGIN]", emailData.TIMEBEGIN.ToString());

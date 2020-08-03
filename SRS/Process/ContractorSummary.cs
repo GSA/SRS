@@ -60,8 +60,7 @@ namespace SRS.Process
 
                 emailData.ExpiredContractorUnsuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredERRORSUMMARYFILENAME"].ToString(), ExpiredUnsuccessfulProcessed);
                 _log.Info("Contractors Error File: " + emailData.ExpiredContractorUnsuccessfulFileName);
-            }
-
+            } 
         }
     }
 }

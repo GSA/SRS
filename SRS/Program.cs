@@ -47,8 +47,7 @@ namespace SRS
             StartProcessing();
             _log.Info("Processing of App Settings:" + DateTime.Now);
             _log.Info("Contractors File Processing:" + DateTime.Now);
-              
-          // if (File.Exists(ExpiringSACFilePath))
+               
            if (expiringContractor)
              {
                 _log.Info("Time for Start Expiring Contractor Processing: " + DateTime.Now);
@@ -62,16 +61,16 @@ namespace SRS
               {
                 _log.Error("Expiring Contractor File not found");
               }
-           // if (File.Exists(ExpiredSACFilePath))
-                if (expiredContractor)
-                {
+            
+             if (expiredContractor)
+               {
                 _log.Info("Time for Start Expired Contractor Processing: " + DateTime.Now);
                     timeForProcess.Start();
                     processContractor.ProcessExpiredContractor(ref emailData);
                     timeForProcess.Stop();
                 _log.Info("Time to Stop Expired Contractor Processing:" + DateTime.Now);
                 _log.Info("Expired Contractor File processing time: " + timeForProcess.ElapsedMilliseconds);
-                }
+               }
             
             else
               {

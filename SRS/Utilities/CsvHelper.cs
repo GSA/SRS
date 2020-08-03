@@ -73,7 +73,7 @@ namespace SRS.Utilities
     {
         //Reference to logger
         private static readonly log4net.ILog _Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-     private readonly CultureInfo configuration; 
+        private readonly CultureInfo configuration; 
         internal string GenerateSummaryFile<TClass, TMap>(string fileName, IEnumerable<TClass> summaryData)
             where TClass : class
             where TMap : ClassMap<TClass>

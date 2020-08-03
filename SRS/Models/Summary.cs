@@ -4,7 +4,7 @@ namespace SRS.Models
 {
     internal class ExpiringContractorSummary
     {
-        public int PersonID { get; set; }
+        public Int32 PersonID { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }
@@ -15,11 +15,11 @@ namespace SRS.Models
         public string vpoc_emails { get; set; }
         public string RegionalEMails { get; set; }
         public string MajorEMails { get; set; }
-      public Person Person { get; set; }
+        public Person Person { get; set; }
     }
     internal class ExpiredContractorSummary
     {
-        public int PersonID { get; set; }
+        public Int32 PersonID { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
         public string FirstName { get; set; }

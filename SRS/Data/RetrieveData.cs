@@ -33,7 +33,7 @@ namespace SRS.Data
                          
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "SRS_GetExpiringContractors";
+                        cmd.CommandText = "SRS_GetExpiringContractors"; 
                         cmd.Parameters.Clear();
 
                         cmd.Parameters.AddWithValue("inDate", "2020-06-06");// accessingDate); //ACCESSINGDATE
