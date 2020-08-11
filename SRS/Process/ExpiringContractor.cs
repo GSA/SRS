@@ -27,17 +27,17 @@ namespace SRS.Process
             var summary = new ContractorSummary();
             try
             {    
-                expiringContractor = retrieveData.GetExpiringContractor(emailData.ACCESSINGDATE);
+                expiringContractor = retrieveData.allExpiringContractor(emailData.ACCESSINGDATE);
                 _log.Info("Loading Expiring Contractor File" + expiringContractor.Count + " expiring contractor: " + DateTime.Today);
                 
                 foreach (Contractor contractor in expiringContractor)
                 {
                     summary.GenerateSummaryFiles(emailData);
                     emailData.ExpiringContractorRecords = expiringContractor.Count;
-                    _log.Info("The expiring Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.gpoc_emails);
+                    _log.Info("The expiring Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
                     accessEmail.SendExpiringContractorEmailTemplate(contractor);
 
-                    _log.Info("The expiring contractor email sent successfully " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.gpoc_emails);
+                    _log.Info("The expiring contractor email sent successfully " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
 
                     if (expiringContractor.Count > 0)
                     {

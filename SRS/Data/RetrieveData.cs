@@ -12,7 +12,7 @@ namespace SRS.Data
         //Reference to logger
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
        
-        public List<Contractor> GetExpiringContractor(DateTime accessingDate)
+        public List<Contractor> allExpiringContractor(DateTime accessingDate)
         {  
             try
             {
@@ -29,8 +29,7 @@ namespace SRS.Data
                         conn.Open();
 
                     using (cmd)
-                    {
-                         
+                    {  
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "SRS_GetExpiringContractors"; 
@@ -59,10 +58,8 @@ namespace SRS.Data
                                       gpoc_emails = expiringContractorData[7].ToString(),
                                       vpoc_emails = expiringContractorData[8].ToString(),
                                       RegionalEMails = expiringContractorData[9].ToString(),
-                                      MajorEMails = expiringContractorData[10].ToString()
-                                                               
-                                }
-                               );
+                                      MajorEMails = expiringContractorData[10].ToString() 
+                                });
                     }
                         _log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
                     }
@@ -73,13 +70,11 @@ namespace SRS.Data
             {
                 _log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
                 return new List<Contractor>();
-            }
-
+            } 
         }
 
         public List<Contractor> allExpiredContractorData(DateTime accessingDate)
-        {
-
+        { 
             try
             {
                 MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["hspd"].ToString());
@@ -93,8 +88,7 @@ namespace SRS.Data
                         conn.Open();
 
                     using (cmd)
-                    {
-
+                    { 
                         cmd.Connection = conn;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "SRS_GetExpiredContractors";
@@ -110,8 +104,7 @@ namespace SRS.Data
 
                         while (expiredContractorData.Read())
                         {
-                            allExpiredContractorData.Add(
-
+                            allExpiredContractorData.Add( 
                                 new Contractor
                                 {
                                     PersonID = expiredContractorData.GetInt32(0),
@@ -124,10 +117,8 @@ namespace SRS.Data
                                     gpoc_emails = expiredContractorData[7].ToString(),
                                     vpoc_emails = expiredContractorData[8].ToString(),
                                     RegionalEMails = expiredContractorData[9].ToString(),
-                                    MajorEMails = expiredContractorData[10].ToString(),
-                                   
-                                });
-                                   
+                                    MajorEMails = expiredContractorData[10].ToString(), 
+                                }); 
                         }
                         _log.Info("Adding Contractor expired data to object: " + DateTime.Today);
                     }
@@ -139,8 +130,7 @@ namespace SRS.Data
                 _log.Error("GetContractorRecord: " + " - " + ex.Message + " - " + ex.InnerException);
                 return new List<Contractor>();
             }
-        }
-
+        } 
     }
 }
  

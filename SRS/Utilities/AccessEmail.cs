@@ -50,8 +50,7 @@ namespace SRS.Utilities
         /// <param name="debug"></param>
         /// <returns></returns>
         private string AccessEmailTo(string to, Contractor contractorData, bool debug)
-        {
-           // return contractorData.RegionalEMails;
+        { 
             return contractorData.gpoc_emails; 
         }
         /// <summary>
@@ -63,13 +62,13 @@ namespace SRS.Utilities
         /// <returns></returns>
         private string AccessEmailCC(string cc, Contractor contractorData, bool debug)
         {
-            return contractorData.gpoc_emails;
-           // return contractorData.RegionalEMails;
+            return contractorData.vpoc_emails;
+            
         }
-        //private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
-        //{
-        //    return contractorData.gpoc_emails;
-        //}
+        private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
+        {
+            return contractorData.RegionalEMails;
+        }
         private string AccessEmailSubject(String subject, Contractor contractorData, bool debug)
         {
             string eSubject = subject;
@@ -145,7 +144,7 @@ namespace SRS.Utilities
 
             To = AccessEmailTo(To, row, Debug);
             CC = AccessEmailCC(CC, row, Debug);
-            //BCC = AccessEmailBCC(BCC, row, Debug);
+            BCC = AccessEmailBCC(BCC, row, Debug);
             Subject = AccessEmailSubject(Subject, row, Debug);
             Body = AccessEmailBody(Body, row, Debug);
 
@@ -182,7 +181,7 @@ namespace SRS.Utilities
 
             To = AccessEmailTo(To, row, Debug);
             CC = AccessEmailCC(CC, row, Debug);
-           // BCC = AccessEmailBCC(BCC, row, Debug);
+            BCC = AccessEmailBCC(BCC, row, Debug);
             Subject = AccessEmailSubject(Subject, row, Debug);
             Body = AccessEmailBody(Body, row, Debug);
 

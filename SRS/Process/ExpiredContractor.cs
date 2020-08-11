@@ -35,10 +35,10 @@ namespace SRS.Process
                     summary.GenerateSummaryFiles(emailData);
                     emailData.ExpiredContractorRecords = expiredContractor.Count;
 
-                    _log.Info("The expired Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.gpoc_emails);
+                    _log.Info("The expired Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
                     accessEmail.SendExpiredContractorEmailTemplate(contractor);
 
-                    _log.Info("The expired contractor email sent successfully " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.gpoc_emails);
+                    _log.Info("The expired contractor email sent successfully " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
 
                     if (expiredContractor.Count > 0)
                     {

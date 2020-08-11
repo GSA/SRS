@@ -12,12 +12,12 @@
   <add key="CC" value="" />
   <add key="BCC" value="" />
   <add key="SUMMARYFILEPATH" value=" " />
-  <add key="SummaryAttachment" value=" " />
-  <add key="Summary" value=" " />
+  <add key="SummaryAttachment" value="C:\ " />
+  <add key="Summary" value="C:\ " />
   <add key="Summary" value="Summary.html" />
-  <add key="ExpiringSACFilePath" value=" " />
+  <add key="ExpiringSACFilePath" value="C:\" />
   <add key="ExpiringSACEmailTemplate" value="ExpiringSAC.html" />
-  <add key="ExpiredSACFilePath" value=" "/>
+  <add key="ExpiredSACFilePath" value="C:\"/>
   <add key="ExpiredSACEmailTemplate" value="ExpiredSAC.html" />
   <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="Expiring Success Processed" />
   <add key="ExpiringERRORSUMMARYFILENAME" value="Expiring Unsuccess Processed" />

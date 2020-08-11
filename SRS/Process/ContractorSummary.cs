@@ -51,7 +51,7 @@ namespace SRS.Process
                 ExpiredSuccessfulProcessed = ExpiredSuccessfulProcessed.OrderBy(o => o.LastName).ThenBy(t => t.FirstName).ToList();
 
                 emailData.ExpiredContractorSuccessfulFileName = SummaryFileGenerator.GenerateSummaryFile<ExpiredContractorSummary, ExpiredContractorSummaryMapping>(ConfigurationManager.AppSettings["ExpiredSUCCESSFULSUMMARYFILENAME"].ToString(), ExpiredSuccessfulProcessed);
-                _log.Info(" Expired Contractor Successfull File: " + emailData.ExpiredContractorSuccessfulFileName);
+                _log.Info("Expired Contractor Successfull File: " + emailData.ExpiredContractorSuccessfulFileName);
             }
 
             if (ExpiredUnsuccessfulProcessed.Count > 0)
