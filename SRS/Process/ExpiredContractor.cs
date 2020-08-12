@@ -3,6 +3,7 @@ using SRS.Models;
 using SRS.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace SRS.Process
 {
@@ -14,6 +15,7 @@ namespace SRS.Process
         private RetrieveData retrieveData = new RetrieveData();
         private readonly AccessEmail accessEmail = new AccessEmail();
         private List<Contractor> expiredContractor = new List<Contractor>();
+        private Suitability.SendNotification sendNotification;
 
         public ExpiredContractor(ref EmailData emailData)
         {
@@ -36,7 +38,15 @@ namespace SRS.Process
                     emailData.ExpiredContractorRecords = expiredContractor.Count;
 
                     _log.Info("The expired Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
-                    accessEmail.SendExpiredContractorEmailTemplate(contractor);
+                    //accessEmail.SendExpiredContractorEmailTemplate(contractor);
+
+                    sendNotification = new Suitability.SendNotification(
+                        ConfigurationManager.AppSettings["defualtEMail"],
+                        contractor.PersonID,
+                        ConfigurationManager.ConnectionStrings["hspd"].ToString(),
+                        ConfigurationManager.AppSettings["SMTPSERVER"],
+                        "");
+                    sendNotification.SendSRSNotification();
 
                     _log.Info("The expired contractor email sent successfully " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
 
