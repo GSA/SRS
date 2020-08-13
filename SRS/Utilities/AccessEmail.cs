@@ -62,8 +62,7 @@ namespace SRS.Utilities
         /// <returns></returns>
         private string AccessEmailCC(string cc, Contractor contractorData, bool debug)
         {
-            return contractorData.vpoc_emails;
-            
+            return contractorData.vpoc_emails; 
         }
         private string AccessEmailBCC(string bcc, Contractor contractorData, bool debug)
         {
