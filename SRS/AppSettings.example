@@ -2,11 +2,10 @@
   <add key="DEBUG" value="TRUE" />
   <add key="ExpiringContractor" value="TRUE" />
   <add key="ExpiredContractor" value="TRUE" />
-  <add key="SMTPServer" value="smtp.gsa.gov" />
+  <add key="SMTPServer" value=" " />
   <add key="SACExpiringSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiring on [InvestigationDate];" />
   <add key="SACExpiredSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiration [InvestigationDate]"/>
-  <add key="DefaultEmail" value=" " />
-  <add key="Bcc" value="" />
+  <add key="DefaultEmail" value=" " /> 
   <add key="SummarySubject" value="SRS Summary" />
   <add key="TO" value=" " />
   <add key="CC" value=" " />
@@ -18,6 +17,5 @@
   <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="Expiring Success Processed" />
   <add key="ExpiringERRORSUMMARYFILENAME" value="Expiring Unsuccess Processed" />
   <add key="ExpiredSUCCESSFULSUMMARYFILENAME" value="Expired Success Processed" />
-  <add key="ExpiredERRORSUMMARYFILENAME" value="Expired Unsuccess Processed" />
-  <add key="ClientSettingsProvider.ServiceUri" value="" />
+  <add key="ExpiredERRORSUMMARYFILENAME" value="Expired Unsuccess Processed" /> 
 </appSettings>
