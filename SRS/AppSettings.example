@@ -2,7 +2,7 @@
   <add key="DEBUG" value="TRUE" />
   <add key="ExpiringContractor" value="TRUE" />
   <add key="ExpiredContractor" value="TRUE" />
-  <add key="SMTPServer" value=" " />
+  <add key="SMTPServer" value="smtp.gsa.gov" />
   <add key="SACExpiringSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiring on [InvestigationDate];" />
   <add key="SACExpiredSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiration [InvestigationDate]"/>
   <add key="DefaultEmail" value=" " /> 
