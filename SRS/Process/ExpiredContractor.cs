@@ -41,7 +41,7 @@ namespace SRS.Process
                     //accessEmail.SendExpiredContractorEmailTemplate(contractor);
 
                     sendNotification = new Suitability.SendNotification(
-                        ConfigurationManager.AppSettings["defualtEMail"],
+                        ConfigurationManager.AppSettings["DEFAULTEMAIL"],
                         contractor.PersonID,
                         ConfigurationManager.ConnectionStrings["hspd"].ToString(),
                         ConfigurationManager.AppSettings["SMTPSERVER"],

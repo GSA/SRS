@@ -39,7 +39,7 @@ namespace SRS.Process
                     _log.Info("The expiring Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
                     //accessEmail.SendExpiringContractorEmailTemplate(contractor); 
                     sendNotification = new Suitability.SendNotification(
-                        ConfigurationManager.AppSettings["defualtEMail"],
+                        ConfigurationManager.AppSettings["DEFAULTEMAIL"],
                         contractor.PersonID,
                         ConfigurationManager.ConnectionStrings["hspd"].ToString(),
                         ConfigurationManager.AppSettings["SMTPSERVER"],

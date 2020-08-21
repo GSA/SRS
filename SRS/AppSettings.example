@@ -1,10 +1,8 @@
-﻿ <appSettings>
+﻿<appSettings>
   <add key="DEBUG" value="TRUE" />
   <add key="ExpiringContractor" value="TRUE" />
   <add key="ExpiredContractor" value="TRUE" />
-  <add key="SMTPServer" value="smtp.gsa.gov" />
-  <add key="SACExpiringSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiring on [InvestigationDate];" />
-  <add key="SACExpiredSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiration [InvestigationDate]"/>
+  <add key="SMTPServer" value="smtp.gsa.gov" /> 
   <add key="DefaultEmail" value=" " /> 
   <add key="SummarySubject" value="SRS Summary" />
   <add key="TO" value=" " />
@@ -12,6 +10,8 @@
   <add key="BCC" value=" " />
   <add key="SUMMARYFILEPATH" value=" " />
   <add key="Summary" value="Summary.html" /> 
+  <add key="SACExpiringSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiring on [InvestigationDate];" />
+  <add key="SACExpiredSubject" value="ATTENTION: [LastName] [Suffix], [FirstName] [MiddleName] SAC Expiration [InvestigationDate]"/>
   <add key="ExpiringSACFilePath" value=" " /> 
   <add key="ExpiredSACFilePath" value=" "/> 
   <add key="ExpiringSUCCESSFULSUMMARYFILENAME" value="Expiring Success Processed" />
