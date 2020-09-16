@@ -34,7 +34,6 @@ namespace SRS.Process
                 
                 foreach (Contractor contractor in expiringContractor)
                 {
-                    summary.GenerateSummaryFiles(emailData);
                     emailData.ExpiringContractorRecords = expiringContractor.Count;
                     _log.Info("The expiring Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
                     //accessEmail.SendExpiringContractorEmailTemplate(contractor); 
@@ -85,6 +84,7 @@ namespace SRS.Process
                        MajorEMails = contractor.MajorEMails
                     }); 
                     }
+                    summary.GenerateSummaryFiles(emailData);
                 }
 
                 _log.Info("Successfull processed Expiring contractors: " + $"{summary.ExpiringSuccessfulProcessed.Count}");
