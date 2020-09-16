@@ -61,22 +61,16 @@ namespace SRS.Process
         {
             StringBuilder fileNames = new StringBuilder();
             StringBuilder errors = new StringBuilder(); 
-            {
+
             string template = File.ReadAllText(ConfigurationManager.AppSettings["Summary"]);// + "Summary.html");
-                fileNames.Append(emailData.ExpiringContractorFileName == null ? "Expiring contractor file is not found" : emailData.ExpiringContractorFileName.ToString());
-                fileNames.Append(",");
-                fileNames.Append(emailData.ExpiredContractorFileName == null ? "Expired contractor file is not found" : emailData.ExpiredContractorFileName.ToString());
-                fileNames.Append(",");
+            fileNames.Append(emailData.ExpiringContractorFileName == null ? "Expiring contractor file is not found" : emailData.ExpiringContractorFileName.ToString());
+            fileNames.Append(",");
+            fileNames.Append(emailData.ExpiredContractorFileName == null ? "Expired contractor file is not found" : emailData.ExpiredContractorFileName.ToString());
+            fileNames.Append(",");
  
                 //replacing the parameters
-                try
+            try
             {
-
-                using (StreamReader reader = new StreamReader("Summary.html"))
-
-            {
-                template = reader.ReadToEnd();
-            }
                 //Replace summary info
                     template = template.Replace("[FILENAMES]", fileNames.ToString());
                     template = template.Replace("[ACCESSINGDATE]", emailData.ACCESSINGDATE.ToString()); 
@@ -94,11 +88,13 @@ namespace SRS.Process
             {
                     _log.Info("Contractor Summary Email Sent");
             }
+
             errors.Clear();
-                errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
-                errors.Append("<br />Please see the attached file: <b><font color='red'>");
-                return template;//.ToString(); 
-            }
+            errors.Append("<b><font color='red'>Errors were found while processing the Contractor file</font></b><br />");
+            errors.Append("<br />Please see the attached file: <b><font color='red'>");
+
+            return template;//.ToString(); 
+            
         }
         private string SummaryAttachments()
         {
