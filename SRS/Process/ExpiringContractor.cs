@@ -30,11 +30,10 @@ namespace SRS.Process
             try
             {    
                 expiringContractor = retrieveData.allExpiringContractor(emailData.ACCESSINGDATE);
-                _log.Info("Loading Expiring Contractor File" + expiringContractor.Count + " expiring contractor: " + DateTime.Today);
+                _log.Info("Loading Expiring Contractor File" + " " + expiringContractor.Count + " expiring contractors: " + DateTime.Today);
                 
                 foreach (Contractor contractor in expiringContractor)
                 {
-                    emailData.ExpiringContractorRecords = expiringContractor.Count;
                     _log.Info("The expiring Contractor email send " + contractor.LastName + contractor.FirstName + "To" + contractor.gpoc_emails + "cc" + contractor.vpoc_emails);
                     //accessEmail.SendExpiringContractorEmailTemplate(contractor); 
                     sendNotification = new Suitability.SendNotification(
@@ -84,7 +83,9 @@ namespace SRS.Process
                        MajorEMails = contractor.MajorEMails
                     }); 
                     }
-                    summary.GenerateSummaryFiles(emailData);
+
+                    emailData.ExpiringContractorRecords = expiringContractor.Count;
+                    summary.GenerateSummaryFiles(emailData);                    
                 }
 
                 _log.Info("Successfull processed Expiring contractors: " + $"{summary.ExpiringSuccessfulProcessed.Count}");
