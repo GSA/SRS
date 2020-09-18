@@ -25,7 +25,7 @@ namespace SRS.Process
         }
         public void ProcessExpiringContractor()
         {
-            _log.Info("Processing Expiring Contractor File" + DateTime.Today);
+            _log.Info("Processing Expiring Contractor File" + " " +  DateTime.Today);
             var summary = new ContractorSummary();
             try
             {    
@@ -50,43 +50,43 @@ namespace SRS.Process
                     if (expiringContractor.Count > 0)
                     {
  
-                    summary.ExpiringSuccessfulProcessed.Add(new ExpiringContractorSummary
-                    {
-                        PersonID = contractor.PersonID,
-                        LastName = contractor.LastName,
-                        Suffix = contractor.Suffix,
-                        FirstName = contractor.FirstName,
-                        MiddleName = contractor.MiddleName,
-                        InvestigationDate = contractor.InvestigationDate.ToString(),
-                        DaysToExpiration = contractor.DaysToExpiration,
-                        gpoc_emails = contractor.gpoc_emails,
-                        vpoc_emails = contractor.vpoc_emails,
-                        RegionalEMails = contractor.RegionalEMails,
-                        MajorEMails = contractor.MajorEMails 
-                    });
+                        summary.ExpiringSuccessfulProcessed.Add(new ExpiringContractorSummary
+                        {
+                            PersonID = contractor.PersonID,
+                            LastName = contractor.LastName,
+                            Suffix = contractor.Suffix,
+                            FirstName = contractor.FirstName,
+                            MiddleName = contractor.MiddleName,
+                            InvestigationDate = contractor.InvestigationDate.ToString(),
+                            DaysToExpiration = contractor.DaysToExpiration,
+                            gpoc_emails = contractor.gpoc_emails,
+                            vpoc_emails = contractor.vpoc_emails,
+                            //RegionalEMails = contractor.RegionalEMails,
+                            MajorEMails = contractor.MajorEMails 
+                        });
                       
                     }
                     else
                     {
-                    summary.ExpiringUnsuccessfulProcessed.Add(new ExpiringContractorSummary
-                    {
-                       PersonID = contractor.PersonID,
-                       LastName = contractor.LastName,
-                       Suffix = contractor.Suffix,
-                       FirstName = contractor.FirstName,
-                       MiddleName = contractor.MiddleName,
-                       InvestigationDate = contractor.InvestigationDate.ToString(),
-                       DaysToExpiration = contractor.DaysToExpiration,
-                       gpoc_emails = contractor.gpoc_emails,
-                       vpoc_emails = contractor.vpoc_emails,
-                       RegionalEMails = contractor.RegionalEMails,
-                       MajorEMails = contractor.MajorEMails
-                    }); 
-                    }
-
-                    emailData.ExpiringContractorRecords = expiringContractor.Count;
-                    summary.GenerateSummaryFiles(emailData);                    
+                        summary.ExpiringUnsuccessfulProcessed.Add(new ExpiringContractorSummary
+                        {
+                           PersonID = contractor.PersonID,
+                           LastName = contractor.LastName,
+                           Suffix = contractor.Suffix,
+                           FirstName = contractor.FirstName,
+                           MiddleName = contractor.MiddleName,
+                           InvestigationDate = contractor.InvestigationDate.ToString(),
+                           DaysToExpiration = contractor.DaysToExpiration,
+                           gpoc_emails = contractor.gpoc_emails,
+                           vpoc_emails = contractor.vpoc_emails,
+                           //RegionalEMails = contractor.RegionalEMails,
+                           MajorEMails = contractor.MajorEMails
+                        }); 
+                    }                  
                 }
+
+                emailData.ExpiringContractorRecords = expiringContractor.Count;
+                summary.GenerateSummaryFiles(emailData);
 
                 _log.Info("Successfull processed Expiring contractors: " + $"{summary.ExpiringSuccessfulProcessed.Count}");
                 _log.Info("Unsuccessfull processed Expiring contractors: " + $"{summary.ExpiringUnsuccessfulProcessed.Count}");
