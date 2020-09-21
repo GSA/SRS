@@ -14,6 +14,6 @@ namespace SRS.Models
         public string gpoc_emails { get; set; }
         public string vpoc_emails { get; set; }
         public string RegionalEMails { get; set; }
-        public string MajorEMails { get; set; } 
+        public string HSSOEMails { get; set; } 
     }
 }

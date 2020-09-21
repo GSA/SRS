@@ -61,7 +61,7 @@ namespace SRS.Process
                             gpoc_emails = contractor.gpoc_emails,
                             vpoc_emails = contractor.vpoc_emails,
                             //RegionalEMails = contractor.RegionalEMails,
-                            MajorEMails = contractor.MajorEMails
+                            HSSOEMails = contractor.HSSOEMails
                         });
 
                     }
@@ -79,7 +79,7 @@ namespace SRS.Process
                             gpoc_emails = contractor.gpoc_emails,
                             vpoc_emails = contractor.vpoc_emails,
                             //RegionalEMails = contractor.RegionalEMails,
-                            MajorEMails = contractor.MajorEMails
+                            HSSOEMails = contractor.HSSOEMails
                         });
                       
                     }

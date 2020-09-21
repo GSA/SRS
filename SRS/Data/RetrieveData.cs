@@ -58,7 +58,7 @@ namespace SRS.Data
                                       gpoc_emails = expiringContractorData[7].ToString(),
                                       vpoc_emails = expiringContractorData[8].ToString(),
                                       RegionalEMails = expiringContractorData[9].ToString(),
-                                      MajorEMails = expiringContractorData[10].ToString() 
+                                      HSSOEMails = expiringContractorData[10].ToString() 
                                 });
                     }
                         _log.Info("Adding Contractor expiring data to object: " + DateTime.Today);
@@ -117,7 +117,7 @@ namespace SRS.Data
                                     gpoc_emails = expiredContractorData[7].ToString(),
                                     vpoc_emails = expiredContractorData[8].ToString(),
                                     RegionalEMails = expiredContractorData[9].ToString(),
-                                    MajorEMails = expiredContractorData[10].ToString(), 
+                                    HSSOEMails = expiredContractorData[10].ToString(), 
                                 }); 
                         }
                         _log.Info("Adding Contractor expired data to object: " + DateTime.Today);

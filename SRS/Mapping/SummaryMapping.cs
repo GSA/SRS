@@ -17,7 +17,7 @@ namespace SRS.Mapping
             Map(m => m.gpoc_emails).Name("gpoc_email");
             Map(m => m.vpoc_emails).Name("vpoc_email");
             //Map(m => m.RegionalEMails).Name("RegionalEMails");
-            Map(m => m.MajorEMails).Name("MajorEMails"); 
+            Map(m => m.HSSOEMails).Name("HSSOEmails"); 
         }
     }
 
@@ -35,7 +35,7 @@ namespace SRS.Mapping
             Map(m => m.gpoc_emails).Name("gpoc_email");
             Map(m => m.vpoc_emails).Name("vpoc_email");
             //Map(m => m.RegionalEMails).Name("RegionalEMails");
-            Map(m => m.MajorEMails).Name("MajorEMails"); 
+            Map(m => m.HSSOEMails).Name("HSSOEmails"); 
         } 
     }
 }

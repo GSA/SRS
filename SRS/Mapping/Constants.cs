@@ -12,7 +12,7 @@
         public const int gpoc_emails = 7;
         public const int vpoc_emails = 8;
         public const int RegionalEMails = 9;
-        public const int MajorEMails = 10; 
+        public const int HSSOEMails = 10; 
     }
 }
    
